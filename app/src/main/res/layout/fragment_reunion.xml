@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/fragment_meeting_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="MeetingFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_meeting_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_reunion" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fragment_meeting_fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin_normal"
+        android:src="@drawable/ic_add_white_24dp"
+        android:tint="@android:color/white"
+        android:elevation="@dimen/elevation_fab"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fragment_meeting_fab_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin_normal"
+        android:src="@drawable/ic_reply_white_24dp"
+        android:tint="@android:color/white"
+        android:elevation="@dimen/elevation_fab"
+        android:visibility="gone"/>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
