@@ -3,4 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorBlueMaReu">#4E92DF</color>
+    <color name="colorAddMeeting">#CE0A24</color>
+    <color name="colorTextView">#000000</color>
 </resources>

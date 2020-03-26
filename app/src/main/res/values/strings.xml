@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">MaReu</string>
+    <string name="app_name">Ma réu</string>
     <string name="action_settings">Settings</string>
     <string name="text_subject_hour_room">Reunion TEST - 18h00 - Salle RDC</string>
     <string name="text_guest">test@openclassrooms.com</string>
+    <string name="item_reunion_delete_description">Delete the reunion</string>
+    <string name="add_reunion_title">Réservez une salle</string>
+    <string name="add_reunion_edit_subject">Ajouter un titre</string>
+    <string name="time_text_add_reunion">Sélectionner l\'heure de la réunion</string>
+    <string name="room_text_add_reunion">Sélectionner la salle de la réunion</string>
+    <string name="creation_add_reunion">Créer la réunion</string>
 </resources>

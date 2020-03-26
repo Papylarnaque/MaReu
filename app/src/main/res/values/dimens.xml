@@ -1,7 +1,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_normal">10dp</dimen>
-    <dimen name="size_image_view">50</dimen>
-    <dimen name="padding_normal">10</dimen>
-    <dimen name="elevation_fab">15</dimen>
+    <dimen name="size_image_view">50dp</dimen>
+    <dimen name="padding_normal">10dp</dimen>
+    <dimen name="add_reunion_text_size">20sp</dimen>
+    <dimen name="margin_double">20dp</dimen>
+    <dimen name="height_title_add_reunion">86dp</dimen>
 </resources>

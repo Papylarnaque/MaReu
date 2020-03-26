@@ -1,4 +1,4 @@
-package com.example.mareu.Model;
+package com.example.mareu.model;
 
 import java.util.Objects;
 
@@ -10,23 +10,23 @@ public class Reunion {
     private String mSubject;
     private String mHour;
     private String mRoom;
-    private String mMember;
+    private String mGuest;
 
 
     /**
      * Constructor
      * @param id id
-     * @param topic topic of the meeting
+     * @param subject subject of the meeting
      * @param hour hour that the meeting is starting
      * @param room room of the meeting
-     * @param member members of the meeting
+     * @param guest members of the meeting
      */
-    public Reunion(int id, String topic, String hour, String room, String member) {
+    public Reunion(int id, String subject, String hour, String room, String guest) {
         mId = id;
-        mSubject = topic;
+        mSubject = subject;
         mHour = hour;
         mRoom = room;
-        mMember = member;
+        mGuest = guest;
     }
 
     public int getId() {
@@ -37,11 +37,11 @@ public class Reunion {
         mId = id;
     }
 
-    public String getTopic() {
+    public String getSubject() {
         return mSubject;
     }
 
-    public void setTopic(String topic) {
+    public void setSubject(String topic) {
         mSubject = topic;
     }
 
@@ -61,12 +61,12 @@ public class Reunion {
         mRoom = room;
     }
 
-    public String getMember() {
-        return mMember;
+    public String getGuest() {
+        return mGuest;
     }
 
-    public void setMember(String member) {
-        mMember = member;
+    public void setGuest(String guest) {
+        mGuest = guest;
     }
 
     @Override
@@ -78,11 +78,11 @@ public class Reunion {
                 Objects.equals(mSubject, reunion.mSubject) &&
                 Objects.equals(mHour, reunion.mHour) &&
                 Objects.equals(mRoom, reunion.mRoom) &&
-                Objects.equals(mMember, reunion.mMember);
+                Objects.equals(mGuest, reunion.mGuest);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mSubject, mHour, mRoom, mMember);
+        return Objects.hash(mId, mSubject, mHour, mRoom, mGuest);
     }
 }

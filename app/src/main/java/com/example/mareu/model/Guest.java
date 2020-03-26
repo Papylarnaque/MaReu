@@ -1,4 +1,4 @@
-package com.example.mareu.Model;
+package com.example.mareu.model;
 
 import java.util.Objects;
 

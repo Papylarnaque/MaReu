@@ -1,51 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    android:id="@+id/fragment_meeting_coordinator_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_reunion"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="MeetingFragment">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_normal"
+    android:layout_marginTop="@dimen/margin_normal"
+    android:layout_marginEnd="@dimen/margin_normal"
+    android:layout_marginBottom="@dimen/margin_normal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_normal">
+
+    <!-- IMAGE VIEW -->
+
+    <ImageView
+        android:id="@+id/item_reunion_image"
+        android:layout_width="@dimen/size_image_view"
+        android:layout_height="@dimen/size_image_view"
+        android:background="@drawable/circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- BLOC OF TEXT VIEW -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:id="@+id/item_meeting_cl_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/item_reunion_delete"
+        app:layout_constraintStart_toEndOf="@id/item_reunion_image"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_meeting_recycler_view"
+        <TextView
+            android:id="@+id/item_reunion_subject_time_room"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_subject_hour_room"
+            android:textColor="@color/colorTextView"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_reunion" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- GUEST LIST - SCROLLABLE with HorizontalScrollView -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_reunion_subject_time_room"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="30dp">
+
+            <TextView
+                android:id="@+id/item_reunion_guest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@string/text_guest"
+                android:textColor="@color/colorTextView"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_reunion_subject_time_room" />
+        </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragment_meeting_fab_add"
+    <!-- DELETE BUTTON -->
+    <ImageButton
+        android:id="@+id/item_reunion_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/margin_normal"
-        android:src="@drawable/ic_add_white_24dp"
-        android:tint="@android:color/white"
-        android:elevation="@dimen/elevation_fab"/>
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_delete_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_meeting_cl_text"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/item_reunion_delete_description" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragment_meeting_fab_filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/margin_normal"
-        android:src="@drawable/ic_reply_white_24dp"
-        android:tint="@android:color/white"
-        android:elevation="@dimen/elevation_fab"
-        android:visibility="gone"/>
-
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
