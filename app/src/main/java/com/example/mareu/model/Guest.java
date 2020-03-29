@@ -6,7 +6,7 @@ public class Guest {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private int mId;
+    private long mId;
     private String mFirstName;
     private String mLastName;
     private String mEmail;
@@ -20,7 +20,7 @@ public class Guest {
      * @param lastName a string that contains the last name
      * @param email a string that contains the email
      */
-    public Guest(int id, String firstName, String lastName, String email, String avatarUrl) {
+    public Guest(long id, String firstName, String lastName, String email, String avatarUrl) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
@@ -28,11 +28,11 @@ public class Guest {
         mAvatarUrl = avatarUrl;
     }
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         mId = id;
     }
 

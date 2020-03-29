@@ -5,8 +5,11 @@
     <string name="text_guest">test@openclassrooms.com</string>
     <string name="item_reunion_delete_description">Delete the reunion</string>
     <string name="add_reunion_title">Réservez une salle</string>
-    <string name="add_reunion_edit_subject">Ajouter un titre</string>
+    <string name="add_reunion_edit_subject">Saisir un titre</string>
     <string name="time_text_add_reunion">Sélectionner l\'heure de la réunion</string>
     <string name="room_text_add_reunion">Sélectionner la salle de la réunion</string>
-    <string name="creation_add_reunion">Créer la réunion</string>
+    <string name="creation_reunion_button">Créer la réunion</string>
+    <string name="guest_list_text_view">Saisir les invités</string>
+    <string name="time_add_reunion">Saisir l\'heure de début</string>
+    <string name="room_add_reunion">Saisir la salle de réunion</string>
 </resources>

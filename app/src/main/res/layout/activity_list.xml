@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorBlueMaReu"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -40,7 +40,7 @@
         android:layout_margin="@dimen/margin_normal"
         android:src="@drawable/ic_add_white_24dp"
         android:tint="@android:color/white"
-        app:backgroundTint="@color/colorAddMeeting"
+        app:backgroundTint="@color/colorAccent"
         android:elevation="5dp"
         android:background="@drawable/my_shadow"/>
 

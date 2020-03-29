@@ -5,5 +5,5 @@
     <dimen name="padding_normal">10dp</dimen>
     <dimen name="add_reunion_text_size">20sp</dimen>
     <dimen name="margin_double">20dp</dimen>
-    <dimen name="height_title_add_reunion">86dp</dimen>
+    <dimen name="big_padding">50dp</dimen>
 </resources>

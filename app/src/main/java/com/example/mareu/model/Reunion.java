@@ -1,16 +1,18 @@
 package com.example.mareu.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Reunion {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private int mId;
+    private long mId;
     private String mSubject;
     private String mHour;
     private String mRoom;
-    private String mGuest;
+    private List<Guest> mGuestList;
 
 
     /**
@@ -19,21 +21,21 @@ public class Reunion {
      * @param subject subject of the meeting
      * @param hour hour that the meeting is starting
      * @param room room of the meeting
-     * @param guest members of the meeting
+     * @param guestList members of the meeting
      */
-    public Reunion(int id, String subject, String hour, String room, String guest) {
+    public Reunion(long id, String subject, String hour, String room, List<Guest> guestList) {
         mId = id;
         mSubject = subject;
         mHour = hour;
         mRoom = room;
-        mGuest = guest;
+        mGuestList = guestList;
     }
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         mId = id;
     }
 
@@ -61,12 +63,12 @@ public class Reunion {
         mRoom = room;
     }
 
-    public String getGuest() {
-        return mGuest;
+    public List<Guest> getGuestList() {
+        return mGuestList;
     }
 
-    public void setGuest(String guest) {
-        mGuest = guest;
+    public void setGuestList(List<Guest> guestList) {
+        mGuestList = guestList;
     }
 
     @Override
@@ -78,11 +80,11 @@ public class Reunion {
                 Objects.equals(mSubject, reunion.mSubject) &&
                 Objects.equals(mHour, reunion.mHour) &&
                 Objects.equals(mRoom, reunion.mRoom) &&
-                Objects.equals(mGuest, reunion.mGuest);
+                Objects.equals(mGuestList, reunion.mGuestList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mSubject, mHour, mRoom, mGuest);
+        return Objects.hash(mId, mSubject, mHour, mRoom, mGuestList);
     }
 }

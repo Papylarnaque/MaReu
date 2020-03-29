@@ -9,7 +9,7 @@ import java.util.List;
 public class DummyMaReuApiService implements MaReuApiService {
 
     private final List<Reunion> mReunions = DummyMaReuApiGenerator.generateReunions();
-    private List<Guest> mGuests;
+    private List<Guest> mGuestList;
     private List<Room> mRooms;
 
     @Override
@@ -28,12 +28,32 @@ public class DummyMaReuApiService implements MaReuApiService {
     }
 
     @Override
-    public List<Guest> getGuests() {
-        return this.mGuests;
+    public List<Guest> getGuestList() {
+        return this.mGuestList;
+    }
+
+    @Override
+    public List<Guest> getGuestList(List<String> mEmailList) {
+/*        List<Guest> mGuestList = null;
+        for ( String n : mEmailList){
+            for (Guest m : )
+            Guest mGuest = null;
+            mGuestList.add(mGuest);
+    }*/
+        return null;
     }
 
     @Override
     public List<Room> getRooms() {
         return this.mRooms;
+    }
+
+    @Override
+    public String getGuestsEmails(List<Guest> mGuestList) {
+        String mEmailList = "";
+        //for ( Reunion n : mReunions ) {
+        for ( Guest m : mGuestList) mEmailList += (m.getEmail()) + ", ";
+        //}
+        return mEmailList.substring(0, mEmailList.length() - 2);
     }
 }

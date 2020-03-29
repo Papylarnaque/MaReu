@@ -15,8 +15,13 @@ public interface MaReuApiService {
 
     void addMeeting(Reunion reunion);
 
-    List<Guest> getGuests();
+    List<Guest> getGuestList();
+
+    List<Guest> getGuestList(List<String> mEmailList);
 
     List<Room> getRooms();
+
+    String getGuestsEmails(List<Guest> mGuestList);
+
 
 }
