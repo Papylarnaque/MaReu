@@ -53,10 +53,13 @@ public class ListReunionActivity extends AppCompatActivity {
         mButtonDeleteReunion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mAdapter.deleteItem(view.getVerticalScrollbarPosition());
                 mAdapter.setData(mMaReuApiService.getReunions());
             }
         });*/
     }
+
+
 
 
 

@@ -5,26 +5,37 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 
 import com.example.mareu.R;
 import com.example.mareu.di.DI;
+import com.example.mareu.model.Guest;
 import com.example.mareu.model.Reunion;
 import com.example.mareu.service.MaReuApiService;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.List;
+
 public class AddReunionActivity extends AppCompatActivity {
 
     private Button mButtonCreateReunion;
     private EditText mSubject;
     private EditText mTime;
-    private EditText mRoom;
-    private EditText mGuestsEmails;
+    private AutoCompleteTextView mRoom;
+    private MultiAutoCompleteTextView mGuestsEmails;
     private Reunion mReunion;
     private MaReuApiService mMaReuApiService;
+// TODO Rediriger les listes String ver les DummyGenerators generateGuestsList et genertae RoomsList
+    private String[] mRoomsList = {"Vietnam","England","Canada", "France","Australia"};
+
+    private List<String> mGuestsEmailsList;
+    //={"Java ","CSharp","Visual Basic","Swift","C/C++"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +43,25 @@ public class AddReunionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_reunion);
         init();
 
+        ArrayAdapter adapterRooms
+                = new ArrayAdapter(this,android.R.layout.simple_list_item_1,mRoomsList);
+
+        mRoom.setAdapter(adapterRooms);
+
+        // Set the minimum number of characters, to show suggestions
+        mRoom.setThreshold(1);
+
+        mGuestsEmailsList = mMaReuApiService.getGuestsEmails(mMaReuApiService.getGuestList());
+
+        ArrayAdapter adapterGuests
+                = new ArrayAdapter(this,android.R.layout.simple_list_item_1,mGuestsEmailsList);
+
+        mGuestsEmails.setAdapter(adapterGuests);
+
+        mGuestsEmails.setThreshold(1);
+
+        // The text separated by commas
+        mGuestsEmails.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
         mButtonCreateReunion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +75,9 @@ public class AddReunionActivity extends AppCompatActivity {
                         mTime.getText().toString(),
                         mRoom.getText().toString(),
                         mGuestsEmails);*/
+
+
+
             }
         });
     }

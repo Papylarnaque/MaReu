@@ -21,7 +21,7 @@ public interface MaReuApiService {
 
     List<Room> getRooms();
 
-    String getGuestsEmails(List<Guest> mGuestList);
+    List<String> getGuestsEmails(List<Guest> mGuestList);
 
 
 }

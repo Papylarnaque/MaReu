@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/time_add_reunion"
         tools:text="@string/room_text_add_reunion" />
 
-    <AutoCompleteTextView
+    <MultiAutoCompleteTextView
         android:id="@+id/guest_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

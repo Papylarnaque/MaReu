@@ -2,6 +2,7 @@ package com.example.mareu.service;
 
 import com.example.mareu.model.Guest;
 import com.example.mareu.model.Reunion;
+import com.example.mareu.model.Room;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,12 +25,21 @@ abstract class DummyMaReuApiGenerator {
             new Guest(2, "Antoine", "Herbert", "antoine.herbert@gmail.com", "url2"),
             new Guest(3, "Laurent", "Borel", "laurent.borel@gmail.com", "url2"));
 
+    private static final List<Room> DUMMY_ROOMS = Arrays.asList((
+            new Room(1, "Room A",10)),
+            new Room(1, "Room B",5),
+            new Room(3, "Room C", 3));
+
 
     static List<Reunion> generateReunions() {
         return new ArrayList<>(DUMMY_REUNIONS);
     }
 
-    static List<Guest> generateGuestList() {
+    static List<Guest> generateGuestsList() {
         return new ArrayList<>(DUMMY_GUESTS);
+    }
+
+    static List<Room> generateRoomsList() {
+        return new ArrayList<>(DUMMY_ROOMS);
     }
 }

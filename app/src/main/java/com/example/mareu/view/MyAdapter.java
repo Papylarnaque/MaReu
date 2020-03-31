@@ -36,7 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, final int position) {
         String subjectReunion = mReunions.get(position).getSubject();
         String timeReunion = mReunions.get(position).getHour();
         String roomReunion = mReunions.get(position).getRoom();
@@ -47,18 +47,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         // Get the Emails through ApiService
         mMaReuApiService = DI.getMaReuApiService();
-        String mGuestsEmails = mMaReuApiService.getGuestsEmails(mReunions.get(position).getGuestList());
+        List<String> mGuestsEmails = mMaReuApiService.getGuestsEmails(mReunions.get(position).getGuestList());
         // TextHolder for GuestsLine
-        holder.guestListReunion.setText(mGuestsEmails);
+        holder.guestListReunion.setText(mGuestsEmails.toString());
 
-
-          holder.mButtonDeleteReunion.setOnClickListener(new View.OnClickListener() {
+           holder.mButtonDeleteReunion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO Delete reunion fonctionality
+                Toast.makeText(view.getContext(),"Suppression de la réunion " + mReunions.get(position).getSubject(),Toast.LENGTH_SHORT).show();
+                deleteItem(position);
+                setData(mReunions);
             }
         });
+    }
 
+    void deleteItem(int position) {
+        mMaReuApiService.deleteReunion(mReunions.get(position));
     }
 
     @Override
