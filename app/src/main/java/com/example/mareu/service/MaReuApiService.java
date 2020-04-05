@@ -4,7 +4,6 @@ import com.example.mareu.model.Guest;
 import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 
-
 import java.util.List;
 
 public interface MaReuApiService {
@@ -13,11 +12,9 @@ public interface MaReuApiService {
 
     void deleteReunion(Reunion reunion);
 
-    void addMeeting(Reunion reunion);
+    void addReunion(Reunion reunion);
 
-    List<Guest> getGuestList();
-
-    List<Guest> getGuestList(List<String> mEmailList);
+    List<Guest> getGuests();
 
     List<Room> getRooms();
 

@@ -36,41 +36,50 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/item_reunion_subject_time_room"
+            android:id="@+id/item_reunion_first_line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_subject_hour_room"
+            android:text="@string/text_first_line"
             android:textColor="@color/colorTextView"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/item_reunion_second_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_second_line"
+            android:textColor="@color/colorTextView"
+            app:layout_constraintTop_toBottomOf="@id/item_reunion_first_line" />
+
         <!-- GUEST LIST - SCROLLABLE with HorizontalScrollView -->
         <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_reunion_subject_time_room"
+            app:layout_constraintTop_toBottomOf="@id/item_reunion_second_line"
             tools:layout_editor_absoluteX="60dp"
             tools:layout_editor_absoluteY="30dp">
 
             <TextView
-                android:id="@+id/item_reunion_guest"
+                android:id="@+id/item_reunion_third_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="@string/text_guest"
+                android:text="@string/text_third_line"
                 android:textColor="@color/colorTextView"
-                android:textStyle="bold"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_reunion_subject_time_room" />
+                app:layout_constraintTop_toBottomOf="@id/item_reunion_second_line" />
         </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -82,11 +91,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:background="@null"
+        android:contentDescription="@string/item_reunion_delete_description"
         android:src="@drawable/ic_delete_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/item_meeting_cl_text"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/item_reunion_delete_description" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

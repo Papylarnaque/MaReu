@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.example.mareu.R;
 import com.example.mareu.di.DI;
 import com.example.mareu.service.MaReuApiService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.lang.reflect.Array;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,9 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListReunionActivity extends AppCompatActivity {
-
-    private MyAdapter mAdapter;
-    private MaReuApiService mMaReuApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +26,13 @@ public class ListReunionActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mAdapter = new MyAdapter();
-        final RecyclerView rv = (RecyclerView) findViewById(R.id.maReu_list_recycler_view);
+        MyAdapter adapter = new MyAdapter();
+        final RecyclerView rv = findViewById(R.id.maReu_list_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(mAdapter);
+        rv.setAdapter(adapter);
 
-        mMaReuApiService = DI.getMaReuApiService();
-        mAdapter.setData(mMaReuApiService.getReunions());
+        MaReuApiService maReuApiService = DI.getMaReuApiService();
+        adapter.setData(maReuApiService.getReunions());
 
         FloatingActionButton mButtonCreateReunion = findViewById(R.id.button_add_reunion);
         mButtonCreateReunion.setOnClickListener(new View.OnClickListener() {
@@ -48,19 +42,7 @@ public class ListReunionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-/*        ImageButton mButtonDeleteReunion = findViewById(R.id.item_reunion_delete);
-        mButtonDeleteReunion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAdapter.deleteItem(view.getVerticalScrollbarPosition());
-                mAdapter.setData(mMaReuApiService.getReunions());
-            }
-        });*/
     }
-
-
-
 
 
     @Override

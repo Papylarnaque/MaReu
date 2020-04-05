@@ -4,42 +4,259 @@ import com.example.mareu.model.Guest;
 import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 abstract class DummyMaReuApiGenerator {
 
-    public static final List<Reunion> DUMMY_REUNIONS = Arrays.asList((
-            new Reunion(1, "Test 1", "10h00", "Room A", Arrays.asList(
-                    new Guest(1, "Fabrice", "Dutailly", "fabrice.dutailly@gmail.com", "url"),
-                    new Guest(2, "Antoine", "Herbert", "antoine.herbert@gmail.com", "url2")))),
-            new Reunion(2, "Test 2", "13h00", "Room B", Arrays.asList((
-                    new Guest(2, "Antoine", "Herbert", "antoine.herbert@gmail.com", "url2")))),
-            new Reunion(2, "Test 2", "13h00", "Room B", Arrays.asList((
-                    new Guest(1, "Fabrice", "Dutailly", "fabrice.dutailly@gmail.com", "url")),
-                    new Guest(3, "Laurent", "Borel", "laurent.borel@gmail.com", "url2"))));
+    private static final List<Reunion> DUMMY_REUNIONS = Arrays.asList((
+                    new Reunion(1, "Synchro lancement application", Calendar.getInstance().getTime(), new Time(1), "Marseille", Arrays.asList(
+                            new Guest(6, "Sydney", "Turner", "sydney.turner@lamzone.com", "https://api.adorable.io/AVATARS/512/6.png"),
+                            new Guest(7, "Edwin", "Ellis", "edwin.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/7.png")))),
+            new Reunion(2, "Traduction polonais", Calendar.getInstance().getTime(), new Time(5), "Paris", Arrays.asList((
+                            new Guest(11, "James", "Chapman", "james.chapman@lamzone.com", "https://api.adorable.io/AVATARS/512/11.png")),
+                    new Guest(12, "Emma", "Cameron", "emma.cameron@lamzone.com", "https://api.adorable.io/AVATARS/512/12.png"),
+                    new Guest(13, "Heather", "Scott", "heather.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/13.png"),
+                    new Guest(14, "Owen", "Barrett", "owen.barrett@lamzone.com", "https://api.adorable.io/AVATARS/512/14.png"))),
+            new Reunion(2, "Point marché Asie", Calendar.getInstance().getTime(), new Time(200), "Lille", Arrays.asList((
+                    new Guest(48, "Rubie", "Payne", "rubie.payne@lamzone.com", "https://api.adorable.io/AVATARS/512/48.png")))));
 
-    public static final List<Guest> DUMMY_GUESTS = Arrays.asList((
-            new Guest(1, "Fabrice", "Dutailly", "fabrice.dutailly@gmail.com", "url")),
-            new Guest(2, "Antoine", "Herbert", "antoine.herbert@gmail.com", "url2"),
-            new Guest(3, "Laurent", "Borel", "laurent.borel@gmail.com", "url2"));
+    //TODO Sélectionner des Guests en random depuis DUMMY_GUESTS pour alimenter DUMMY_REUNIONS
+    private static final List<Guest> DUMMY_GUESTS = Arrays.asList(
+            new Guest(1, "Sabrina", "Harper", "sabrina.harper@lamzone.com", "https://api.adorable.io/AVATARS/512/1.png"),
+            new Guest(2, "Daniel", "Walker", "daniel.walker@lamzone.com", "https://api.adorable.io/AVATARS/512/2.png"),
+            new Guest(3, "Joyce", "Ellis", "joyce.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/3.png"),
+            new Guest(4, "Kate", "Taylor", "kate.taylor@lamzone.com", "https://api.adorable.io/AVATARS/512/4.png"),
+            new Guest(5, "Vincent", "Harris", "vincent.harris@lamzone.com", "https://api.adorable.io/AVATARS/512/5.png"),
+            new Guest(6, "Sydney", "Turner", "sydney.turner@lamzone.com", "https://api.adorable.io/AVATARS/512/6.png"),
+            new Guest(7, "Edwin", "Ellis", "edwin.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/7.png"),
+            new Guest(8, "Cadie", "Watson", "cadie.watson@lamzone.com", "https://api.adorable.io/AVATARS/512/8.png"),
+            new Guest(9, "Arnold", "Cole", "arnold.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/9.png"),
+            new Guest(10, "Blake", "Russell", "blake.russell@lamzone.com", "https://api.adorable.io/AVATARS/512/10.png"),
+            new Guest(11, "James", "Chapman", "james.chapman@lamzone.com", "https://api.adorable.io/AVATARS/512/11.png"),
+            new Guest(12, "Emma", "Cameron", "emma.cameron@lamzone.com", "https://api.adorable.io/AVATARS/512/12.png"),
+            new Guest(13, "Heather", "Scott", "heather.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/13.png"),
+            new Guest(14, "Owen", "Barrett", "owen.barrett@lamzone.com", "https://api.adorable.io/AVATARS/512/14.png"),
+            new Guest(15, "Aldus", "Cooper", "aldus.cooper@lamzone.com", "https://api.adorable.io/AVATARS/512/15.png"),
+            new Guest(16, "Maddie", "Fowler", "maddie.fowler@lamzone.com", "https://api.adorable.io/AVATARS/512/16.png"),
+            new Guest(17, "Daisy", "Gibson", "daisy.gibson@lamzone.com", "https://api.adorable.io/AVATARS/512/17.png"),
+            new Guest(18, "Sawyer", "Harper", "sawyer.harper@lamzone.com", "https://api.adorable.io/AVATARS/512/18.png"),
+            new Guest(19, "Julian", "Phillips", "julian.phillips@lamzone.com", "https://api.adorable.io/AVATARS/512/19.png"),
+            new Guest(20, "Alisa", "Spencer", "alisa.spencer@lamzone.com", "https://api.adorable.io/AVATARS/512/20.png"),
+            new Guest(21, "Garry", "Nelson", "garry.nelson@lamzone.com", "https://api.adorable.io/AVATARS/512/21.png"),
+            new Guest(22, "Paul", "Craig", "paul.craig@lamzone.com", "https://api.adorable.io/AVATARS/512/22.png"),
+            new Guest(23, "Edgar", "Johnson", "edgar.johnson@lamzone.com", "https://api.adorable.io/AVATARS/512/23.png"),
+            new Guest(24, "Albert", "Adams", "albert.adams@lamzone.com", "https://api.adorable.io/AVATARS/512/24.png"),
+            new Guest(25, "Sophia", "Thompson", "sophia.thompson@lamzone.com", "https://api.adorable.io/AVATARS/512/25.png"),
+            new Guest(26, "Abigail", "Craig", "abigail.craig@lamzone.com", "https://api.adorable.io/AVATARS/512/26.png"),
+            new Guest(27, "Lana", "Hall", "lana.hall@lamzone.com", "https://api.adorable.io/AVATARS/512/27.png"),
+            new Guest(28, "Tiana", "Richardson", "tiana.richardson@lamzone.com", "https://api.adorable.io/AVATARS/512/28.png"),
+            new Guest(29, "Valeria", "Elliott", "valeria.elliott@lamzone.com", "https://api.adorable.io/AVATARS/512/29.png"),
+            new Guest(30, "Eleanor", "Hall", "eleanor.hall@lamzone.com", "https://api.adorable.io/AVATARS/512/30.png"),
+            new Guest(31, "Jack", "Farrell", "jack.farrell@lamzone.com", "https://api.adorable.io/AVATARS/512/31.png"),
+            new Guest(32, "Haris", "Mason", "haris.mason@lamzone.com", "https://api.adorable.io/AVATARS/512/32.png"),
+            new Guest(33, "Alexia", "Howard", "alexia.howard@lamzone.com", "https://api.adorable.io/AVATARS/512/33.png"),
+            new Guest(34, "Derek", "Myers", "derek.myers@lamzone.com", "https://api.adorable.io/AVATARS/512/34.png"),
+            new Guest(35, "Dexter", "Henderson", "dexter.henderson@lamzone.com", "https://api.adorable.io/AVATARS/512/35.png"),
+            new Guest(36, "Stella", "Miller", "stella.miller@lamzone.com", "https://api.adorable.io/AVATARS/512/36.png"),
+            new Guest(37, "Paul", "Crawford", "paul.crawford@lamzone.com", "https://api.adorable.io/AVATARS/512/37.png"),
+            new Guest(38, "Aiden", "Mason", "aiden.mason@lamzone.com", "https://api.adorable.io/AVATARS/512/38.png"),
+            new Guest(39, "Fenton", "Cunningham", "fenton.cunningham@lamzone.com", "https://api.adorable.io/AVATARS/512/39.png"),
+            new Guest(40, "Dexter", "Turner", "dexter.turner@lamzone.com", "https://api.adorable.io/AVATARS/512/40.png"),
+            new Guest(41, "Luke", "Walker", "luke.walker@lamzone.com", "https://api.adorable.io/AVATARS/512/41.png"),
+            new Guest(42, "Alexia", "Smith", "alexia.smith@lamzone.com", "https://api.adorable.io/AVATARS/512/42.png"),
+            new Guest(43, "Arianna", "Murphy", "arianna.murphy@lamzone.com", "https://api.adorable.io/AVATARS/512/43.png"),
+            new Guest(44, "Alan", "Miller", "alan.miller@lamzone.com", "https://api.adorable.io/AVATARS/512/44.png"),
+            new Guest(45, "Aiden", "Ryan", "aiden.ryan@lamzone.com", "https://api.adorable.io/AVATARS/512/45.png"),
+            new Guest(46, "Dainton", "Foster", "dainton.foster@lamzone.com", "https://api.adorable.io/AVATARS/512/46.png"),
+            new Guest(47, "Maya", "Gibson", "maya.gibson@lamzone.com", "https://api.adorable.io/AVATARS/512/47.png"),
+            new Guest(48, "Rubie", "Payne", "rubie.payne@lamzone.com", "https://api.adorable.io/AVATARS/512/48.png"),
+            new Guest(49, "Alen", "Ryan", "alen.ryan@lamzone.com", "https://api.adorable.io/AVATARS/512/49.png"),
+            new Guest(50, "Maddie", "Andrews", "maddie.andrews@lamzone.com", "https://api.adorable.io/AVATARS/512/50.png"),
+            new Guest(51, "Alina", "Wells", "alina.wells@lamzone.com", "https://api.adorable.io/AVATARS/512/51.png"),
+            new Guest(52, "Brianna", "Owens", "brianna.owens@lamzone.com", "https://api.adorable.io/AVATARS/512/52.png"),
+            new Guest(53, "Chester", "Rogers", "chester.rogers@lamzone.com", "https://api.adorable.io/AVATARS/512/53.png"),
+            new Guest(54, "Tyler", "Sullivan", "tyler.sullivan@lamzone.com", "https://api.adorable.io/AVATARS/512/54.png"),
+            new Guest(55, "Oscar", "Tucker", "oscar.tucker@lamzone.com", "https://api.adorable.io/AVATARS/512/55.png"),
+            new Guest(56, "Rebecca", "Farrell", "rebecca.farrell@lamzone.com", "https://api.adorable.io/AVATARS/512/56.png"),
+            new Guest(57, "Eleanor", "Williams", "eleanor.williams@lamzone.com", "https://api.adorable.io/AVATARS/512/57.png"),
+            new Guest(58, "Connie", "Craig", "connie.craig@lamzone.com", "https://api.adorable.io/AVATARS/512/58.png"),
+            new Guest(59, "Lucas", "Wright", "lucas.wright@lamzone.com", "https://api.adorable.io/AVATARS/512/59.png"),
+            new Guest(60, "Dainton", "Tucker", "dainton.tucker@lamzone.com", "https://api.adorable.io/AVATARS/512/60.png"),
+            new Guest(61, "Blake", "Crawford", "blake.crawford@lamzone.com", "https://api.adorable.io/AVATARS/512/61.png"),
+            new Guest(62, "Aida", "Richards", "aida.richards@lamzone.com", "https://api.adorable.io/AVATARS/512/62.png"),
+            new Guest(63, "Carina", "Phillips", "carina.phillips@lamzone.com", "https://api.adorable.io/AVATARS/512/63.png"),
+            new Guest(64, "Stuart", "Taylor", "stuart.taylor@lamzone.com", "https://api.adorable.io/AVATARS/512/64.png"),
+            new Guest(65, "Savana", "Howard", "savana.howard@lamzone.com", "https://api.adorable.io/AVATARS/512/65.png"),
+            new Guest(66, "James", "Spencer", "james.spencer@lamzone.com", "https://api.adorable.io/AVATARS/512/66.png"),
+            new Guest(67, "Cherry", "Farrell", "cherry.farrell@lamzone.com", "https://api.adorable.io/AVATARS/512/67.png"),
+            new Guest(68, "Vanessa", "Cole", "vanessa.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/68.png"),
+            new Guest(69, "Fiona", "Wright", "fiona.wright@lamzone.com", "https://api.adorable.io/AVATARS/512/69.png"),
+            new Guest(70, "Walter", "Harper", "walter.harper@lamzone.com", "https://api.adorable.io/AVATARS/512/70.png"),
+            new Guest(71, "Ted", "Gray", "ted.gray@lamzone.com", "https://api.adorable.io/AVATARS/512/71.png"),
+            new Guest(72, "Lucia", "Campbell", "lucia.campbell@lamzone.com", "https://api.adorable.io/AVATARS/512/72.png"),
+            new Guest(73, "Andrew", "Sullivan", "andrew.sullivan@lamzone.com", "https://api.adorable.io/AVATARS/512/73.png"),
+            new Guest(74, "Byron", "Morgan", "byron.morgan@lamzone.com", "https://api.adorable.io/AVATARS/512/74.png"),
+            new Guest(75, "Luke", "Riley", "luke.riley@lamzone.com", "https://api.adorable.io/AVATARS/512/75.png"),
+            new Guest(76, "Aiden", "Bennett", "aiden.bennett@lamzone.com", "https://api.adorable.io/AVATARS/512/76.png"),
+            new Guest(77, "Lilianna", "Bennett", "lilianna.bennett@lamzone.com", "https://api.adorable.io/AVATARS/512/77.png"),
+            new Guest(78, "Brooke", "Cole", "brooke.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/78.png"),
+            new Guest(79, "Alfred", "Myers", "alfred.myers@lamzone.com", "https://api.adorable.io/AVATARS/512/79.png"),
+            new Guest(80, "Edith", "Farrell", "edith.farrell@lamzone.com", "https://api.adorable.io/AVATARS/512/80.png"),
+            new Guest(81, "Arianna", "Brown", "arianna.brown@lamzone.com", "https://api.adorable.io/AVATARS/512/81.png"),
+            new Guest(82, "Maya", "Harris", "maya.harris@lamzone.com", "https://api.adorable.io/AVATARS/512/82.png"),
+            new Guest(83, "Evelyn", "Wright", "evelyn.wright@lamzone.com", "https://api.adorable.io/AVATARS/512/83.png"),
+            new Guest(84, "George", "Montgomery", "george.montgomery@lamzone.com", "https://api.adorable.io/AVATARS/512/84.png"),
+            new Guest(85, "Stella", "Mason", "stella.mason@lamzone.com", "https://api.adorable.io/AVATARS/512/85.png"),
+            new Guest(86, "Carlos", "Campbell", "carlos.campbell@lamzone.com", "https://api.adorable.io/AVATARS/512/86.png"),
+            new Guest(87, "Paul", "Cunningham", "paul.cunningham@lamzone.com", "https://api.adorable.io/AVATARS/512/87.png"),
+            new Guest(88, "Alfred", "Warren", "alfred.warren@lamzone.com", "https://api.adorable.io/AVATARS/512/88.png"),
+            new Guest(89, "Tess", "Wright", "tess.wright@lamzone.com", "https://api.adorable.io/AVATARS/512/89.png"),
+            new Guest(90, "Maya", "Myers", "maya.myers@lamzone.com", "https://api.adorable.io/AVATARS/512/90.png"),
+            new Guest(91, "Miller", "Nelson", "miller.nelson@lamzone.com", "https://api.adorable.io/AVATARS/512/91.png"),
+            new Guest(92, "Harold", "Morrison", "harold.morrison@lamzone.com", "https://api.adorable.io/AVATARS/512/92.png"),
+            new Guest(93, "Thomas", "Payne", "thomas.payne@lamzone.com", "https://api.adorable.io/AVATARS/512/93.png"),
+            new Guest(94, "Freddie", "Parker", "freddie.parker@lamzone.com", "https://api.adorable.io/AVATARS/512/94.png"),
+            new Guest(95, "Lucia", "Brown", "lucia.brown@lamzone.com", "https://api.adorable.io/AVATARS/512/95.png"),
+            new Guest(96, "Adison", "Andrews", "adison.andrews@lamzone.com", "https://api.adorable.io/AVATARS/512/96.png"),
+            new Guest(97, "Julia", "Rogers", "julia.rogers@lamzone.com", "https://api.adorable.io/AVATARS/512/97.png"),
+            new Guest(98, "Florrie", "Russell", "florrie.russell@lamzone.com", "https://api.adorable.io/AVATARS/512/98.png"),
+            new Guest(99, "Julia", "Barnes", "julia.barnes@lamzone.com", "https://api.adorable.io/AVATARS/512/99.png"),
+            new Guest(100, "Kristian", "Parker", "kristian.parker@lamzone.com", "https://api.adorable.io/AVATARS/512/100.png"),
+            new Guest(101, "Abraham", "Moore", "abraham.moore@lamzone.com", "https://api.adorable.io/AVATARS/512/101.png"),
+            new Guest(102, "Andrew", "Cunningham", "andrew.cunningham@lamzone.com", "https://api.adorable.io/AVATARS/512/102.png"),
+            new Guest(103, "Ashton", "Hunt", "ashton.hunt@lamzone.com", "https://api.adorable.io/AVATARS/512/103.png"),
+            new Guest(104, "Patrick", "Evans", "patrick.evans@lamzone.com", "https://api.adorable.io/AVATARS/512/104.png"),
+            new Guest(105, "Jasmine", "Russell", "jasmine.russell@lamzone.com", "https://api.adorable.io/AVATARS/512/105.png"),
+            new Guest(106, "Alan", "Foster", "alan.foster@lamzone.com", "https://api.adorable.io/AVATARS/512/106.png"),
+            new Guest(107, "Jack", "Myers", "jack.myers@lamzone.com", "https://api.adorable.io/AVATARS/512/107.png"),
+            new Guest(108, "Lucas", "Cole", "lucas.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/108.png"),
+            new Guest(109, "Melanie", "Richards", "melanie.richards@lamzone.com", "https://api.adorable.io/AVATARS/512/109.png"),
+            new Guest(110, "Evelyn", "Alexander", "evelyn.alexander@lamzone.com", "https://api.adorable.io/AVATARS/512/110.png"),
+            new Guest(111, "Valeria", "Jones", "valeria.jones@lamzone.com", "https://api.adorable.io/AVATARS/512/111.png"),
+            new Guest(112, "Amelia", "Hill", "amelia.hill@lamzone.com", "https://api.adorable.io/AVATARS/512/112.png"),
+            new Guest(113, "Sydney", "Carter", "sydney.carter@lamzone.com", "https://api.adorable.io/AVATARS/512/113.png"),
+            new Guest(114, "Emily", "Hamilton", "emily.hamilton@lamzone.com", "https://api.adorable.io/AVATARS/512/114.png"),
+            new Guest(115, "Eleanor", "Andrews", "eleanor.andrews@lamzone.com", "https://api.adorable.io/AVATARS/512/115.png"),
+            new Guest(116, "Abigail", "Foster", "abigail.foster@lamzone.com", "https://api.adorable.io/AVATARS/512/116.png"),
+            new Guest(117, "Tony", "Lloyd", "tony.lloyd@lamzone.com", "https://api.adorable.io/AVATARS/512/117.png"),
+            new Guest(118, "Vanessa", "Campbell", "vanessa.campbell@lamzone.com", "https://api.adorable.io/AVATARS/512/118.png"),
+            new Guest(119, "Walter", "Johnson", "walter.johnson@lamzone.com", "https://api.adorable.io/AVATARS/512/119.png"),
+            new Guest(120, "Richard", "Mitchell", "richard.mitchell@lamzone.com", "https://api.adorable.io/AVATARS/512/120.png"),
+            new Guest(121, "Andrew", "Ryan", "andrew.ryan@lamzone.com", "https://api.adorable.io/AVATARS/512/121.png"),
+            new Guest(122, "Alexia", "Elliott", "alexia.elliott@lamzone.com", "https://api.adorable.io/AVATARS/512/122.png"),
+            new Guest(123, "Tess", "Brooks", "tess.brooks@lamzone.com", "https://api.adorable.io/AVATARS/512/123.png"),
+            new Guest(124, "Jessica", "Myers", "jessica.myers@lamzone.com", "https://api.adorable.io/AVATARS/512/124.png"),
+            new Guest(125, "Haris", "West", "haris.west@lamzone.com", "https://api.adorable.io/AVATARS/512/125.png"),
+            new Guest(126, "Carina", "Elliott", "carina.elliott@lamzone.com", "https://api.adorable.io/AVATARS/512/126.png"),
+            new Guest(127, "Lana", "Barnes", "lana.barnes@lamzone.com", "https://api.adorable.io/AVATARS/512/127.png"),
+            new Guest(128, "Rebecca", "Harrison", "rebecca.harrison@lamzone.com", "https://api.adorable.io/AVATARS/512/128.png"),
+            new Guest(129, "James", "Parker", "james.parker@lamzone.com", "https://api.adorable.io/AVATARS/512/129.png"),
+            new Guest(130, "Leonardo", "Murray", "leonardo.murray@lamzone.com", "https://api.adorable.io/AVATARS/512/130.png"),
+            new Guest(131, "Miley", "Brooks", "miley.brooks@lamzone.com", "https://api.adorable.io/AVATARS/512/131.png"),
+            new Guest(132, "Jenna", "Holmes", "jenna.holmes@lamzone.com", "https://api.adorable.io/AVATARS/512/132.png"),
+            new Guest(133, "Honey", "Gibson", "honey.gibson@lamzone.com", "https://api.adorable.io/AVATARS/512/133.png"),
+            new Guest(134, "Rebecca", "Thompson", "rebecca.thompson@lamzone.com", "https://api.adorable.io/AVATARS/512/134.png"),
+            new Guest(135, "Marcus", "Walker", "marcus.walker@lamzone.com", "https://api.adorable.io/AVATARS/512/135.png"),
+            new Guest(136, "Ryan", "Warren", "ryan.warren@lamzone.com", "https://api.adorable.io/AVATARS/512/136.png"),
+            new Guest(137, "Sienna", "Walker", "sienna.walker@lamzone.com", "https://api.adorable.io/AVATARS/512/137.png"),
+            new Guest(138, "Vivian", "Perry", "vivian.perry@lamzone.com", "https://api.adorable.io/AVATARS/512/138.png"),
+            new Guest(139, "Amanda", "Harrison", "amanda.harrison@lamzone.com", "https://api.adorable.io/AVATARS/512/139.png"),
+            new Guest(140, "Brooke", "Barnes", "brooke.barnes@lamzone.com", "https://api.adorable.io/AVATARS/512/140.png"),
+            new Guest(141, "Owen", "Cooper", "owen.cooper@lamzone.com", "https://api.adorable.io/AVATARS/512/141.png"),
+            new Guest(142, "Richard", "Dixon", "richard.dixon@lamzone.com", "https://api.adorable.io/AVATARS/512/142.png"),
+            new Guest(143, "Agata", "Hamilton", "agata.hamilton@lamzone.com", "https://api.adorable.io/AVATARS/512/143.png"),
+            new Guest(144, "Victoria", "Davis", "victoria.davis@lamzone.com", "https://api.adorable.io/AVATARS/512/144.png"),
+            new Guest(145, "Preston", "Hunt", "preston.hunt@lamzone.com", "https://api.adorable.io/AVATARS/512/145.png"),
+            new Guest(146, "Kate", "Williams", "kate.williams@lamzone.com", "https://api.adorable.io/AVATARS/512/146.png"),
+            new Guest(147, "Ellia", "Edwards", "ellia.edwards@lamzone.com", "https://api.adorable.io/AVATARS/512/147.png"),
+            new Guest(148, "Lily", "Harper", "lily.harper@lamzone.com", "https://api.adorable.io/AVATARS/512/148.png"),
+            new Guest(149, "Florrie", "Ryan", "florrie.ryan@lamzone.com", "https://api.adorable.io/AVATARS/512/149.png"),
+            new Guest(150, "Lenny", "Bailey", "lenny.bailey@lamzone.com", "https://api.adorable.io/AVATARS/512/150.png"),
+            new Guest(151, "Victor", "Cole", "victor.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/151.png"),
+            new Guest(152, "Tiana", "Gibson", "tiana.gibson@lamzone.com", "https://api.adorable.io/AVATARS/512/152.png"),
+            new Guest(153, "Patrick", "Cole", "patrick.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/153.png"),
+            new Guest(154, "Savana", "Gibson", "savana.gibson@lamzone.com", "https://api.adorable.io/AVATARS/512/154.png"),
+            new Guest(155, "Michael", "Scott", "michael.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/155.png"),
+            new Guest(156, "Jenna", "Adams", "jenna.adams@lamzone.com", "https://api.adorable.io/AVATARS/512/156.png"),
+            new Guest(157, "Edward", "Farrell", "edward.farrell@lamzone.com", "https://api.adorable.io/AVATARS/512/157.png"),
+            new Guest(158, "Brad", "Miller", "brad.miller@lamzone.com", "https://api.adorable.io/AVATARS/512/158.png"),
+            new Guest(159, "Abraham", "Murphy", "abraham.murphy@lamzone.com", "https://api.adorable.io/AVATARS/512/159.png"),
+            new Guest(160, "Michael", "Richards", "michael.richards@lamzone.com", "https://api.adorable.io/AVATARS/512/160.png"),
+            new Guest(161, "Agata", "Wright", "agata.wright@lamzone.com", "https://api.adorable.io/AVATARS/512/161.png"),
+            new Guest(162, "Jasmine", "Hill", "jasmine.hill@lamzone.com", "https://api.adorable.io/AVATARS/512/162.png"),
+            new Guest(163, "Preston", "Thompson", "preston.thompson@lamzone.com", "https://api.adorable.io/AVATARS/512/163.png"),
+            new Guest(164, "Cadie", "Higgins", "cadie.higgins@lamzone.com", "https://api.adorable.io/AVATARS/512/164.png"),
+            new Guest(165, "Edwin", "Alexander", "edwin.alexander@lamzone.com", "https://api.adorable.io/AVATARS/512/165.png"),
+            new Guest(166, "Victoria", "Johnson", "victoria.johnson@lamzone.com", "https://api.adorable.io/AVATARS/512/166.png"),
+            new Guest(167, "Marcus", "Moore", "marcus.moore@lamzone.com", "https://api.adorable.io/AVATARS/512/167.png"),
+            new Guest(168, "Lucas", "Martin", "lucas.martin@lamzone.com", "https://api.adorable.io/AVATARS/512/168.png"),
+            new Guest(169, "Kristian", "Smith", "kristian.smith@lamzone.com", "https://api.adorable.io/AVATARS/512/169.png"),
+            new Guest(170, "Sarah", "Hamilton", "sarah.hamilton@lamzone.com", "https://api.adorable.io/AVATARS/512/170.png"),
+            new Guest(171, "Aston", "Stevens", "aston.stevens@lamzone.com", "https://api.adorable.io/AVATARS/512/171.png"),
+            new Guest(172, "Nicole", "Alexander", "nicole.alexander@lamzone.com", "https://api.adorable.io/AVATARS/512/172.png"),
+            new Guest(173, "George", "Ross", "george.ross@lamzone.com", "https://api.adorable.io/AVATARS/512/173.png"),
+            new Guest(174, "Belinda", "Davis", "belinda.davis@lamzone.com", "https://api.adorable.io/AVATARS/512/174.png"),
+            new Guest(175, "Lucy", "Kelly", "lucy.kelly@lamzone.com", "https://api.adorable.io/AVATARS/512/175.png"),
+            new Guest(176, "Vincent", "Cole", "vincent.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/176.png"),
+            new Guest(177, "Savana", "Morrison", "savana.morrison@lamzone.com", "https://api.adorable.io/AVATARS/512/177.png"),
+            new Guest(178, "Anna", "Crawford", "anna.crawford@lamzone.com", "https://api.adorable.io/AVATARS/512/178.png"),
+            new Guest(179, "Alexander", "Walker", "alexander.walker@lamzone.com", "https://api.adorable.io/AVATARS/512/179.png"),
+            new Guest(180, "Maria", "Ross", "maria.ross@lamzone.com", "https://api.adorable.io/AVATARS/512/180.png"),
+            new Guest(181, "Victor", "Brown", "victor.brown@lamzone.com", "https://api.adorable.io/AVATARS/512/181.png"),
+            new Guest(182, "Arianna", "Hill", "arianna.hill@lamzone.com", "https://api.adorable.io/AVATARS/512/182.png"),
+            new Guest(183, "Kevin", "Turner", "kevin.turner@lamzone.com", "https://api.adorable.io/AVATARS/512/183.png"),
+            new Guest(184, "John", "Nelson", "john.nelson@lamzone.com", "https://api.adorable.io/AVATARS/512/184.png"),
+            new Guest(185, "Martin", "Watson", "martin.watson@lamzone.com", "https://api.adorable.io/AVATARS/512/185.png"),
+            new Guest(186, "Lucy", "Hawkins", "lucy.hawkins@lamzone.com", "https://api.adorable.io/AVATARS/512/186.png"),
+            new Guest(187, "Dainton", "Gibson", "dainton.gibson@lamzone.com", "https://api.adorable.io/AVATARS/512/187.png"),
+            new Guest(188, "Roman", "Henderson", "roman.henderson@lamzone.com", "https://api.adorable.io/AVATARS/512/188.png"),
+            new Guest(189, "Savana", "Ellis", "savana.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/189.png"),
+            new Guest(190, "Patrick", "Hunt", "patrick.hunt@lamzone.com", "https://api.adorable.io/AVATARS/512/190.png"),
+            new Guest(191, "John", "Alexander", "john.alexander@lamzone.com", "https://api.adorable.io/AVATARS/512/191.png"),
+            new Guest(192, "Cadie", "Holmes", "cadie.holmes@lamzone.com", "https://api.adorable.io/AVATARS/512/192.png"),
+            new Guest(193, "Leonardo", "Lloyd", "leonardo.lloyd@lamzone.com", "https://api.adorable.io/AVATARS/512/193.png"),
+            new Guest(194, "Lucas", "Williams", "lucas.williams@lamzone.com", "https://api.adorable.io/AVATARS/512/194.png"),
+            new Guest(195, "Heather", "Baker", "heather.baker@lamzone.com", "https://api.adorable.io/AVATARS/512/195.png"),
+            new Guest(196, "Dale", "Ross", "dale.ross@lamzone.com", "https://api.adorable.io/AVATARS/512/196.png"),
+            new Guest(197, "Sarah", "Richards", "sarah.richards@lamzone.com", "https://api.adorable.io/AVATARS/512/197.png"),
+            new Guest(198, "Mary", "Ferguson", "mary.ferguson@lamzone.com", "https://api.adorable.io/AVATARS/512/198.png"),
+            new Guest(199, "Melanie", "Mason", "melanie.mason@lamzone.com", "https://api.adorable.io/AVATARS/512/199.png"),
+            new Guest(200, "Eric", "Ellis", "eric.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/200.png"));
 
-    private static final List<Room> DUMMY_ROOMS = Arrays.asList((
-            new Room(1, "Room A",10)),
-            new Room(1, "Room B",5),
-            new Room(3, "Room C", 3));
 
+    //TODO Sélectionner des Rooms en random depuis DUMMY_ROOMS pour alimenter DUMMY_REUNIONS
+    private static final List<Room> DUMMY_ROOMS = Arrays.asList(
+            new Room(1, "France", 3),
+            new Room(1, "Belgique", 3),
+            new Room(3, "Suisse", 3),
+            new Room(4, "Allemagne", 5),
+            new Room(5, "Espagne", 5),
+            new Room(6, "Portugal", 8),
+            new Room(7, "Italie", 8),
+            new Room(8, "Danemark", 8),
+            new Room(9, "Pays-Bas", 10),
+            new Room(10, "Autriche", 10));
 
     static List<Reunion> generateReunions() {
         return new ArrayList<>(DUMMY_REUNIONS);
     }
 
-    static List<Guest> generateGuestsList() {
+    static List<Guest> generateGuests() {
         return new ArrayList<>(DUMMY_GUESTS);
     }
 
-    static List<Room> generateRoomsList() {
+    static List<Room> generateRooms() {
         return new ArrayList<>(DUMMY_ROOMS);
     }
+
+    static List<Guest> generateRandomGuests() {
+
+        DUMMY_GUESTS.get(1);
+        return new ArrayList<>(DUMMY_GUESTS);
+    }
+
 }

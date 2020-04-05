@@ -13,7 +13,7 @@ public class DI {
     /**
      * Get an instance on @{@link MaReuApiService}
      *
-     * @return
+     * @return service
      */
     public static MaReuApiService getMaReuApiService() {
         return service;
@@ -22,7 +22,7 @@ public class DI {
     /**
      * Get always a new instance on @{@link MaReuApiService}. Useful for tests, so we ensure the context is clean.
      *
-     * @return
+     * @return DummyMaReuApiService
      */
     public static MaReuApiService getNewInstanceApiService() {
         return new DummyMaReuApiService();

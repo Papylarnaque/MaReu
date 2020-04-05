@@ -4,13 +4,14 @@ import com.example.mareu.model.Guest;
 import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DummyMaReuApiService implements MaReuApiService {
 
     private final List<Reunion> mReunions = DummyMaReuApiGenerator.generateReunions();
-    private List<Guest> mGuestsList = DummyMaReuApiGenerator.generateGuestsList();
-    private List<Room> mRooms = DummyMaReuApiGenerator.generateRoomsList();
+    private List<Guest> mGuests = DummyMaReuApiGenerator.generateGuests();
+    private List<Room> mRooms = DummyMaReuApiGenerator.generateRooms();
 
     @Override
     public List<Reunion> getReunions() {
@@ -23,24 +24,13 @@ public class DummyMaReuApiService implements MaReuApiService {
     }
 
     @Override
-    public void addMeeting(Reunion reunion) {
+    public void addReunion(Reunion reunion) {
         this.mReunions.add(reunion);
     }
 
     @Override
-    public List<Guest> getGuestList() {
-        return this.mGuestsList;
-    }
-
-    @Override
-    public List<Guest> getGuestList(List<String> mEmailList) {
-/*        List<Guest> mGuestList = null;
-        for ( String n : mEmailList){
-            for (Guest m : )
-            Guest mGuest = null;
-            mGuestList.add(mGuest);
-    }*/
-        return null;
+    public List<Guest> getGuests() {
+        return this.mGuests;
     }
 
     @Override
@@ -49,12 +39,11 @@ public class DummyMaReuApiService implements MaReuApiService {
     }
 
     @Override
-    public List<String> getGuestsEmails(List<Guest> mGuestList) {
-        List<String> mEmailList;
-        //for ( Reunion n : mReunions ) {
-        //for ( Guest m : mGuestList) mEmailList += (m.getEmail()) + ", ";
-        for ( Guest m : mGuestList) mEmailList.add((m.getEmail()));
-        //}
-        return mEmailList;
+    public List<String> getGuestsEmails(List<Guest> mGuests) {
+        ArrayList<String> mEmailsList = new ArrayList<String>();
+
+        for (Guest m : mGuests) mEmailsList.add(m.getEmail());
+
+        return mEmailsList;
     }
 }
