@@ -6,4 +6,15 @@
     <color name="colorTextView">#000000</color>
     <color name="colorDisabledButton">#37000000</color>
     <color name="colorButton">#CE0A24</color>
+    <!-- Room colors -->
+    <color name="colorRoom1">#B092C0</color>
+    <color name="colorRoom2">#7BA39D</color>
+    <color name="colorRoom3">#BBAB94</color>
+    <color name="colorRoom4">#7EC550</color>
+    <color name="colorRoom5">#B4761D</color>
+    <color name="colorRoom6">#BD254F</color>
+    <color name="colorRoom7">#3266C4</color>
+    <color name="colorRoom8">#FFFFFF</color>
+    <color name="colorRoom9">#5F5A59</color>
+    <color name="colorRoom10">#37854A</color>
 </resources>

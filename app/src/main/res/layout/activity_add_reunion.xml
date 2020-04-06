@@ -47,11 +47,11 @@
                 tools:text="@string/add_reunion_edit_subject" />
 
             <TextView
+                android:id="@+id/date_add_reunion_text"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:text="@string/date_add_reunion_text"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="@dimen/margin_double"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/subject_add_reunion" />
@@ -63,13 +63,14 @@
                 android:autofillHints="@string/date_add_reunion"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
-                android:inputType="date"
-                android:layout_marginTop="@dimen/margin_double"
+                android:inputType="datetime"
+                android:layout_marginTop="@dimen/margin_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/subject_add_reunion" />
 
             <TextView
+                android:id="@+id/time_add_reunion_text"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:text="@string/time_add_reunion_text"
@@ -84,6 +85,7 @@
                 android:layout_height="@dimen/timepicker_padding"
                 android:inputType="datetime"
                 android:timePickerMode="spinner"
+                android:layout_marginTop="@dimen/margin_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/date_add_reunion" />

@@ -21,6 +21,9 @@ import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MaReuApiService;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,20 +31,22 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddReunionActivity extends AppCompatActivity {
+public class AddReunionActivity extends AppCompatActivity /*implements
+        View.OnClickListener*/ {
 
     private Button mButtonCreateReunion;
     private EditText mSubject;
     private DatePicker mDatePicker;
-    private TimePicker mTimePicker;
-    private TimePicker mDurationPicker;
+    private TimePicker mTimePicker, mDurationPicker;
     private Spinner mRoom;
     private MultiAutoCompleteTextView mGuestsEmails;
     private Reunion mReunion;
     private MaReuApiService mMaReuApiService;
-
     private List<Guest> mGuests = new ArrayList<>();
     private Date mDate;
+
+/*    EditText mDatePicker, mTimePicker;
+    int mYear, mMonth, mDay, mHour, mMinute;*/
 
 
     @Override
@@ -51,6 +56,11 @@ public class AddReunionActivity extends AppCompatActivity {
         init();
         roomsArrayAdapter();
         guestsArrayAdapter();
+
+/*        mDatePicker = (EditText) findViewById(R.id.date_add_reunion_text);
+        mTimePicker = (EditText) findViewById(R.id.time_add_reunion_text);
+        mDatePicker.setOnClickListener(this);
+        mTimePicker.setOnClickListener(this);*/
 
         Calendar mCalendar = Calendar.getInstance();
 
@@ -70,7 +80,6 @@ public class AddReunionActivity extends AppCompatActivity {
                 Date mDurationDate = mCalendar.getTime();
 
                 // TODO Check les horaires de réunions avant création ( Passer par l'activity )
-                // TODO Ajouter la durée de réunion
                 // TODO Ne pas créer la réunion si pas de guest trouvé à partir de la saisie
                 mReunion = new Reunion(
                         System.currentTimeMillis(),
@@ -84,7 +93,6 @@ public class AddReunionActivity extends AppCompatActivity {
                 Intent intent = new Intent(AddReunionActivity.this, ListReunionActivity.class);
                 startActivity(intent);
             }
-
 
         });
     }
@@ -166,7 +174,6 @@ public class AddReunionActivity extends AppCompatActivity {
 
     };
 
-
     private void getDateTimeFromSelection() {
         // Creating a calendar
         Calendar mCalendar = Calendar.getInstance();
@@ -179,8 +186,10 @@ public class AddReunionActivity extends AppCompatActivity {
         mDate = mCalendar.getTime();
     }
 
+    /**
+     * // Gets the Guests from the emails chosen in the form
+     */
     private void getGuestsFromEmailsSelected() {
-        // Gets the Guests from the emails chosen in the form
         for (String e : mGuestsEmails.getText().toString().split(", ")) {
             for (Guest eG : mMaReuApiService.getGuests()) {
                 // Avoid duplicated Guest in the Reunion
@@ -191,6 +200,61 @@ public class AddReunionActivity extends AppCompatActivity {
         }
     }
 
+/*    @Override
+    public void onClick(View v) {
+
+        if (v == mDatePicker) {
+
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+                            mDatePicker.setText(strDate);
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+            final String strDate = dateFormat.format(Calendar.getInstance().getTime());
+        }
+        if (v == mTimePicker) {
+
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            DateFormat dateFormat = DateFormat.getTimeInstance((DateFormat.MEDIUM));
+            final String strDate = dateFormat.format(Calendar.getInstance().getTime());
+
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+
+                            mTimePicker.setText(strDate);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
+
+
+    }*/
+
 }
+
+
+
+
 
 

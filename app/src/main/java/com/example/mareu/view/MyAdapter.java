@@ -1,12 +1,15 @@
 package com.example.mareu.view;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -50,9 +54,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // Call the ApiService
         mMaReuApiService = DI.getMaReuApiService();
 
-        // Affect a random color for each reunion
+        // Affect a random color for each room
         int mIntColor = (int) ((0.2 + Math.random()) * 1000000000);
-        holder.mColor.setTint(Color.argb(mIntColor, mIntColor, mIntColor, mIntColor));
+        holder.mColor.setBackgroundColor(Color.argb(mIntColor, mIntColor, mIntColor, mIntColor));
+        //String colorRoomString = "colorRoom" + mReunions.get(position).getId();
+        //int colorRoom = (int) colorRoomString;
+        //((GradientDrawable) holder.mColor.getBackground()).setColor(R.color.colorRoomString);
+
 
         // First line of the reunion
         String subjectReunion = mReunions.get(position).getSubject();
@@ -84,6 +92,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
         holder.mThirdLine.setText(mGuestsEmailsStringBuilder.toString());
 
+
+        // ACTIONS ******************************************************************************************
+
         // Delete button
         holder.mButtonDeleteReunion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +116,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        Drawable mColor;
+        ImageView mColor;
         TextView mFirstLine;
         TextView mSecondLine;
         TextView mThirdLine;
@@ -114,7 +125,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mColor = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.circle);
+            //mColor = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.circle);
+            mColor = itemView.findViewById(R.id.item_reunion_image);
             mFirstLine = itemView.findViewById(R.id.item_reunion_first_line);
             mSecondLine = itemView.findViewById(R.id.item_reunion_second_line);
             mThirdLine = itemView.findViewById((R.id.item_reunion_third_line));
