@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -55,11 +56,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         mMaReuApiService = DI.getMaReuApiService();
 
         // Affect a random color for each room
-        int mIntColor = (int) ((0.2 + Math.random()) * 1000000000);
-        holder.mColor.setBackgroundColor(Color.argb(mIntColor, mIntColor, mIntColor, mIntColor));
+        int mIntColor = (int) ((Math.random()-0.5) * 2000000000);
+        holder.mColor.getBackground().setTint(mIntColor);
+        //holder.mColor.getDrawable().mutate().setTint(mIntColor);
         //String colorRoomString = "colorRoom" + mReunions.get(position).getId();
         //int colorRoom = (int) colorRoomString;
-        //((GradientDrawable) holder.mColor.getBackground()).setColor(R.color.colorRoomString);
+
 
 
         // First line of the reunion
@@ -125,7 +127,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            //mColor = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.circle);
             mColor = itemView.findViewById(R.id.item_reunion_image);
             mFirstLine = itemView.findViewById(R.id.item_reunion_first_line);
             mSecondLine = itemView.findViewById(R.id.item_reunion_second_line);

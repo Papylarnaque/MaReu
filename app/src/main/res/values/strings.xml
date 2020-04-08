@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Ma réu</string>
     <string name="action_settings">Settings</string>
+    <!--List Reunion Layout-->
     <string name="text_first_line">Reunion TEST - Salle RDC</string>
     <string name="text_third_line">test@openclassrooms.com</string>
     <string name="item_reunion_delete_description">Delete the reunion</string>
+    <!--Add Reunion Layout-->
     <string name="add_reunion_title">Réservez une salle</string>
     <string name="add_reunion_edit_subject">Saisir un titre (30 max)</string>
-    <string name="time_text_add_reunion">Sélectionner l\'heure de la réunion</string>
-    <string name="room_text_add_reunion">Sélectionner la salle de la réunion</string>
     <string name="creation_reunion_button">Créer la réunion</string>
     <string name="guest_list_text_view">Saisir les invités</string>
     <string name="time_add_reunion">Saisir l\'heure de début</string>
@@ -17,4 +17,5 @@
     <string name="date_add_reunion_text">Saisir la date de la réunion</string>
     <string name="time_add_reunion_text">Saisir l\'heure de début de la réunion</string>
     <string name="duration_add_reunion_text">Saisir la durée de la réunion</string>
+    <string name="room_add_reunion_text">Sélectionner la salle de la réunion</string>
 </resources>

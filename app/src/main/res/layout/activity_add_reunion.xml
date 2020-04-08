@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/title_add_reunion"
@@ -60,11 +60,11 @@
                 android:id="@+id/date_add_reunion"
                 android:layout_width="250dp"
                 android:layout_height="@dimen/timepicker_padding"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:autofillHints="@string/date_add_reunion"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
                 android:inputType="datetime"
-                android:layout_marginTop="@dimen/margin_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/subject_add_reunion" />
@@ -83,14 +83,15 @@
                 android:id="@+id/time_add_reunion"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/timepicker_padding"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:inputType="datetime"
                 android:timePickerMode="spinner"
-                android:layout_marginTop="@dimen/margin_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/date_add_reunion" />
 
             <TextView
+                android:id="@+id/duration_add_reunion_text"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:text="@string/duration_add_reunion_text"
@@ -99,27 +100,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time_add_reunion" />
 
-            <TimePicker
-                android:id="@+id/duration_add_reunion"
+
+            <NumberPicker
+                android:id="@+id/duration_hours_add_reunion"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/timepicker_padding"
+                android:layout_marginStart="@dimen/timepicker_padding"
+                android:inputType="datetime"
+                android:timePickerMode="spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/duration_add_reunion_text" />
+
+            <NumberPicker
+                android:id="@+id/duration_minutes_add_reunion"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/timepicker_padding"
+                android:layout_marginEnd="@dimen/timepicker_padding"
                 android:inputType="datetime"
                 android:timePickerMode="spinner"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/duration_add_reunion_text" />
+
+            <TextView
+                android:id="@+id/room_add_reunion_text"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/room_add_reunion_text"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/time_add_reunion" />
+                app:layout_constraintTop_toBottomOf="@+id/duration_minutes_add_reunion" />
 
             <Spinner
                 android:id="@+id/room_add_reunion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:autofillHints=""
-                android:hint="@string/room_text_add_reunion"
+                android:layout_marginTop="@dimen/margin_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/duration_add_reunion"
-                tools:text="@string/room_text_add_reunion" />
+                app:layout_constraintTop_toBottomOf="@+id/room_add_reunion_text"
+                tools:text="@string/room_add_reunion_text" />
 
             <MultiAutoCompleteTextView
                 android:id="@+id/guest_add_reunion"

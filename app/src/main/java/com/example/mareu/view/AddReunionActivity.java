@@ -1,6 +1,7 @@
 package com.example.mareu.view;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -21,9 +23,7 @@ import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MaReuApiService;
 
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,6 +45,21 @@ public class AddReunionActivity extends AppCompatActivity /*implements
     private List<Guest> mGuests = new ArrayList<>();
     private Date mDate;
 
+    //private static final int INTERVAL_MINUTES_DURATIONPICKER = 10;
+    private static final int INTERVAL_MINUTES_TIMEPICKER = 10;
+    private static final DecimalFormat FORMATTER = new DecimalFormat("00");
+
+    private NumberPicker minutePicker;
+    private NumberPicker mDurationMinutes;
+    private NumberPicker mDurationHours;
+
+    private static final int DURATION_MIN_HOURS = 0;
+    private static final int DURATION_MIN_MINUTES = 0;
+    private static final int DURATION_MAX_HOURS = 3;
+    private static final int DURATION_MAX_MINUTES = 55;
+
+
+
 /*    EditText mDatePicker, mTimePicker;
     int mYear, mMonth, mDay, mHour, mMinute;*/
 
@@ -54,8 +69,11 @@ public class AddReunionActivity extends AppCompatActivity /*implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reunion);
         init();
-        roomsArrayAdapter();
-        guestsArrayAdapter();
+        setRoomsArrayAdapter();
+        setGuestsArrayAdapter();
+        setTimePickerInterval();
+/*        setDurationPickerInterval();*/
+
 
 /*        mDatePicker = (EditText) findViewById(R.id.date_add_reunion_text);
         mTimePicker = (EditText) findViewById(R.id.time_add_reunion_text);
@@ -65,6 +83,17 @@ public class AddReunionActivity extends AppCompatActivity /*implements
         Calendar mCalendar = Calendar.getInstance();
 
 
+/*        mDurationPicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    timePicker.setHour(4);
+                } else {
+                    timePicker.setCurrentHour(4);
+                }
+            }
+        });*/
+
         mButtonCreateReunion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,12 +101,14 @@ public class AddReunionActivity extends AppCompatActivity /*implements
                 getDateTimeFromSelection();
                 Calendar mCalendar = Calendar.getInstance();
                 // Replacing with a new value
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+/*                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     mCalendar.set(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth(), mDurationPicker.getHour(), mDurationPicker.getMinute());
                 } else {
                     mCalendar.set(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth(), mDurationPicker.getCurrentHour(), mDurationPicker.getCurrentMinute());
-                }
+                }*/
+                mCalendar.set(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth(), mDurationHours.getValue(), mDurationMinutes.getValue());
                 Date mDurationDate = mCalendar.getTime();
+
 
                 // TODO Check les horaires de réunions avant création ( Passer par l'activity )
                 // TODO Ne pas créer la réunion si pas de guest trouvé à partir de la saisie
@@ -97,25 +128,6 @@ public class AddReunionActivity extends AppCompatActivity /*implements
         });
     }
 
-    private void guestsArrayAdapter() {
-        String[] guestsEmailsList = mMaReuApiService.getGuestsEmails(mMaReuApiService.getGuests()).toArray(new String[0]);
-        // TODO Gérer le cas d'ajout a partir du nom / prénom et pas qu'à partir de l'email
-        ArrayAdapter<String> adapterGuests
-                = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, guestsEmailsList);
-        mGuestsEmails.setAdapter(adapterGuests);
-        mGuestsEmails.setThreshold(1);                                                  // Sets the minimum number of characters, to show suggestions
-        mGuestsEmails.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());     // then separates them with a comma
-    }
-
-    private void roomsArrayAdapter() {
-        ArrayList<String> mRoomsList = new ArrayList<String>();
-        for (Room r : mMaReuApiService.getRooms())
-            mRoomsList.add(r.getRoomName() + " (" + r.getSeats() + "places)");
-        String[] mRoomsArray = mRoomsList.toArray(new String[0]);
-        ArrayAdapter<String> adapterRooms
-                = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mRoomsArray);
-        mRoom.setAdapter(adapterRooms);
-    }
 
     /**
      * Instanciates the views and variables
@@ -133,14 +145,47 @@ public class AddReunionActivity extends AppCompatActivity /*implements
         } else {
             mTimePicker.setCurrentHour(mTimePicker.getCurrentHour());
         }
-        mDurationPicker = findViewById(R.id.duration_add_reunion);
-        mDurationPicker.setIs24HourView(true);
+/*        mDurationPicker = findViewById(R.id.duration_add_reunion);
+        mDurationPicker.setIs24HourView(true);*/
+        mDurationHours = findViewById(R.id.duration_hours_add_reunion);
+        mDurationMinutes = findViewById(R.id.duration_minutes_add_reunion);
+        mDurationHours.setMaxValue(DURATION_MAX_HOURS);
+        mDurationHours.setMinValue(DURATION_MIN_HOURS);
+        mDurationMinutes.setMaxValue(DURATION_MAX_MINUTES);
+        mDurationMinutes.setMinValue(DURATION_MIN_MINUTES);
         mRoom = findViewById(R.id.room_add_reunion);
         mGuestsEmails = findViewById(R.id.guest_add_reunion);
 
         mSubject.addTextChangedListener(createTextWatcher);
         mGuestsEmails.addTextChangedListener(createTextWatcher);
     }
+
+    /**
+     * Sets the autocompletion for the Guests selection
+     */
+    private void setGuestsArrayAdapter() {
+        String[] guestsEmailsList = mMaReuApiService.getGuestsEmails(mMaReuApiService.getGuests()).toArray(new String[0]);
+        // TODO Gérer le cas d'ajout a partir du nom / prénom et pas qu'à partir de l'email
+        ArrayAdapter<String> adapterGuests
+                = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, guestsEmailsList);
+        mGuestsEmails.setAdapter(adapterGuests);
+        mGuestsEmails.setThreshold(1);                                                  // Sets the minimum number of characters, to show suggestions
+        mGuestsEmails.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());     // then separates them with a comma
+    }
+
+    /**
+     * Sets the spinner for the Room selection
+     */
+    private void setRoomsArrayAdapter() {
+        ArrayList<String> mRoomsList = new ArrayList<String>();
+        for (Room r : mMaReuApiService.getRooms())
+            mRoomsList.add(r.getRoomName() + " (" + r.getSeats() + "places)");
+        String[] mRoomsArray = mRoomsList.toArray(new String[0]);
+        ArrayAdapter<String> adapterRooms
+                = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mRoomsArray);
+        mRoom.setAdapter(adapterRooms);
+    }
+
 
     /**
      * Checks fulfilment of the form before creating the reunion
@@ -187,7 +232,7 @@ public class AddReunionActivity extends AppCompatActivity /*implements
     }
 
     /**
-     * // Gets the Guests from the emails chosen in the form
+     * Gets the Guests from the emails chosen in the form
      */
     private void getGuestsFromEmailsSelected() {
         for (String e : mGuestsEmails.getText().toString().split(", ")) {
@@ -199,6 +244,60 @@ public class AddReunionActivity extends AppCompatActivity /*implements
             }
         }
     }
+
+    /**
+     * Sets the Minutes interval for TimePicker
+     */
+    public void setTimePickerInterval() {
+
+        int numValues = 60 / INTERVAL_MINUTES_TIMEPICKER;
+        String[] displayedValues = new String[numValues];
+        for (int i = 0; i < numValues; i++) {
+            displayedValues[i] = FORMATTER.format(i * INTERVAL_MINUTES_TIMEPICKER);
+        }
+
+        View minute = mTimePicker.findViewById(Resources.getSystem().getIdentifier("minute", "id", "android"));
+        if ((minute instanceof NumberPicker)) {
+            minutePicker = (NumberPicker) minute;
+            minutePicker.setMinValue(0);
+            minutePicker.setMaxValue(numValues - 1);
+            minutePicker.setDisplayedValues(displayedValues);
+        }
+
+        if (minutePicker != null) {
+            minutePicker.getValue();
+        } else {
+            mTimePicker.getCurrentMinute();
+        }
+    }
+
+/*    *//**
+     * Sets the Minutes interval for DurationPicker
+     *//*
+    public void setDurationPickerInterval() {
+
+        int numValues = 60 / INTERVAL_MINUTES_DURATIONPICKER;
+        String[] displayedValues = new String[numValues];
+        for (int i = 0; i < numValues; i++) {
+            displayedValues[i] = FORMATTER.format(i * INTERVAL_MINUTES_DURATIONPICKER);
+        }
+
+        View minute = mDurationPicker.findViewById(Resources.getSystem().getIdentifier("minute", "id", "android"));
+        if ((minute instanceof NumberPicker)) {
+            minutePicker = (NumberPicker) minute;
+            minutePicker.setMinValue(0);
+            minutePicker.setMaxValue(numValues - 1);
+            minutePicker.setDisplayedValues(displayedValues);
+        }
+
+        if (minutePicker != null) {
+            minutePicker.getValue();
+        } else {
+            mDurationPicker.getCurrentMinute();
+        }
+    }*/
+
+
 
 /*    @Override
     public void onClick(View v) {
@@ -250,6 +349,7 @@ public class AddReunionActivity extends AppCompatActivity /*implements
 
 
     }*/
+
 
 }
 
