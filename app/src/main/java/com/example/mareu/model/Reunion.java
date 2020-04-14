@@ -1,6 +1,5 @@
 package com.example.mareu.model;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -11,26 +10,26 @@ public class Reunion {
 
     private long mId;
     private String mSubject;
-    private Date mDate;
-    private Date mDuration;
-    private String mRoom;
+    private Date mStartDate;
+    private Date mEndDate;
+    private Room mRoom;
     private List<Guest> mGuests;
 
     /**
      * Constructor
      *
-     * @param id       id
-     * @param subject  subject of the meeting
-     * @param date     date of the meeting is starting
-     * @param duration duration of the meeting
-     * @param room     room of the meeting
-     * @param guests   members of the meeting
+     * @param id            id
+     * @param subject       subject of the meeting
+     * @param start_date    start_date when the meeting is starting
+     * @param end_date      end_date of the meeting // when the meeting is finishing
+     * @param room          room of the meeting
+     * @param guests        members of the meeting
      */
-    public Reunion(long id, String subject, Date date, Date duration, String room, List<Guest> guests) {
+    public Reunion(long id, String subject, Date start_date, Date end_date, Room room, List<Guest> guests) {
         mId = id;
         mSubject = subject;
-        mDate = date;
-        mDuration = duration;
+        mStartDate = start_date;
+        mEndDate = end_date;
         mRoom = room;
         mGuests = guests;
     }
@@ -53,26 +52,26 @@ public class Reunion {
     }
 
     public Date getDate() {
-        return mDate;
+        return mStartDate;
     }
 
     public void setDate(Date date) {
-        mDate = date;
+        mStartDate = date;
     }
 
     public Date getDuration() {
-        return mDuration;
+        return mEndDate;
     }
 
     public void setDuration(Date duration) {
-        mDuration = duration;
+        mEndDate = duration;
     }
 
-    public String getRoom() {
+    public Room getRoom() {
         return mRoom;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(Room room) {
         mRoom = room;
     }
 
@@ -92,14 +91,15 @@ public class Reunion {
         Reunion reunion = (Reunion) o;
         return mId == reunion.mId &&
                 Objects.equals(mSubject, reunion.mSubject) &&
-                //Objects.equals(mDate, reunion.mDate) &&
+                Objects.equals(mStartDate, reunion.mStartDate) &&
+                Objects.equals(mEndDate, reunion.mEndDate) &&
                 Objects.equals(mRoom, reunion.mRoom) &&
                 Objects.equals(mGuests, reunion.mGuests);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mSubject, /*mDate,*/ mRoom, mGuests);
+        return Objects.hash(mId, mSubject, mStartDate, mEndDate, mRoom, mGuests);
     }
 
 }

@@ -13,16 +13,17 @@ import java.util.List;
 abstract class DummyMaReuApiGenerator {
 
     private static final List<Reunion> DUMMY_REUNIONS = Arrays.asList((
-                    new Reunion(1, "Synchro lancement application", Calendar.getInstance().getTime(), new Time(1), "Marseille", Arrays.asList(
+                    new Reunion(1, "Synchro lancement application",  new Time(1649000000), new Time(820800000),  new Room(5, "Espagne", 5), Arrays.asList(
                             new Guest(6, "Sydney", "Turner", "sydney.turner@lamzone.com", "https://api.adorable.io/AVATARS/512/6.png"),
                             new Guest(7, "Edwin", "Ellis", "edwin.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/7.png")))),
-            new Reunion(2, "Traduction polonais", Calendar.getInstance().getTime(), new Time(5), "Paris", Arrays.asList((
+            new Reunion(2, "Traduction polonais", new Time(1882500000), new Time(825000000),  new Room(6, "Portugal", 8), Arrays.asList((
                             new Guest(11, "James", "Chapman", "james.chapman@lamzone.com", "https://api.adorable.io/AVATARS/512/11.png")),
                     new Guest(12, "Emma", "Cameron", "emma.cameron@lamzone.com", "https://api.adorable.io/AVATARS/512/12.png"),
                     new Guest(13, "Heather", "Scott", "heather.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/13.png"),
                     new Guest(14, "Owen", "Barrett", "owen.barrett@lamzone.com", "https://api.adorable.io/AVATARS/512/14.png"))),
-            new Reunion(2, "Point marché Asie", Calendar.getInstance().getTime(), new Time(200), "Lille", Arrays.asList((
+            new Reunion(2, "Point marché Asie", new Time(1270000000), new Time(270000000), new Room(7, "Italie", 8), Arrays.asList((
                     new Guest(48, "Rubie", "Payne", "rubie.payne@lamzone.com", "https://api.adorable.io/AVATARS/512/48.png")))));
+
 
     //TODO Sélectionner des Guests en random depuis DUMMY_GUESTS pour alimenter DUMMY_REUNIONS
     private static final List<Guest> DUMMY_GUESTS = Arrays.asList(

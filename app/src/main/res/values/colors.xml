@@ -14,7 +14,8 @@
     <color name="colorRoom5">#B4761D</color>
     <color name="colorRoom6">#BD254F</color>
     <color name="colorRoom7">#3266C4</color>
-    <color name="colorRoom8">#FFFFFF</color>
-    <color name="colorRoom9">#5F5A59</color>
+    <color name="colorRoom8">#9C27B0</color>
+    <color name="colorRoom9">#3C3938</color>
     <color name="colorRoom10">#37854A</color>
+    <string name="toast_add_reunion_color" translatable="false">#CE0A24</string>
 </resources>

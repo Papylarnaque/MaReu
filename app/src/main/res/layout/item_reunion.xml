@@ -18,9 +18,11 @@
         android:layout_width="@dimen/size_image_view"
         android:layout_height="@dimen/size_image_view"
         android:background="@drawable/circle"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <!-- BLOC OF TEXT VIEW -->
 
@@ -69,12 +71,13 @@
                 android:id="@+id/item_reunion_third_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="@string/text_third_line"
                 android:textColor="@color/colorTextView"
                 android:textStyle="italic"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

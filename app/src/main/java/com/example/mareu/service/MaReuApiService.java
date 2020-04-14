@@ -20,5 +20,4 @@ public interface MaReuApiService {
 
     List<String> getGuestsEmails(List<Guest> mGuestList);
 
-
 }

@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mareu.view.AddReunionActivity">
+
+    <item
+        android:id="@+id/overflow_create_reunion_button"
+        android:icon="@drawable/ic_save_white_30dp"
+        android:title="@string/creation_reunion_button"
+        app:showAsAction="always">
+
+    <menu>
+        <item
+            android:id="@+id/create_reunion_button"
+            android:title="@string/creation_reunion_button"
+            />
+    </menu>
+    </item>
+
+</menu>

@@ -4,12 +4,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ma_reu"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ma_reu"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.AddReunionActivity" />
         <activity
             android:name=".view.ListReunionActivity"
             android:label="@string/app_name"
@@ -20,8 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.AddReunionActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
-
-<!-- TODO AdjustResize pour gérer l'affichage pendant la saisie ??? -->
