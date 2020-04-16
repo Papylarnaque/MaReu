@@ -34,4 +34,6 @@
     <string name="filter_cancel_text">Cancel</string>
     <string name="filter_reset_text">Reset the filter</string>
     <string name="filter_date_text">Select the date to show</string>
+    <string name="toast_guests_empty">Select at least one guest!</string>
+    <string name="toast_room_unavailable">The selected room is not available</string>
 </resources>

@@ -4,6 +4,7 @@ import com.example.mareu.model.Guest;
 import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,20 +13,31 @@ import java.util.List;
 
 abstract class DummyMaReuApiGenerator {
 
+    private static Long mCalendar = Calendar.getInstance().getTimeInMillis();
+
+    // 05/06/2020 14:00:00 = 1588766400000
+    // 04/20/2020 09:00:00 = 1587366000000
+    // 1hour = 3600000
+
     private static final List<Reunion> DUMMY_REUNIONS = Arrays.asList((
-                    new Reunion(1, "Synchro lancement application",  new Time(1649000000), new Time(820800000),  new Room(5, "Espagne", 5), Arrays.asList(
+                    new Reunion(1, "Synchro lancement application", new Date(Long.parseLong("1587369600000")), new Date(Long.parseLong("1587369600000") + 3600000), new Room(5, "Espagne", 5), Arrays.asList(
                             new Guest(6, "Sydney", "Turner", "sydney.turner@lamzone.com", "https://api.adorable.io/AVATARS/512/6.png"),
                             new Guest(7, "Edwin", "Ellis", "edwin.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/7.png")))),
-            new Reunion(2, "Traduction polonais", new Time(1882500000), new Time(825000000),  new Room(6, "Portugal", 8), Arrays.asList((
+            new Reunion(2, "Traduction polonais", new Date(Long.parseLong("1587366000000")), new Date(Long.parseLong("1587366000000")+3600000), new Room(5, "Espagne", 5), Arrays.asList((
                             new Guest(11, "James", "Chapman", "james.chapman@lamzone.com", "https://api.adorable.io/AVATARS/512/11.png")),
                     new Guest(12, "Emma", "Cameron", "emma.cameron@lamzone.com", "https://api.adorable.io/AVATARS/512/12.png"),
                     new Guest(13, "Heather", "Scott", "heather.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/13.png"),
                     new Guest(14, "Owen", "Barrett", "owen.barrett@lamzone.com", "https://api.adorable.io/AVATARS/512/14.png"))),
-            new Reunion(2, "Point marché Asie", new Time(1270000000), new Time(270000000), new Room(7, "Italie", 8), Arrays.asList((
-                    new Guest(48, "Rubie", "Payne", "rubie.payne@lamzone.com", "https://api.adorable.io/AVATARS/512/48.png")))));
+            new Reunion(3, "Point marché Asie", new Date(Long.parseLong("1588766400000")), new Date(Long.parseLong("1588766400000")+7200000), new Room(7, "Italie", 8), Arrays.asList((
+                    new Guest(48, "Rubie", "Payne", "rubie.payne@lamzone.com", "https://api.adorable.io/AVATARS/512/48.png")))),
+            new Reunion(4, "Weekly", new Date(Long.parseLong("1588770000000")), new Date(Long.parseLong("1588770000000")+ 10800000), new Room(6, "Portugal", 8), Arrays.asList((
+                            new Guest(86, "Carlos", "Campbell", "carlos.campbell@lamzone.com", "https://api.adorable.io/AVATARS/512/86.png")),
+                    new Guest(87, "Paul", "Cunningham", "paul.cunningham@lamzone.com", "https://api.adorable.io/AVATARS/512/87.png"),
+                    new Guest(88, "Alfred", "Warren", "alfred.warren@lamzone.com", "https://api.adorable.io/AVATARS/512/88.png"),
+                    new Guest(89, "Tess", "Wright", "tess.wright@lamzone.com", "https://api.adorable.io/AVATARS/512/89.png"),
+                    new Guest(90, "Maya", "Myers", "maya.myers@lamzone.com", "https://api.adorable.io/AVATARS/512/90.png"),
+                    new Guest(91, "Miller", "Nelson", "miller.nelson@lamzone.com", "https://api.adorable.io/AVATARS/512/91.png"))));
 
-
-    //TODO Sélectionner des Guests en random depuis DUMMY_GUESTS pour alimenter DUMMY_REUNIONS
     private static final List<Guest> DUMMY_GUESTS = Arrays.asList(
             new Guest(1, "Sabrina", "Harper", "sabrina.harper@lamzone.com", "https://api.adorable.io/AVATARS/512/1.png"),
             new Guest(2, "Daniel", "Walker", "daniel.walker@lamzone.com", "https://api.adorable.io/AVATARS/512/2.png"),
@@ -228,11 +240,9 @@ abstract class DummyMaReuApiGenerator {
             new Guest(199, "Melanie", "Mason", "melanie.mason@lamzone.com", "https://api.adorable.io/AVATARS/512/199.png"),
             new Guest(200, "Eric", "Ellis", "eric.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/200.png"));
 
-
-    //TODO Sélectionner des Rooms en random depuis DUMMY_ROOMS pour alimenter DUMMY_REUNIONS
     private static final List<Room> DUMMY_ROOMS = Arrays.asList(
             new Room(1, "France", 3),
-            new Room(1, "Belgique", 3),
+            new Room(2, "Belgique", 3),
             new Room(3, "Suisse", 3),
             new Room(4, "Allemagne", 5),
             new Room(5, "Espagne", 5),
@@ -252,12 +262,6 @@ abstract class DummyMaReuApiGenerator {
 
     static List<Room> generateRooms() {
         return new ArrayList<>(DUMMY_ROOMS);
-    }
-
-    static List<Guest> generateRandomGuests() {
-
-        DUMMY_GUESTS.get(1);
-        return new ArrayList<>(DUMMY_GUESTS);
     }
 
 }

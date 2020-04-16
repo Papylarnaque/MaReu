@@ -11,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mareu.R;
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Guest;
@@ -18,16 +22,14 @@ import com.example.mareu.model.Reunion;
 import com.example.mareu.service.MaReuApiService;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements Filterable {
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  implements Filterable {
-
+    private static final String TEXT_SEPARATOR = " - ";
     private List<Reunion> mReunions;
     private MaReuApiService mMaReuApiService;
 
@@ -39,8 +41,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  imp
         return new MyViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, final int position) {
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(mReunions.get(position).getStartDate());
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(mReunions.get(position).getEndDate());
+
+        long durationReunion = endDate.getTimeInMillis() - startDate.getTimeInMillis();
+
         // Call the ApiService
         mMaReuApiService = DI.getMaReuApiService();
         // Affect a color for each room
@@ -48,31 +59,33 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  imp
 
         // First line of the reunion
         String subjectReunion = mReunions.get(position).getSubject();
-        Date mDuration = mReunions.get(position).getDuration();
         Calendar mCalendar = Calendar.getInstance();
-        mCalendar.setTime(mDuration);
+        SimpleDateFormat dateFormatDuration = new SimpleDateFormat("(HH:mm)");
+        TimeZone UTC = TimeZone.getTimeZone("UTC");
+        dateFormatDuration.setTimeZone(UTC);
+        mCalendar.setTimeInMillis(durationReunion);
+        String durationString = dateFormatDuration.format(mCalendar.getTimeInMillis());
+
         int minutes = mCalendar.get(Calendar.MINUTE);
         int hours = mCalendar.get(Calendar.HOUR);
         // TextHolder for the first line
-        // TODO Envisager PrettyTime
-        String mFirstLineString = null;
-        if (hours == 0) {
+        // TODO Changer la façon de renvoyer le texte au layout ! Envisager PrettyTime
+        String mFirstLineString = subjectReunion + TEXT_SEPARATOR + durationString;
+/*        if (hours == 0) {
             mFirstLineString = subjectReunion + " (" + minutes + "min)";
         } else if (minutes == 0) {
             mFirstLineString = subjectReunion + " (" + hours + "h)";
         } else {
             mFirstLineString = subjectReunion + " (" + hours + "h" + minutes + "min)";
-        }
+        }*/
         holder.mFirstLine.setText(mFirstLineString);
 
         // Second line of the reunion
-        Date dateReunion = mReunions.get(position).getDate();
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT);
         String roomReunion = mReunions.get(position).getRoom().getRoomName();
-        String strDate = dateFormat.format(dateReunion);
+        String startDateString = dateFormat.format(startDate.getTime());
         // TextHolder for the second line
-        String textSeparator = " - ";
-        String mSecondLineString = strDate + textSeparator + "<b>" + roomReunion + "</b>";
+        String mSecondLineString = startDateString + TEXT_SEPARATOR + "<b>" + roomReunion + "</b>";
         holder.mSecondLine.setText(Html.fromHtml(mSecondLineString));
 
         // Third line of the reunion
@@ -120,36 +133,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  imp
     }
 
     private void setRoomColor(@NonNull MyViewHolder holder, int position) {
-        switch ((int) mReunions.get(position).getRoom().getId()){
+        switch ((int) mReunions.get(position).getRoom().getId()) {
             case 1:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(),R.color.colorRoom1));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorRoom1));
                 break;
             case 2:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom2));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom2));
                 break;
             case 3:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom3));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom3));
                 break;
             case 4:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom4));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom4));
                 break;
             case 5:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom5));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom5));
                 break;
             case 6:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom6));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom6));
                 break;
             case 7:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom7));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom7));
                 break;
             case 8:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom8));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom8));
                 break;
             case 9:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom9));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom9));
                 break;
             case 10:
-                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(),R.color.colorRoom10));
+                holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.mColor.getContext(), R.color.colorRoom10));
                 break;
 
         }

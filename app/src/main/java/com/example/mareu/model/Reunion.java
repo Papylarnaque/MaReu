@@ -51,19 +51,19 @@ public class Reunion {
         mSubject = topic;
     }
 
-    public Date getDate() {
+    public Date getStartDate() {
         return mStartDate;
     }
 
-    public void setDate(Date date) {
+    public void setStartDate(Date date) {
         mStartDate = date;
     }
 
-    public Date getDuration() {
+    public Date getEndDate() {
         return mEndDate;
     }
 
-    public void setDuration(Date duration) {
+    public void setEndDate(Date duration) {
         mEndDate = duration;
     }
 

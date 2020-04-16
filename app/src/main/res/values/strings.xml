@@ -27,10 +27,12 @@
     <string name="toast_duration_empty">Renseignez la durée de la réunion!</string>
     <string name="save_the_reunion">CREER LA REUNION</string>
     <string name="toast_subject_empty">Renseignez un titre à la réunion!</string>
-    <string name="toast_room_empty">Select a room for the reunion!</string>
-    <string name="filter_rooms_text">Selectionner les salles de réunion à afficher</string>
+    <string name="toast_room_empty">Sélectionnez la salle de réunion!</string>
+    <string name="filter_rooms_text">Sélectionnez les salles de réunion à afficher</string>
     <string name="filter_ok_text">Voir</string>
     <string name="filter_cancel_text">Annuler</string>
     <string name="filter_reset_text">Réinitialiser le filter</string>
     <string name="filter_date_text">Selectionner la date à afficher</string>
+    <string name="toast_guests_empty">Saisissez au moins un invité!</string>
+    <string name="toast_room_unavailable">La salle choisie n\'est pas disponible</string>
 </resources>

@@ -108,9 +108,9 @@ public class ListReunionActivity extends AppCompatActivity {
         final List<Reunion> mReunions = mMaReuApiService.getReunions();
         Collections.sort(mReunions, new Comparator<Reunion>() {
             public int compare(Reunion o1, Reunion o2) {
-                if (o1.getDate() == null || o2.getDate() == null)
+                if (o1.getStartDate() == null || o2.getStartDate() == null)
                     return 0;
-                return o1.getDate().compareTo(o2.getDate());
+                return o1.getStartDate().compareTo(o2.getStartDate());
             }
         });
         adapter.setData(mReunions);
@@ -121,17 +121,17 @@ public class ListReunionActivity extends AppCompatActivity {
         // Build an AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(ListReunionActivity.this);
 
-        final DatePicker mDatePicker = new DatePicker(ListReunionActivity.this);
-        mDatePicker.setCalendarViewShown(false);
+        final DatePicker datePicker = new DatePicker(ListReunionActivity.this);
+        datePicker.setCalendarViewShown(false);
 
-        builder.setTitle(R.string.filter_date_text);
-        builder.setView(mDatePicker);
+        //builder.setTitle(R.string.filter_date_text);
+        builder.setView(datePicker);
 
         builder.setPositiveButton(R.string.filter_ok_text, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                int year = mDatePicker.getYear();
-                int month = mDatePicker.getMonth();
-                int day = mDatePicker.getDayOfMonth();
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth();
+                int day = datePicker.getDayOfMonth();
                 Calendar mCalendarPicker = Calendar.getInstance();
                 mCalendarPicker.set(year, month, day);
 
@@ -139,7 +139,7 @@ public class ListReunionActivity extends AppCompatActivity {
                 int size = mReunions.size();
                 for (int e = 0; e < size; e++) {
                     Calendar mReunionsCalendar = Calendar.getInstance();
-                    mReunionsCalendar.setTime(mReunions.get(e).getDate());
+                    mReunionsCalendar.setTime(mReunions.get(e).getStartDate());
                     if (mCalendarPicker.get(Calendar.YEAR) == mReunionsCalendar.get(Calendar.YEAR)
                             && mCalendarPicker.get(Calendar.DAY_OF_YEAR) == mReunionsCalendar.get(Calendar.DAY_OF_YEAR)) {
                         mReunionsFiltered.add(mReunions.get(e));
@@ -214,6 +214,9 @@ public class ListReunionActivity extends AppCompatActivity {
                     }
                 }
                 adapter.setData(mReunionsFiltered);
+
+
+                // TODO Si rien de sélectionner, Toast pour prévenir l'utilisateur qu'il n'aura rien dans la vue
             }
         });
 

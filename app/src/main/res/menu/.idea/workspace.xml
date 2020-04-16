@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="81bf3149-8c21-4af4-9194-21b955326579" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../drawable/ic_save_white_30dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../drawable/ic_search_black_24dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/menu_add_reunion.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../values-en/ids.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../values-en/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../values/ids.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../androidTest/java/com/example/mareu/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../androidTest/java/com/example/mareu/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/mareu/model/Reunion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/mareu/model/Reunion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/mareu/service/DummyMaReuApiGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/mareu/service/DummyMaReuApiGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/mareu/service/DummyMaReuApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/mareu/service/DummyMaReuApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/mareu/service/MaReuApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/mareu/service/MaReuApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/mareu/view/AddReunionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/mareu/view/AddReunionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/mareu/view/ListReunionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/mareu/view/ListReunionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/example/mareu/view/MyAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/example/mareu/view/MyAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drawable/circle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../drawable/circle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/activity_add_reunion.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/activity_add_reunion.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/activity_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/activity_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/fragment_reunion.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/item_reunion.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menu_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/menu_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../build.gradle" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="ProjectId" id="1aXUSCl216ch29HTXO0w5ePszAt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="81bf3149-8c21-4af4-9194-21b955326579" name="Default Changelist" comment="" />
+      <created>1586881429609</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586881429609</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

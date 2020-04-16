@@ -6,10 +6,10 @@
     <dimen name="add_reunion_text_size">20sp</dimen>
     <dimen name="margin_double">20dp</dimen>
     <dimen name="big_padding">50dp</dimen>
-    <dimen name="large_margin">100dp</dimen>
+    <dimen name="large_margin">60dp</dimen>
     <dimen name="margin_half">5dp</dimen>
     <dimen name="margin_large">60dp</dimen>
-    <dimen name="text">15sp</dimen>
-    <dimen name="picker">100dp</dimen>
-    <dimen name="picker_margin">100dp</dimen>
+    <dimen name="text">25sp</dimen>
+    <dimen name="picker">140dp</dimen>
+    <dimen name="picker_margin">300dp</dimen>
 </resources>
