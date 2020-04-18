@@ -5,15 +5,13 @@ import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class DummyMaReuApiService implements MaReuApiService {
 
     private final List<Reunion> mReunions = DummyMaReuApiGenerator.generateReunions();
-    private List<Guest> mGuests = DummyMaReuApiGenerator.generateGuests();
-    private List<Room> mRooms = DummyMaReuApiGenerator.generateRooms();
+    private final List<Guest> mGuests = DummyMaReuApiGenerator.generateGuests();
+    private final List<Room> mRooms = DummyMaReuApiGenerator.generateRooms();
     private Reunion mReunion;
 
     @Override
@@ -50,7 +48,7 @@ public class DummyMaReuApiService implements MaReuApiService {
 
     @Override
     public List<String> getGuestsEmails(List<Guest> mGuests) {
-        ArrayList<String> mEmailsList = new ArrayList<String>();
+        ArrayList<String> mEmailsList = new ArrayList<>();
         for (Guest m : mGuests) mEmailsList.add(m.getEmail());
         return mEmailsList;
     }

@@ -25,6 +25,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements Filterable {
@@ -60,24 +61,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
         // First line of the reunion
         String subjectReunion = mReunions.get(position).getSubject();
         Calendar mCalendar = Calendar.getInstance();
-        SimpleDateFormat dateFormatDuration = new SimpleDateFormat("(HH:mm)");
+        SimpleDateFormat dateFormatDuration = new SimpleDateFormat("(HH:mm)", Locale.getDefault());
         TimeZone UTC = TimeZone.getTimeZone("UTC");
         dateFormatDuration.setTimeZone(UTC);
         mCalendar.setTimeInMillis(durationReunion);
         String durationString = dateFormatDuration.format(mCalendar.getTimeInMillis());
 
-        int minutes = mCalendar.get(Calendar.MINUTE);
-        int hours = mCalendar.get(Calendar.HOUR);
         // TextHolder for the first line
-        // TODO Changer la façon de renvoyer le texte au layout ! Envisager PrettyTime
         String mFirstLineString = subjectReunion + TEXT_SEPARATOR + durationString;
-/*        if (hours == 0) {
-            mFirstLineString = subjectReunion + " (" + minutes + "min)";
-        } else if (minutes == 0) {
-            mFirstLineString = subjectReunion + " (" + hours + "h)";
-        } else {
-            mFirstLineString = subjectReunion + " (" + hours + "h" + minutes + "min)";
-        }*/
         holder.mFirstLine.setText(mFirstLineString);
 
         // Second line of the reunion
@@ -107,11 +98,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView mColor;
-        TextView mFirstLine;
-        TextView mSecondLine;
-        TextView mThirdLine;
-        ImageButton mButtonDeleteReunion;
+        final ImageView mColor;
+        final TextView mFirstLine;
+        final TextView mSecondLine;
+        final TextView mThirdLine;
+        final ImageButton mButtonDeleteReunion;
 
 
         MyViewHolder(@NonNull View itemView) {

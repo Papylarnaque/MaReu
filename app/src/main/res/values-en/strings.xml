@@ -8,6 +8,7 @@
     <string name="text_first_line">TEST reunion - Floor room</string>
     <string name="text_third_line">test@openclassrooms.com</string>
     <string name="item_reunion_delete_description">Delete the reunion</string>
+    <string name="room_image_list_reunions_content_description">"Room image"</string>
     <!--Add Reunion Layout-->
     <string name="add_reunion_title">Book a room</string>
     <string name="add_reunion_edit_subject">Type a title (max 30 char)</string>
@@ -36,4 +37,5 @@
     <string name="filter_date_text">Select the date to show</string>
     <string name="toast_guests_empty">Select at least one guest!</string>
     <string name="toast_room_unavailable">The selected room is not available</string>
+
 </resources>

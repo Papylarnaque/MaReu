@@ -5,6 +5,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,9 +30,9 @@ import com.example.mareu.model.Guest;
 import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MaReuApiService;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,17 +47,16 @@ public class AddReunionActivity extends AppCompatActivity {
     private Spinner mRoom;
     private MultiAutoCompleteTextView guestsEmails;
     private MaReuApiService mMaReuApiService;
-    private List<Guest> mGuests = new ArrayList<>();
+    private final List<Guest> mGuests = new ArrayList<>();
     private Room mRoomReunion;
-    private Date mStartDate, mEndDate;
+    private Date mStartDate;
     private NumberPicker durationMinutes, durationHours;
-    TextView startDatePickerText;
-    TextView startTimePickerText;
+    private TextView startDatePickerText;
+    private TextView startTimePickerText;
 
-    final Calendar datePickerCalendar = Calendar.getInstance();
-    final Calendar timePickerCalendar = Calendar.getInstance();
+    private final Calendar datePickerCalendar = Calendar.getInstance();
+    private final Calendar timePickerCalendar = Calendar.getInstance();
 
-    private static final DecimalFormat FORMATTER = new DecimalFormat("00");
     private static final String SEPARATOR = ", ";
 
     @Override
@@ -72,12 +73,10 @@ public class AddReunionActivity extends AppCompatActivity {
     /**
      * Instanciates the views and variables
      *
-     * @return
      */
     private void init() {
         // ************************************ Toolbar init ***************************************
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.add_reunion_title);
         setSupportActionBar(toolbar);
         // ************************************ Layout bindings ************************************
         mMaReuApiService = DI.getMaReuApiService();
@@ -90,11 +89,11 @@ public class AddReunionActivity extends AppCompatActivity {
         durationHours.setMaxValue(DURATION_MAX_HOURS);
         durationHours.setMinValue(DURATION_MIN_HOURS);
         setDurationsMinutesValues();
+        setupFloatingLabelError();
 
+        startDatePickerText = findViewById(R.id.select_start_date_add_reunion);
 
-        startDatePickerText = (TextView) findViewById(R.id.select_start_date_add_reunion);
         final DatePickerDialog.OnDateSetListener startDate = new DatePickerDialog.OnDateSetListener() {
-
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
@@ -104,7 +103,6 @@ public class AddReunionActivity extends AppCompatActivity {
                 datePickerCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateStartDateLabel();
             }
-
         };
 
         startDatePickerText.setOnClickListener(new View.OnClickListener() {
@@ -117,8 +115,7 @@ public class AddReunionActivity extends AppCompatActivity {
             }
         });
 
-
-        startTimePickerText = (TextView) findViewById(R.id.select_start_time_add_reunion);
+        startTimePickerText = findViewById(R.id.select_start_time_add_reunion);
         final TimePickerDialog.OnTimeSetListener startTime = new TimePickerDialog.OnTimeSetListener() {
 
             @Override
@@ -150,6 +147,34 @@ public class AddReunionActivity extends AppCompatActivity {
         startTimePickerText.setText(timeFormat.format(timePickerCalendar.getTime()));
     }
 
+    private void setupFloatingLabelError() {
+        final TextInputLayout floatingUsernameLabel = findViewById(R.id.subject_add_reunion_text_input_layout);
+        floatingUsernameLabel.getEditText().addTextChangedListener(new TextWatcher() {
+            // ...
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+/*
+                if (text.length() > 0 && text.length() <= 4) {
+                    floatingUsernameLabel.setError(getString(R.string.add_reunion_edit_subject));
+                    floatingUsernameLabel.setErrorEnabled(true);
+                } else {
+                    floatingUsernameLabel.setErrorEnabled(false);
+                }*/
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
 
     private void setDurationsMinutesValues() {
         String[] step15 = {"0", "15", "30", "45"};
@@ -177,7 +202,7 @@ public class AddReunionActivity extends AppCompatActivity {
      * ROOMS SPINNER - Sets the spinner for the Room selection
      */
     private void setRoomsArrayAdapter() {
-        ArrayList<String> mRoomsList = new ArrayList<String>();
+        ArrayList<String> mRoomsList = new ArrayList<>();
         mRoomsList.add(0, getResources().getString(R.string.room_add_reunion_text));
         for (Room roomIterator : mMaReuApiService.getRooms()) {
             //String roomIteratorString = roomIterator.getRoomName() + " (" + roomIterator.getSeats() + getString(R.string.room_seats_text) + ")";
@@ -247,7 +272,7 @@ public class AddReunionActivity extends AppCompatActivity {
         getGuestsFromEmailsSelected();
         getRoomFromRoomNameSelected();
         mStartDate = getStartReunionDateTimeFromSelection();
-        mEndDate = getEndReunionDateTimeFromSelection();
+        Date mEndDate = getEndReunionDateTimeFromSelection();
         // Avoids reunion creation if the duration is 0h0min *******************************
         if (mSubjectString.isEmpty()) {
             toastCancelCreation(R.string.toast_subject_empty);
@@ -269,7 +294,7 @@ public class AddReunionActivity extends AppCompatActivity {
                     mGuests);
             mMaReuApiService.addReunion(mReunion);
 
-            Intent intent = new Intent(AddReunionActivity.this, ListReunionActivity.class);
+            Intent intent = new Intent(AddReunionActivity.this, MainActivity.class);
             startActivity(intent);
         }
     }
@@ -326,7 +351,7 @@ public class AddReunionActivity extends AppCompatActivity {
         Toast toastCreateReunion = Toast.makeText(getApplicationContext(), intString, Toast.LENGTH_LONG);
         toastCreateReunion.setGravity(Gravity.CENTER, 0, 0);
         View toastViewCreateReunion = toastCreateReunion.getView();
-        TextView toastTextCreateReunion = (TextView) toastViewCreateReunion.findViewById(android.R.id.message);
+        TextView toastTextCreateReunion = toastViewCreateReunion.findViewById(android.R.id.message);
         toastTextCreateReunion.setTextColor(Color.parseColor(getString(R.string.toast_add_reunion_color)));
         toastCreateReunion.show();
     }

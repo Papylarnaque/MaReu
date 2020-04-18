@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ListReunionActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private MyAdapter adapter;
     private MaReuApiService mMaReuApiService;
@@ -97,7 +97,7 @@ public class ListReunionActivity extends AppCompatActivity {
         mButtonNewReunion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListReunionActivity.this, AddReunionActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddReunionActivity.class);
                 startActivity(intent);
             }
         });
@@ -119,9 +119,9 @@ public class ListReunionActivity extends AppCompatActivity {
     private void setDateFilter() {
         final List<Reunion> mReunions = mMaReuApiService.getReunions();
         // Build an AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(ListReunionActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-        final DatePicker datePicker = new DatePicker(ListReunionActivity.this);
+        final DatePicker datePicker = new DatePicker(MainActivity.this);
         datePicker.setCalendarViewShown(false);
 
         //builder.setTitle(R.string.filter_date_text);
@@ -162,7 +162,7 @@ public class ListReunionActivity extends AppCompatActivity {
     private void setRoomsFilter() {
         final List<Reunion> mReunions = mMaReuApiService.getReunions();
         // Build an AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(ListReunionActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
         // String array for alert dialog multi choice items
         int size = mMaReuApiService.getRooms().size();
@@ -185,8 +185,8 @@ public class ListReunionActivity extends AppCompatActivity {
                 // Update the current focused item's checked status
                 checkedRooms[which] = isChecked;
 
-                // Get the current focused item
-                String currentItem = mRoomsList.get(which);
+/*                // Get the current focused item
+                String currentItem = mRoomsList.get(which);*/
             }
         });
 

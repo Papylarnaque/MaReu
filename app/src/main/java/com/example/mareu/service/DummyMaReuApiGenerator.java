@@ -5,10 +5,10 @@ import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 abstract class DummyMaReuApiGenerator {
@@ -28,7 +28,7 @@ abstract class DummyMaReuApiGenerator {
                     new Guest(12, "Emma", "Cameron", "emma.cameron@lamzone.com", "https://api.adorable.io/AVATARS/512/12.png"),
                     new Guest(13, "Heather", "Scott", "heather.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/13.png"),
                     new Guest(14, "Owen", "Barrett", "owen.barrett@lamzone.com", "https://api.adorable.io/AVATARS/512/14.png"))),
-            new Reunion(3, "Point marché Asie", new Date(Long.parseLong("1588766400000")), new Date(Long.parseLong("1588766400000")+7200000), new Room(7, "Italie", 8), Arrays.asList((
+            new Reunion(3, "Point marché Asie", new Date(Long.parseLong("1588766400000")), new Date(Long.parseLong("1588766400000")+7200000), new Room(7, "Italie", 8), Collections.singletonList((
                     new Guest(48, "Rubie", "Payne", "rubie.payne@lamzone.com", "https://api.adorable.io/AVATARS/512/48.png")))),
             new Reunion(4, "Weekly", new Date(Long.parseLong("1588770000000")), new Date(Long.parseLong("1588770000000")+ 10800000), new Room(6, "Portugal", 8), Arrays.asList((
                             new Guest(86, "Carlos", "Campbell", "carlos.campbell@lamzone.com", "https://api.adorable.io/AVATARS/512/86.png")),

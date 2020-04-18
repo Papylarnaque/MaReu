@@ -8,20 +8,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ma_reu"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MaRéu">
         <activity
-            android:name=".view.ListReunionActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".view.SplashScreen"
+            android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".view.AddReunionActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/MaRéu.NoActionBar" />
+
+        <activity
+            android:name=".view.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MaRéu.NoActionBar"
+            />
     </application>
 
 </manifest>

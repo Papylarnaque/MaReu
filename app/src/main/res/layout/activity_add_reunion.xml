@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@android:style/Widget.Holo.Light"
     android:id="@+id/activity_add_reunion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +15,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:theme="@style/MaRéu.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scrollView_add_reunion">
@@ -24,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/MaRéu.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,47 +40,69 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guideline">
 
-
-            <EditText
-                android:id="@+id/subject_add_reunion"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/subject_add_reunion_text_input_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_double"
                 android:layout_marginTop="@dimen/margin_large"
-                android:layout_marginEnd="@dimen/margin_double"
-                android:autofillHints=""
-                android:hint="@string/add_reunion_edit_subject"
-                android:inputType="text"
-                android:maxLength="30"
-                android:textSize="@dimen/text"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/add_reunion_edit_subject" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/subject_add_reunion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_double"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_double"
+                    android:ems="10"
+                    android:hint="@string/add_reunion_edit_subject"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textSize="@dimen/text"
+                    style="@android:style/Widget.Material.EditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/add_reunion_edit_subject"
+                    android:autofillHints="" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/select_start_date_add_reunion"
-                android:layout_width="wrap_content"
+                style="@android:style/Widget.Holo.Light.Button"
+                android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_double"
                 android:calendarViewShown="false"
-                android:drawableEnd="@drawable/mr_cast_checkbox"
+                android:drawableStart="@drawable/ic_date_range_black_24dp"
+                android:drawablePadding="@dimen/margin_normal"
                 android:text="@string/date_add_reunion_text"
+                android:textSize="@dimen/text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subject_add_reunion" />
+                app:layout_constraintTop_toBottomOf="@+id/subject_add_reunion_text_input_layout" />
 
             <TextView
                 android:id="@+id/select_start_time_add_reunion"
-                android:layout_width="wrap_content"
+                style="@android:style/Widget.Holo.Light.Button"
+                android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_double"
                 android:calendarViewShown="false"
-                android:drawableEnd="@drawable/mr_cast_checkbox"
+                android:drawableStart="@drawable/ic_access_time_black_24dp"
+                android:drawablePadding="@dimen/margin_normal"
                 android:text="@string/time_add_reunion_text"
+                android:textSize="@dimen/text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,8 +112,8 @@
                 android:id="@+id/duration_add_reunion_text"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
-                android:text="@string/duration_add_reunion_text"
                 android:layout_marginTop="@dimen/margin_double"
+                android:text="@string/duration_add_reunion_text"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,10 +125,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintGuide_percent="0.5"/>
+                app:layout_constraintGuide_percent="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
 
-<!-- TODO Label pour NumberPicker -->
+            <!-- TODO Label pour NumberPicker -->
 
             <NumberPicker
                 android:id="@+id/duration_hours_add_reunion"
@@ -118,6 +141,7 @@
 
             <NumberPicker
                 android:id="@+id/duration_minutes_add_reunion"
+
                 android:layout_width="0dp"
                 android:layout_height="@dimen/picker"
                 android:layout_marginEnd="@dimen/large_margin"
@@ -141,6 +165,7 @@
 
             <Spinner
                 android:id="@+id/room_add_reunion"
+                style="@android:style/Widget.Holo.Light.DropDownItem.Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -158,11 +183,11 @@
                 android:layout_marginTop="@dimen/margin_double"
                 android:layout_marginEnd="@dimen/margin_double"
                 android:hint="@string/guest_list_text_view"
+                style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/room_add_reunion"
                 tools:text="@string/guest_list_text_view" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
