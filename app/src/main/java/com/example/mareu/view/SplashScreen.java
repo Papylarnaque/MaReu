@@ -12,8 +12,6 @@ import com.example.mareu.R;
 public class SplashScreen extends Activity {
 
     private static int SPLASH_TIME_OUT = 1000;
-    private Animation anim;
-    private ImageView imageView;
 
 
     @Override
@@ -21,8 +19,8 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        imageView = findViewById(R.id.imageView2); // Declare an imageView to show the animation.
-        anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in); // Create the animation.
+        ImageView imageView = findViewById(R.id.imageView2); // Declare an imageView to show the animation.
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in); // Create the animation.
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

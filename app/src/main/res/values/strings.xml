@@ -13,6 +13,7 @@
     <string name="text_first_line">Reunion TEST - Salle RDC</string>
     <string name="text_second_line">6 mai 2020 19:30</string>
     <string name="text_third_line">test@openclassrooms.com</string>
+    <string name="toast_room_not_selected">Sélectionnez au moins une salle de réunion!</string>
     <!--Add Reunion Layout-->
     <string name="add_reunion_title">Réservez une salle</string>
     <string name="add_reunion_edit_subject">Saisir un titre (30 max)</string>

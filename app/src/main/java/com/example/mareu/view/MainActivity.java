@@ -3,11 +3,16 @@ package com.example.mareu.view;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -74,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_sort_date: {
                 setDateSorter();
 
-                return true;}
+                return true;
+            }
 
             case R.id.action_filter_date: {
-                // TODO Datepicker pour sélectionner la date à laquelle faire les réunions
                 setDateFilter();
                 return true;
             }
@@ -103,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void setDateSorter() {
         final List<Reunion> mReunions = mMaReuApiService.getReunions();
         Collections.sort(mReunions, new Comparator<Reunion>() {
@@ -124,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         final DatePicker datePicker = new DatePicker(MainActivity.this);
         datePicker.setCalendarViewShown(false);
 
-        //builder.setTitle(R.string.filter_date_text);
         builder.setView(datePicker);
 
         builder.setPositiveButton(R.string.filter_ok_text, new DialogInterface.OnClickListener() {
@@ -162,18 +165,15 @@ public class MainActivity extends AppCompatActivity {
     private void setRoomsFilter() {
         final List<Reunion> mReunions = mMaReuApiService.getReunions();
         // Build an AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         // String array for alert dialog multi choice items
-        int size = mMaReuApiService.getRooms().size();
-        String[] mRooms = new String[size];
-        for (int i = 0; i < size; i++) {
+        final int numberRooms = mMaReuApiService.getRooms().size();
+        String[] mRooms = new String[numberRooms];
+        for (int i = 0; i < numberRooms; i++) {
             mRooms[i] = mMaReuApiService.getRooms().get(i).getRoomName();
         }
-
         // Boolean array for initial selected items
-        final boolean[] checkedRooms = new boolean[size];
-
+        final boolean[] checkedRooms = new boolean[numberRooms];
         // Convert the Rooms array to list
         final List<String> mRoomsList = Arrays.asList(mRooms);
 
@@ -196,28 +196,14 @@ public class MainActivity extends AppCompatActivity {
         // Set a title for alert dialog
         builder.setTitle(R.string.filter_rooms_text);
 
+
         // Set the positive/yes button click listener
         builder.setPositiveButton(R.string.filter_ok_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                int size = mReunions.size();
-                List<Reunion> mReunionsFiltered = new ArrayList<>();
-                for (int i = 0; i < checkedRooms.length; i++) {
-                    boolean checked = checkedRooms[i];
-                    if (checked) {
-                        String mRoomFiltered = mRoomsList.get(i);
-                        for (int e = 0; e < size; e++) {
-                            if (mRoomFiltered.equals(mReunions.get(e).getRoom().getRoomName())) {
-                                mReunionsFiltered.add(mReunions.get(e));
-                            }
-                        }
-                    }
-                }
-                adapter.setData(mReunionsFiltered);
 
-
-                // TODO Si rien de sélectionner, Toast pour prévenir l'utilisateur qu'il n'aura rien dans la vue
             }
+
         });
 
         // Set the negative/no button click listener
@@ -228,9 +214,53 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        AlertDialog dialog = builder.create();
+        final AlertDialog dialog = builder.create();
         // Display the alert dialog on interface
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+
+                Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        // Checks the checked rooms
+                        List<Reunion> mReunionsFiltered = new ArrayList<>();
+                        int sizeReunionsList = mReunions.size();
+                        boolean atLeastOneChecked = false;
+                        for (int i = 0; i < checkedRooms.length; i++) {
+                            boolean checked = checkedRooms[i];
+                            if (checked) {
+                                atLeastOneChecked = true;
+                                String mRoomFiltered = mRoomsList.get(i);
+                                for (int e = 0; e < sizeReunionsList; e++) {
+                                    if (mRoomFiltered.equals(mReunions.get(e).getRoom().getRoomName())) {
+                                        mReunionsFiltered.add(mReunions.get(e));
+                                    }
+                                }
+                            }
+                        }
+                        // if no rooms checked, Toast to alert user
+                        if (!atLeastOneChecked) {
+                            Toast toastRoomNotSelected = Toast.makeText(getApplicationContext(), R.string.toast_room_not_selected, Toast.LENGTH_LONG);
+                            toastRoomNotSelected.setGravity(Gravity.CENTER, 0, 0);
+                            View toastViewCreateReunion = toastRoomNotSelected.getView();
+                            TextView toastTextCreateReunion = toastViewCreateReunion.findViewById(android.R.id.message);
+                            toastTextCreateReunion.setTextColor(Color.parseColor(getString(R.string.toast_add_reunion_color)));
+                            toastRoomNotSelected.show();
+                        } // Otherwise, show the selection result
+                        else {
+                            dialog.dismiss();
+                            adapter.setData(mReunionsFiltered);
+                        }
+                    }
+                });
+            }
+        });
         dialog.show();
+
     }
 
 

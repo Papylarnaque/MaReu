@@ -128,15 +128,26 @@
                 app:layout_constraintGuide_percent="0.5"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <!-- TODO Label pour NumberPicker -->
-
             <NumberPicker
                 android:id="@+id/duration_hours_add_reunion"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/picker"
                 android:inputType="datetime"
                 android:timePickerMode="spinner"
+                android:layout_marginEnd="@dimen/margin_normal"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/duration_add_reunion_text" />
+
+
+            <TextView
+                android:id="@+id/duration_hours_text_add_reunion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_half"
+                android:layout_marginTop="40dp"
+                android:text="H"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toEndOf="@+id/duration_hours_add_reunion"
                 app:layout_constraintTop_toBottomOf="@+id/duration_add_reunion_text" />
 
             <NumberPicker
@@ -147,6 +158,7 @@
                 android:layout_marginEnd="@dimen/large_margin"
                 android:inputType="datetime"
                 android:timePickerMode="spinner"
+                android:layout_marginStart="@dimen/margin_normal"
                 app:layout_constraintStart_toEndOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/duration_add_reunion_text" />
 

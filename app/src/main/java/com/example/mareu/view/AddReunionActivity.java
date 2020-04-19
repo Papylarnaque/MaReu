@@ -5,8 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +28,6 @@ import com.example.mareu.model.Guest;
 import com.example.mareu.model.Reunion;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MaReuApiService;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -72,7 +69,6 @@ public class AddReunionActivity extends AppCompatActivity {
 
     /**
      * Instanciates the views and variables
-     *
      */
     private void init() {
         // ************************************ Toolbar init ***************************************
@@ -81,6 +77,8 @@ public class AddReunionActivity extends AppCompatActivity {
         // ************************************ Layout bindings ************************************
         mMaReuApiService = DI.getMaReuApiService();
         mSubject = findViewById(R.id.subject_add_reunion);
+        startDatePickerText = findViewById(R.id.select_start_date_add_reunion);
+        startTimePickerText = findViewById(R.id.select_start_time_add_reunion);
         durationHours = findViewById(R.id.duration_hours_add_reunion);
         durationMinutes = findViewById(R.id.duration_minutes_add_reunion);
         mRoom = findViewById(R.id.room_add_reunion);
@@ -89,15 +87,18 @@ public class AddReunionActivity extends AppCompatActivity {
         durationHours.setMaxValue(DURATION_MAX_HOURS);
         durationHours.setMinValue(DURATION_MIN_HOURS);
         setDurationsMinutesValues();
-        setupFloatingLabelError();
+        setStartDatePickerDialog();
+        setStartTimePickerDialog();
+    }
 
-        startDatePickerText = findViewById(R.id.select_start_date_add_reunion);
-
+    /**
+     * DATEPICKER
+     */
+    private void setStartDatePickerDialog() {
         final DatePickerDialog.OnDateSetListener startDate = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 datePickerCalendar.set(Calendar.YEAR, year);
                 datePickerCalendar.set(Calendar.MONTH, monthOfYear);
                 datePickerCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -108,14 +109,24 @@ public class AddReunionActivity extends AppCompatActivity {
         startDatePickerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 new DatePickerDialog(AddReunionActivity.this, startDate, datePickerCalendar
                         .get(Calendar.YEAR), datePickerCalendar.get(Calendar.MONTH),
                         datePickerCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+    }
 
-        startTimePickerText = findViewById(R.id.select_start_time_add_reunion);
+    private void updateStartDateLabel() {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        startDatePickerText.setText(dateFormat.format(datePickerCalendar.getTime()));
+    }
+
+    /**
+     * TIMEPICKER
+     */
+    private void setStartTimePickerDialog() {
+
         final TimePickerDialog.OnTimeSetListener startTime = new TimePickerDialog.OnTimeSetListener() {
 
             @Override
@@ -129,7 +140,7 @@ public class AddReunionActivity extends AppCompatActivity {
         startTimePickerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 new TimePickerDialog(AddReunionActivity.this, startTime, timePickerCalendar
                         .get(Calendar.HOUR), timePickerCalendar.get(Calendar.MINUTE),
                         true).show();
@@ -137,45 +148,14 @@ public class AddReunionActivity extends AppCompatActivity {
         });
     }
 
-    private void updateStartDateLabel() {
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        startDatePickerText.setText(dateFormat.format(datePickerCalendar.getTime()));
-    }
-
     private void updateStartTimeLabel() {
         DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
         startTimePickerText.setText(timeFormat.format(timePickerCalendar.getTime()));
     }
 
-    private void setupFloatingLabelError() {
-        final TextInputLayout floatingUsernameLabel = findViewById(R.id.subject_add_reunion_text_input_layout);
-        floatingUsernameLabel.getEditText().addTextChangedListener(new TextWatcher() {
-            // ...
-            @Override
-            public void onTextChanged(CharSequence text, int start, int count, int after) {
-/*
-                if (text.length() > 0 && text.length() <= 4) {
-                    floatingUsernameLabel.setError(getString(R.string.add_reunion_edit_subject));
-                    floatingUsernameLabel.setErrorEnabled(true);
-                } else {
-                    floatingUsernameLabel.setErrorEnabled(false);
-                }*/
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
-
+    /**
+     * DURATION MINUTES
+     */
     private void setDurationsMinutesValues() {
         String[] step15 = {"0", "15", "30", "45"};
         String[] step5 = {"0", "5", "10", "15", "20", "25", "30", "35", "40",
@@ -209,7 +189,6 @@ public class AddReunionActivity extends AppCompatActivity {
             String roomIteratorString = roomIterator.getRoomName();
             boolean roomAvailable = true;
 /*            for (Reunion reunionIterator : mMaReuApiService.getReunions()) {
-                // TODO Check if the room is available
                 // 1/ roomName
                 // 2/ date / duration of the datepicker + duration vs each reunion with the same name
                 // 3/

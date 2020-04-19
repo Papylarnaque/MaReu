@@ -12,7 +12,6 @@ public class DummyMaReuApiService implements MaReuApiService {
     private final List<Reunion> mReunions = DummyMaReuApiGenerator.generateReunions();
     private final List<Guest> mGuests = DummyMaReuApiGenerator.generateGuests();
     private final List<Room> mRooms = DummyMaReuApiGenerator.generateRooms();
-    private Reunion mReunion;
 
     @Override
     public List<Reunion> getReunions() {
