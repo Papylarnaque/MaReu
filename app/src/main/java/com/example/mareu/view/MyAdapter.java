@@ -85,8 +85,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
         // TextHolder for the third line
         StringBuilder mGuestsEmailsStringBuilder = new StringBuilder();
         for (String s : mGuestsEmails) {
-            mGuestsEmailsStringBuilder.append(s);
-            mGuestsEmailsStringBuilder.append(", ");
+            if (!s.equals(mGuestsEmails.get(mGuestsEmails.size() - 1))) {
+                mGuestsEmailsStringBuilder.append(s);
+                mGuestsEmailsStringBuilder.append(", ");
+            } else {
+                mGuestsEmailsStringBuilder.append(s);
+            }
         }
         holder.mThirdLine.setText(mGuestsEmailsStringBuilder.toString());
 

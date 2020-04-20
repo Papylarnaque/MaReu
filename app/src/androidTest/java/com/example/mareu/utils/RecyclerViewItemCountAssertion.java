@@ -13,7 +13,7 @@ import org.junit.Assert;
 public class RecyclerViewItemCountAssertion implements ViewAssertion {
     private final Matcher<Integer> matcher;
 
-    public RecyclerViewItemCountAssertion(Matcher<Integer> matcher) {
+    private RecyclerViewItemCountAssertion(Matcher<Integer> matcher) {
         this.matcher = matcher;
     }
 
@@ -33,6 +33,7 @@ public class RecyclerViewItemCountAssertion implements ViewAssertion {
 
         RecyclerView recyclerView = (RecyclerView) view;
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        assert adapter != null;
         Assert.assertThat(adapter.getItemCount(), matcher);
     }
 }

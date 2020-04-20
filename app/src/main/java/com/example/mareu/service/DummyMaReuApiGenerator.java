@@ -10,11 +10,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("SpellCheckingInspection")
 abstract class DummyMaReuApiGenerator {
 
     // 05/06/2020 14:00:00 = 1588766400000
     // 04/20/2020 09:00:00 = 1587366000000
+    // 04/27/2020 09:00:00 = 1587970800000
     // 1hour = 3600000
+    // 1 week = 604800000
 
     private static final List<Room> DUMMY_ROOMS = Arrays.asList(
             new Room(1, "Einstein", 3),
@@ -29,17 +32,21 @@ abstract class DummyMaReuApiGenerator {
             new Room(10, "Bonaparte", 10));
 
     private static final List<Reunion> DUMMY_REUNIONS = Arrays.asList((
-                    new Reunion(1, "Synchro", new Date(Long.parseLong("1587369600000")), new Date(Long.parseLong("1587369600000") + 3600000), new Room(5, "Shakespeare", 5), Arrays.asList(
+                    new Reunion(1, "Synchro weekly", new Date(Long.parseLong("1587974400000")), new Date(Long.parseLong("1587369600000") + 10800000), new Room(5, "Shakespeare", 5), Arrays.asList(
                             new Guest(6, "Sydney", "Turner", "sydney.turner@lamzone.com", "https://api.adorable.io/AVATARS/512/6.png"),
                             new Guest(7, "Edwin", "Ellis", "edwin.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/7.png")))),
-            new Reunion(2, "Debrief Covid19", new Date(Long.parseLong("1587366000000")), new Date(Long.parseLong("1587366000000") + 3600000), new Room(5, "Shakespeare", 5), Arrays.asList((
+            new Reunion(2, "New app communication", new Date(Long.parseLong("1587974400000")), new Date(Long.parseLong("1587369600000") + 1800000), new Room(8, "Tesla", 8), Arrays.asList(
+                    new Guest(153, "Patrick", "Cole", "patrick.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/153.png"),
+                    new Guest(154, "Savana", "Gibson", "savana.gibson@lamzone.com", "https://api.adorable.io/AVATARS/512/154.png"),
+                    new Guest(155, "Michael", "Scott", "michael.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/155.png"))),
+            new Reunion(3, "Debrief Covid19", new Date(Long.parseLong("1587970800000")), new Date(Long.parseLong("1587366000000") + 3600000), new Room(5, "Shakespeare", 5), Arrays.asList((
                             new Guest(11, "James", "Chapman", "james.chapman@lamzone.com", "https://api.adorable.io/AVATARS/512/11.png")),
                     new Guest(12, "Emma", "Cameron", "emma.cameron@lamzone.com", "https://api.adorable.io/AVATARS/512/12.png"),
                     new Guest(13, "Heather", "Scott", "heather.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/13.png"),
                     new Guest(14, "Owen", "Barrett", "owen.barrett@lamzone.com", "https://api.adorable.io/AVATARS/512/14.png"))),
-            new Reunion(3, "MaRéu daily", new Date(Long.parseLong("1588766400000")), new Date(Long.parseLong("1588766400000") + 7200000), new Room(7, "Lincoln", 8), Collections.singletonList((
+            new Reunion(4, "MaRéu daily", new Date(Long.parseLong("1588766400000")), new Date(Long.parseLong("1588766400000") + 7200000), new Room(7, "Lincoln", 8), Collections.singletonList((
                     new Guest(48, "Rubie", "Payne", "rubie.payne@lamzone.com", "https://api.adorable.io/AVATARS/512/48.png")))),
-            new Reunion(4, "Weekly", new Date(Long.parseLong("1588770000000")), new Date(Long.parseLong("1588770000000") + 10800000), new Room(6, "Gandhi", 8), Arrays.asList((
+            new Reunion(5, "Weekly", new Date(Long.parseLong("1588770000000")), new Date(Long.parseLong("1588770000000") + 3600000), new Room(6, "Gandhi", 8), Arrays.asList((
                             new Guest(86, "Carlos", "Campbell", "carlos.campbell@lamzone.com", "https://api.adorable.io/AVATARS/512/86.png")),
                     new Guest(87, "Paul", "Cunningham", "paul.cunningham@lamzone.com", "https://api.adorable.io/AVATARS/512/87.png"),
                     new Guest(88, "Alfred", "Warren", "alfred.warren@lamzone.com", "https://api.adorable.io/AVATARS/512/88.png"),

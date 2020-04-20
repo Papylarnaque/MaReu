@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
@@ -34,46 +33,40 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class AddReunionActivity extends AppCompatActivity {
 
-    private static final int DURATION_MIN_HOURS = 0, DURATION_STEP_MINUTES = 5, DURATION_MAX_HOURS = 3;
 
-    private EditText mSubject;
-    private Spinner mRoom;
-    private MultiAutoCompleteTextView guestsEmails;
+    // CONFIGURATION
+    public static final String SEPARATOR = ", ";
+    private static final int DURATION_MIN_HOURS = 0, DURATION_STEP_MINUTES = 5, DURATION_MAX_HOURS = 3;
+    public final List<Guest> mGuests = new ArrayList<>();
+    private final Calendar datePickerCalendar = Calendar.getInstance(), timePickerCalendar = Calendar.getInstance();
+    public Spinner mRoom;
     private MaReuApiService mMaReuApiService;
-    private final List<Guest> mGuests = new ArrayList<>();
+    public MultiAutoCompleteTextView guestsEmails;
     private Room mRoomReunion;
     private Date mStartDate;
     private NumberPicker durationMinutes, durationHours;
-    private TextView startDatePickerText;
-    private TextView startTimePickerText;
-
-    private final Calendar datePickerCalendar = Calendar.getInstance();
-    private final Calendar timePickerCalendar = Calendar.getInstance();
-
-    private static final String SEPARATOR = ", ";
+    // FOR DATA
+    private EditText mSubject;
+    private TextView startDatePickerText, startTimePickerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reunion);
         init();
-        setRoomsArrayAdapter();
-        setGuestsArrayAdapter();
     }
 
     //  *************************************** INIT  ***************************************
-
-    /**
-     * Instanciates the views and variables
-     */
+    // Instanciates the views and variables
     private void init() {
         // ************************************ Toolbar init ***************************************
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar_add_reunion);
         setSupportActionBar(toolbar);
+
+        // FOR UI
         // ************************************ Layout bindings ************************************
         mMaReuApiService = DI.getMaReuApiService();
         mSubject = findViewById(R.id.subject_add_reunion);
@@ -89,11 +82,11 @@ public class AddReunionActivity extends AppCompatActivity {
         setDurationsMinutesValues();
         setStartDatePickerDialog();
         setStartTimePickerDialog();
+        mMaReuApiService.setRoomsArrayAdapter(this);
+        mMaReuApiService.setGuestsArrayAdapter(this);
     }
 
-    /**
-     * DATEPICKER
-     */
+    // DATEPICKER
     private void setStartDatePickerDialog() {
         final DatePickerDialog.OnDateSetListener startDate = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -105,11 +98,9 @@ public class AddReunionActivity extends AppCompatActivity {
                 updateStartDateLabel();
             }
         };
-
         startDatePickerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(AddReunionActivity.this, startDate, datePickerCalendar
                         .get(Calendar.YEAR), datePickerCalendar.get(Calendar.MONTH),
                         datePickerCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -122,13 +113,9 @@ public class AddReunionActivity extends AppCompatActivity {
         startDatePickerText.setText(dateFormat.format(datePickerCalendar.getTime()));
     }
 
-    /**
-     * TIMEPICKER
-     */
+    // TIMEPICKER
     private void setStartTimePickerDialog() {
-
         final TimePickerDialog.OnTimeSetListener startTime = new TimePickerDialog.OnTimeSetListener() {
-
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 timePickerCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -136,11 +123,9 @@ public class AddReunionActivity extends AppCompatActivity {
                 updateStartTimeLabel();
             }
         };
-
         startTimePickerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new TimePickerDialog(AddReunionActivity.this, startTime, timePickerCalendar
                         .get(Calendar.HOUR), timePickerCalendar.get(Calendar.MINUTE),
                         true).show();
@@ -153,64 +138,19 @@ public class AddReunionActivity extends AppCompatActivity {
         startTimePickerText.setText(timeFormat.format(timePickerCalendar.getTime()));
     }
 
-    /**
-     * DURATION MINUTES
-     */
+    // DURATION MINUTES
     private void setDurationsMinutesValues() {
-        String[] step15 = {"0", "15", "30", "45"};
-        String[] step5 = {"0", "5", "10", "15", "20", "25", "30", "35", "40",
-                "45", "50", "55"};
-        final String[] mins;
-
-        if (Objects.equals(Integer.toString(AddReunionActivity.DURATION_STEP_MINUTES), "15")) {
-            mins = step15;
-        } else {
-            mins = step5;
+        int sizeSteps = 60 / DURATION_STEP_MINUTES;
+        String[] mins = new String[sizeSteps];
+        for (int i = 0; i < sizeSteps; i++) {
+            mins[i] = String.valueOf(DURATION_STEP_MINUTES * i);
         }
-
-        int ml = mins.length - 1;
-
-        // Prevent ArrayOutOfBoundExceptions by setting
-        // values array to null so its not checked
+        int ml = sizeSteps - 1;
+        // Prevent ArrayOutOfBoundExceptions by setting values array to null so its not checked
         durationMinutes.setDisplayedValues(null);
         durationMinutes.setMinValue(0);
         durationMinutes.setMaxValue(ml);
         durationMinutes.setDisplayedValues(mins);
-    }
-
-    /**
-     * ROOMS SPINNER - Sets the spinner for the Room selection
-     */
-    private void setRoomsArrayAdapter() {
-        ArrayList<String> mRoomsList = new ArrayList<>();
-        mRoomsList.add(0, getResources().getString(R.string.room_add_reunion_text));
-        for (Room roomIterator : mMaReuApiService.getRooms()) {
-            //String roomIteratorString = roomIterator.getRoomName() + " (" + roomIterator.getSeats() + getString(R.string.room_seats_text) + ")";
-            String roomIteratorString = roomIterator.getRoomName();
-            boolean roomAvailable = true;
-/*            for (Reunion reunionIterator : mMaReuApiService.getReunions()) {
-                // 1/ roomName
-                // 2/ date / duration of the datepicker + duration vs each reunion with the same name
-                // 3/
-                if (reunionIterator.getRoom().getRoomName().equals(roomIterator.getRoomName())
-                        && (getStartReunionDateTimeFromSelection().after(reunionIterator.getStartDate())
-                        || getStartReunionDateTimeFromSelection().before((reunionIterator.getEndDate()))
-                        || getEndReunionDateTimeFromSelection().after(reunionIterator.getStartDate())
-                        || getEndReunionDateTimeFromSelection().before((reunionIterator.getEndDate()))))
-                 {
-                     roomAvailable = false;
-                    break;
-                }
-            }*/
-            if (roomAvailable && !mRoomsList.contains(roomIteratorString)) {
-                mRoomsList.add(roomIteratorString);
-                String[] mRoomsArray = mRoomsList.toArray(new String[0]);
-                ArrayAdapter<String> adapterRooms
-                        = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mRoomsArray);
-                mRoom.setAdapter(adapterRooms);
-            }
-
-        }
     }
 
     private boolean checkRoomAvailability(String roomName, Date startDate, Date endDate) {
@@ -228,27 +168,11 @@ public class AddReunionActivity extends AppCompatActivity {
         return roomAvailable;
     }
 
-    /**
-     * GUESTS LIST MENU - Sets the autocompletion for the Guests selection
-     */
-    private void setGuestsArrayAdapter() {
-        String[] guestsEmailsList = mMaReuApiService.getGuestsEmails(mMaReuApiService.getGuests()).toArray(new String[0]);
-        // TODO Gérer le cas d'ajout a partir du nom / prénom et pas qu'à partir de l'email
-        ArrayAdapter<String> adapterGuests
-                = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, guestsEmailsList);
-        guestsEmails.setAdapter(adapterGuests);
-        guestsEmails.setThreshold(1);                                                  // Sets the minimum number of characters, to show suggestions
-        guestsEmails.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());     // then separates them with a comma
-    }
-
     //  *************************************** SAVE REUNION ***************************************
-
-    /**
-     * REUNION CREATION BUTTON - Creates the reunion
-     */
+    // REUNION CREATION BUTTON - Creates the reunion
     private void createReunion() {
         String mSubjectString = mSubject.getText().toString();
-        getGuestsFromEmailsSelected();
+        mMaReuApiService.getGuestsFromEmailsSelected(this);
         getRoomFromRoomNameSelected();
         mStartDate = getStartReunionDateTimeFromSelection();
         Date mEndDate = getEndReunionDateTimeFromSelection();
@@ -273,14 +197,12 @@ public class AddReunionActivity extends AppCompatActivity {
                     mGuests);
             mMaReuApiService.addReunion(mReunion);
 
-            Intent intent = new Intent(AddReunionActivity.this, MainActivity.class);
+            Intent intent = new Intent(AddReunionActivity.this, ListActivity.class);
             startActivity(intent);
         }
     }
 
-    /**
-     * Gets Date & Time from the pickers
-     */
+    // Get Date & Time from the pickers
     private Date getStartReunionDateTimeFromSelection() {
         // Creating a calendar
         Calendar mCalendar = Calendar.getInstance();
@@ -295,35 +217,17 @@ public class AddReunionActivity extends AppCompatActivity {
         Calendar mCalendar = Calendar.getInstance();
         mCalendar.setTime(mStartDate);
         mCalendar.add(Calendar.HOUR_OF_DAY, durationHours.getValue());
-        mCalendar.add(Calendar.MINUTE, durationMinutes.getValue());
+        mCalendar.add(Calendar.MINUTE, durationMinutes.getValue() * DURATION_STEP_MINUTES);
         return mCalendar.getTime();
     }
 
-    /**
-     * Gets the Guests from the emails chosen in the form
-     */
-    private void getGuestsFromEmailsSelected() {
-        for (String e : guestsEmails.getText().toString().split(SEPARATOR)) {
-            for (Guest eG : mMaReuApiService.getGuests()) {
-                // Avoid duplicated Guest in the Reunion
-                if (e.equals(eG.getEmail()) && !mGuests.contains(eG)) {
-                    mGuests.add(eG);
-                }
-            }
-        }
-    }
-
-    /**
-     * Gets the Room object from the Room name selected in the Spinner
-     */
+    // Gets the Room object from the Room name selected in the Spinner
     private void getRoomFromRoomNameSelected() {
         for (Room r : mMaReuApiService.getRooms()) {
             if (r.getRoomName().equals(mRoom.getSelectedItem().toString())) {
                 mRoomReunion = r;
             }
         }
-
-
     }
 
     private void toastCancelCreation(int intString) {
@@ -336,7 +240,6 @@ public class AddReunionActivity extends AppCompatActivity {
     }
 
     //  *************************************** ACTIONS ********************************************
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

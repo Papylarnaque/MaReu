@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@android:style/Widget.Holo.Light"
-    android:id="@+id/activity_add_reunion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,7 +11,6 @@
     android:paddingEnd="0dp">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:theme="@style/MaRéu.AppBarOverlay"
@@ -21,7 +19,7 @@
         app:layout_constraintTop_toTopOf="@+id/scrollView_add_reunion">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_add_reunion"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
@@ -140,7 +138,6 @@
 
 
             <TextView
-                android:id="@+id/duration_hours_text_add_reunion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_half"

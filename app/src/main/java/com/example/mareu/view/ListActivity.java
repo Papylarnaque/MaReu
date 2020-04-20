@@ -32,10 +32,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
     private MyAdapter adapter;
     private MaReuApiService mMaReuApiService;
+    private boolean[] KEEP_FILTER_ROOM;    // Keeps memory of the room filter selection
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         setUpRecyclerView();
 
-        mMaReuApiService = DI.getMaReuApiService();
-        adapter.setData(mMaReuApiService.getReunions());
-
         createNewReunionAction();
     }
 
@@ -59,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyAdapter();
         rv.setAdapter(adapter);
+
+        mMaReuApiService = DI.getMaReuApiService();
+        adapter.setData(mMaReuApiService.getReunions());
     }
 
     //  ****************************************** MENU ********************************************
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonNewReunion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddReunionActivity.class);
+                Intent intent = new Intent(ListActivity.this, AddReunionActivity.class);
                 startActivity(intent);
             }
         });
@@ -123,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
     private void setDateFilter() {
         final List<Reunion> mReunions = mMaReuApiService.getReunions();
         // Build an AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
 
-        final DatePicker datePicker = new DatePicker(MainActivity.this);
+        final DatePicker datePicker = new DatePicker(ListActivity.this);
         datePicker.setCalendarViewShown(false);
 
         builder.setView(datePicker);
@@ -165,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     private void setRoomsFilter() {
         final List<Reunion> mReunions = mMaReuApiService.getReunions();
         // Build an AlertDialog
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
         // String array for alert dialog multi choice items
         final int numberRooms = mMaReuApiService.getRooms().size();
         String[] mRooms = new String[numberRooms];
@@ -177,16 +178,17 @@ public class MainActivity extends AppCompatActivity {
         // Convert the Rooms array to list
         final List<String> mRoomsList = Arrays.asList(mRooms);
 
+        // Keep memory of the filter selection
+        if (KEEP_FILTER_ROOM != null) {
+            System.arraycopy(KEEP_FILTER_ROOM, 0, checkedRooms, 0, numberRooms);
+        }
+
         // Set multiple choice items for alert dialog
         builder.setMultiChoiceItems(mRooms, checkedRooms, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
                 // Update the current focused item's checked status
                 checkedRooms[which] = isChecked;
-
-/*                // Get the current focused item
-                String currentItem = mRoomsList.get(which);*/
             }
         });
 
@@ -201,9 +203,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.filter_ok_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
-
         });
 
         // Set the negative/no button click listener
@@ -254,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
                         else {
                             dialog.dismiss();
                             adapter.setData(mReunionsFiltered);
+                            KEEP_FILTER_ROOM = checkedRooms;
                         }
                     }
                 });

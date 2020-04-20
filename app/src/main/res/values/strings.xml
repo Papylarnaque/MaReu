@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ma Réu</string>
+    <string name="app_name">Maréu</string>
     <!--Filters texts-->
     <string name="action_sort_date_text">Trier par date</string>
     <string name="action_filter_date_text">Filtrer par date</string>
@@ -7,31 +7,20 @@
     <string name="filter_reset_text">Réinitialiser le filtre</string>
     <string name="filter_rooms_text">Sélectionnez les salles de réunion à afficher</string>
     <string name="filter_ok_text">Voir</string>
-    <string name="filter_cancel_text">Annuler</string>
-    <string name="filter_date_text">Selectionner la date à afficher</string>
     <!--List Reunion Layout-->
     <string name="text_first_line">Reunion TEST - Salle RDC</string>
     <string name="text_second_line">6 mai 2020 19:30</string>
     <string name="text_third_line">test@openclassrooms.com</string>
     <string name="toast_room_not_selected">Sélectionnez au moins une salle de réunion!</string>
     <!--Add Reunion Layout-->
-    <string name="add_reunion_title">Réservez une salle</string>
     <string name="add_reunion_edit_subject">Saisir un titre (30 max)</string>
     <string name="creation_reunion_button">Créer la réunion</string>
     <string name="guest_list_text_view">Saisir les invités</string>
-    <string name="time_add_reunion">Saisir l\'heure de début</string>
-    <string name="room_add_reunion">Saisir la salle de réunion</string>
-    <string name="date_add_reunion">Saisir la date</string>
     <string name="date_add_reunion_text">Saisir la date de la réunion</string>
     <string name="time_add_reunion_text">Saisir l\'heure de début de la réunion</string>
     <string name="duration_add_reunion_text">Saisir la durée de la réunion</string>
     <string name="room_add_reunion_text">Sélectionner la salle de la réunion</string>
-    <string name="duration_hours_add_reunion_text">h</string>
-    <string name="duration_minutes_add_reunion_text">min</string>
-    <string name="toastTextCreateReunion">min</string>
-    <string name="room_seats_text">places</string>
     <!--Add Reunion Layout - Creation action -->
-    <string name="save_the_reunion">CREER LA REUNION</string>
     <string name="toast_duration_empty">Renseignez la durée de la réunion!</string>
     <string name="toast_subject_empty">Renseignez un titre à la réunion!</string>
     <string name="toast_room_empty">Sélectionnez la salle de réunion!</string>

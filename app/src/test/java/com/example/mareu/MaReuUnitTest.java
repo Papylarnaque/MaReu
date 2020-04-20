@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class MaReuUnitTest {
 
-    private MaReuApiService mMaReuApiService = DI.getNewInstanceApiService();
+    private final MaReuApiService mMaReuApiService = DI.getNewInstanceApiService();
 
 
     @Test

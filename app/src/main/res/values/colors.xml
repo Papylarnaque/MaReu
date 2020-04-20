@@ -4,8 +4,6 @@
     <color name="colorPrimaryDark">#0068DD</color>
     <color name="colorAccent">#CE0A24</color>
     <color name="colorTextView">#000000</color>
-    <color name="colorDisabledButton">#37000000</color>
-    <color name="colorButton">#CE0A24</color>
     <!-- Room colors -->
     <color name="colorRoom1">#B092C0</color>
     <color name="colorRoom2">#7BA39D</color>

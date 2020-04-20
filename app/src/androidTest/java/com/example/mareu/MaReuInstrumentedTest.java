@@ -13,9 +13,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.mareu.di.DI;
+import com.example.mareu.model.Reunion;
 import com.example.mareu.service.MaReuApiService;
 import com.example.mareu.utils.DeleteViewAction;
-import com.example.mareu.view.MainActivity;
+import com.example.mareu.view.ListActivity;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -52,15 +53,15 @@ import static org.junit.Assert.assertThat;
 public class MaReuInstrumentedTest {
 
     // This is fixed
-    private static MaReuApiService mMaReuApiService = DI.getNewInstanceApiService();
+    private static final MaReuApiService mMaReuApiService = DI.getNewInstanceApiService();
     private static final int INITIAL_LIST_SIZE = mMaReuApiService.getReunions().size();
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule<>(MainActivity.class);
+    public final ActivityTestRule<ListActivity> mActivityRule =
+            new ActivityTestRule<>(ListActivity.class);
 
     @Before
     public void setUp() {
-        MainActivity mActivity = mActivityRule.getActivity();
+        ListActivity mActivity = mActivityRule.getActivity();
         assertThat(mActivity, notNullValue());
     }
 
@@ -111,7 +112,10 @@ public class MaReuInstrumentedTest {
 
         // Click on the creation button for a new reunion
         onView(withId(R.id.overflow_create_reunion_button))
-                .perform(doubleClick());
+                .perform(click());
+        // Click on the item menu filter by date
+        onView(withText(R.string.creation_reunion_button))
+                .perform(click());
         // Result : We check that the count of items is equal to INITIAL_LIST_SIZE+1
         onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE + 1));
     }
@@ -176,10 +180,11 @@ public class MaReuInstrumentedTest {
         // Click on the item menu filter by date
         onView(withText(R.string.action_filter_room_text))
                 .perform(click());
-        // Pick a room ("Espagne" = 2 reunions hardcoded)
-        onView(withText("Shakespeare")).perform(click());
+        // Pick a room ("Shakespeare" = 2 reunions hardcoded)
+        String room = "Shakespeare";
+        onView(withText(room)).perform(click());
         onView(withText(R.string.filter_ok_text)).perform(click());
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(2));
+        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(getNumberReunionsWithRoomText(room)));
         // ##################### RESET FILTER #####################
         // Open the overflow menu from contextual action mode.
         openContextualActionModeOverflowMenu();
@@ -189,6 +194,14 @@ public class MaReuInstrumentedTest {
         // Reset the filter => INITIAL_LIST_SIZE
         onView(withText(R.string.filter_reset_text)).perform(click());
         onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
+    }
+
+    private int getNumberReunionsWithRoomText(String room) {
+        int numberReunionsWithRoomText = 0;
+        for (Reunion r : mMaReuApiService.getReunions()) {
+            if (r.getRoom().getRoomName().equals(room)) numberReunionsWithRoomText += 1;
+        }
+        return numberReunionsWithRoomText;
     }
 
 }
