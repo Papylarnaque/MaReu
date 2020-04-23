@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_normal"
+    android:layout_marginStart="@dimen/horizontal_margin"
     android:layout_marginTop="@dimen/margin_half"
-    android:layout_marginEnd="@dimen/margin_normal"
+    android:layout_marginEnd="@dimen/horizontal_margin"
     android:orientation="vertical"
     android:paddingBottom="@dimen/padding_normal">
 
     <!-- IMAGE VIEW -->
 
     <ImageView
-        android:id="@+id/item_reunion_image"
+        android:id="@+id/item_meeting_image"
         android:layout_width="@dimen/size_image_view"
         android:layout_height="@dimen/size_image_view"
         android:background="@drawable/circle"
@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/room_image_list_reunions_content_description" />
+        android:contentDescription="@string/room_image_list_meetings_content_description" />
 
     <!-- BLOC OF TEXT VIEW -->
 
@@ -31,12 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/item_reunion_delete"
-        app:layout_constraintStart_toEndOf="@id/item_reunion_image"
+        app:layout_constraintEnd_toStartOf="@id/item_meeting_delete"
+        app:layout_constraintStart_toEndOf="@id/item_meeting_image"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/item_reunion_first_line"
+            android:id="@+id/item_meeting_first_line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_first_line"
@@ -47,12 +47,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/item_reunion_second_line"
+            android:id="@+id/item_meeting_second_line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_second_line"
             android:textColor="@color/colorTextView"
-            app:layout_constraintTop_toBottomOf="@id/item_reunion_first_line" />
+            app:layout_constraintTop_toBottomOf="@id/item_meeting_first_line" />
 
         <!-- GUEST LIST - SCROLLABLE with HorizontalScrollView -->
         <HorizontalScrollView
@@ -61,12 +61,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_reunion_second_line"
+            app:layout_constraintTop_toBottomOf="@id/item_meeting_second_line"
             tools:layout_editor_absoluteX="60dp"
             tools:layout_editor_absoluteY="30dp">
 
             <TextView
-                android:id="@+id/item_reunion_third_line"
+                android:id="@+id/item_meeting_third_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollHorizontally="true"
@@ -79,19 +79,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_reunion_second_line" />
+                app:layout_constraintTop_toBottomOf="@id/item_meeting_second_line" />
         </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- DELETE BUTTON -->
     <ImageButton
-        android:id="@+id/item_reunion_delete"
+        android:id="@+id/item_meeting_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:background="@null"
-        android:contentDescription="@string/item_reunion_delete_description"
+        android:contentDescription="@string/item_meeting_delete_description"
         android:src="@drawable/ic_delete_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

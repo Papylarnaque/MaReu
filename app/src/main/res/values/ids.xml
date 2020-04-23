@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="action_filter_room" type="id" />
+    <item name="create_meeting_button" type="id" />
 </resources>

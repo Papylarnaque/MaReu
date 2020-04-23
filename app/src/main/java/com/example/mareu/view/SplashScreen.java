@@ -11,8 +11,6 @@ import com.example.mareu.R;
 
 public class SplashScreen extends Activity {
 
-    private static int SPLASH_TIME_OUT = 1000;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +38,6 @@ public class SplashScreen extends Activity {
     }
 
 }
-
-
-/*         ImageView iv= (ImageView) findViewById(R.id.imageView2);
-        iv.setBackgroundResource(R.mipmap.ma_reu);
-
-              new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(SplashScreen.this,
-                        MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-        },SPLASH_TIME_OUT);*/
 
 
 

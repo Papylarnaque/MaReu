@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mareu.R;
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Guest;
-import com.example.mareu.model.Reunion;
-import com.example.mareu.service.MaReuApiService;
+import com.example.mareu.model.Meeting;
+import com.example.mareu.service.ApiService;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,14 +31,14 @@ import java.util.TimeZone;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements Filterable {
 
     private static final String TEXT_SEPARATOR = " - ";
-    private List<Reunion> mReunions;
-    private MaReuApiService mMaReuApiService;
+    private List<Meeting> mMeetings;
+    private ApiService mMaReuApiService;
 
     @NonNull
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_reunion, parent, false);
+                .inflate(R.layout.item_meeting, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -47,19 +47,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, final int position) {
 
         Calendar startDate = Calendar.getInstance();
-        startDate.setTime(mReunions.get(position).getStartDate());
+        startDate.setTime(mMeetings.get(position).getStartDate());
         Calendar endDate = Calendar.getInstance();
-        endDate.setTime(mReunions.get(position).getEndDate());
+        endDate.setTime(mMeetings.get(position).getEndDate());
 
         long durationReunion = endDate.getTimeInMillis() - startDate.getTimeInMillis();
 
         // Call the ApiService
-        mMaReuApiService = DI.getMaReuApiService();
+        mMaReuApiService = DI.getApiService();
         // Affect a color for each room
         setRoomColor(holder, position);
 
-        // First line of the reunion
-        String subjectReunion = mReunions.get(position).getSubject();
+        // First line of the meeting
+        String subjectReunion = mMeetings.get(position).getSubject();
         Calendar mCalendar = Calendar.getInstance();
         SimpleDateFormat dateFormatDuration = new SimpleDateFormat("(HH:mm)", Locale.getDefault());
         TimeZone UTC = TimeZone.getTimeZone("UTC");
@@ -71,16 +71,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
         String mFirstLineString = subjectReunion + TEXT_SEPARATOR + durationString;
         holder.mFirstLine.setText(mFirstLineString);
 
-        // Second line of the reunion
+        // Second line of the meeting
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT);
-        String roomReunion = mReunions.get(position).getRoom().getRoomName();
+        String roomReunion = mMeetings.get(position).getRoom().getRoomName();
         String startDateString = dateFormat.format(startDate.getTime());
         // TextHolder for the second line
         String mSecondLineString = startDateString + TEXT_SEPARATOR + "<b>" + roomReunion + "</b>";
         holder.mSecondLine.setText(Html.fromHtml(mSecondLineString));
 
-        // Third line of the reunion
-        List<Guest> mGuestsList = mReunions.get(position).getGuests();
+        // Third line of the meeting
+        List<Guest> mGuestsList = mMeetings.get(position).getGuests();
         List<String> mGuestsEmails = mMaReuApiService.getGuestsEmails(mGuestsList);
         // TextHolder for the third line
         StringBuilder mGuestsEmailsStringBuilder = new StringBuilder();
@@ -101,34 +101,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
         deleteButton(holder, position);
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
-        final ImageView mColor;
-        final TextView mFirstLine;
-        final TextView mSecondLine;
-        final TextView mThirdLine;
-        final ImageButton mButtonDeleteReunion;
-
-
-        MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mColor = itemView.findViewById(R.id.item_reunion_image);
-            mFirstLine = itemView.findViewById(R.id.item_reunion_first_line);
-            mSecondLine = itemView.findViewById(R.id.item_reunion_second_line);
-            mThirdLine = itemView.findViewById((R.id.item_reunion_third_line));
-            //mThirdLine.setSelected(true);
-            mButtonDeleteReunion = itemView.findViewById(R.id.item_reunion_delete);
-        }
+    void setData(List<Meeting> meetings) {
+        this.mMeetings = meetings;
+        notifyDataSetChanged(); // dit à l'adapter de se rafraichir
     }
 
     //  ****************************************** INIT ********************************************
 
-    void setData(List<Reunion> reunions) {
-        this.mReunions = reunions;
-        notifyDataSetChanged(); // dit à l'adapter de se rafraichir
-    }
-
     private void setRoomColor(@NonNull MyViewHolder holder, int position) {
-        switch ((int) mReunions.get(position).getRoom().getId()) {
+        switch ((int) mMeetings.get(position).getRoom().getId()) {
             case 1:
                 holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorRoom1));
                 break;
@@ -163,28 +144,43 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
         }
     }
 
-
-    //  ****************************************** ACTIONS  ****************************************
-
-
     private void deleteButton(@NonNull MyViewHolder holder, final int position) {
-        holder.mButtonDeleteReunion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Suppression de la réunion " + mReunions.get(position).getSubject(), Toast.LENGTH_SHORT).show();
-                deleteItem(position);
-                setData(mReunions);
-            }
+        holder.mButtonDeleteReunion.setOnClickListener(view -> {
+            Toast.makeText(view.getContext(), "Suppression de la réunion " + mMeetings.get(position).getSubject(), Toast.LENGTH_SHORT).show();
+            deleteItem(position);
+            setData(mMeetings);
         });
     }
 
+
+    //  ****************************************** ACTIONS  ****************************************
+
     private void deleteItem(int position) {
-        mMaReuApiService.deleteReunion(mReunions.get(position));
+        mMaReuApiService.deleteReunion(mMeetings.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mReunions.size();
+        return mMeetings.size();
+    }
+
+    static class MyViewHolder extends RecyclerView.ViewHolder {
+        final ImageView mColor;
+        final TextView mFirstLine;
+        final TextView mSecondLine;
+        final TextView mThirdLine;
+        final ImageButton mButtonDeleteReunion;
+
+
+        MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mColor = itemView.findViewById(R.id.item_meeting_image);
+            mFirstLine = itemView.findViewById(R.id.item_meeting_first_line);
+            mSecondLine = itemView.findViewById(R.id.item_meeting_second_line);
+            mThirdLine = itemView.findViewById((R.id.item_meeting_third_line));
+            //mThirdLine.setSelected(true);
+            mButtonDeleteReunion = itemView.findViewById(R.id.item_meeting_delete);
+        }
     }
 
     @Override

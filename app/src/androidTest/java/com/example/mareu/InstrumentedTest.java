@@ -13,8 +13,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.mareu.di.DI;
-import com.example.mareu.model.Reunion;
-import com.example.mareu.service.MaReuApiService;
+import com.example.mareu.model.Meeting;
+import com.example.mareu.service.ApiService;
 import com.example.mareu.utils.DeleteViewAction;
 import com.example.mareu.view.ListActivity;
 
@@ -50,10 +50,10 @@ import static org.junit.Assert.assertThat;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class MaReuInstrumentedTest {
+public class InstrumentedTest {
 
     // This is fixed
-    private static final MaReuApiService mMaReuApiService = DI.getNewInstanceApiService();
+    private static final ApiService mMaReuApiService = DI.getNewInstanceApiService();
     private static final int INITIAL_LIST_SIZE = mMaReuApiService.getReunions().size();
     @Rule
     public final ActivityTestRule<ListActivity> mActivityRule =
@@ -71,63 +71,63 @@ public class MaReuInstrumentedTest {
     @Test
     public void MaReuList_shouldNotBeEmpty() {
         // First scroll to the position that needs to be matched and click on it.
-        onView(withId(R.id.maReu_list_recycler_view)).check(matches(hasMinimumChildCount(1)));
+        onView(withId(R.id.list_recycler_view)).check(matches(hasMinimumChildCount(1)));
     }
 
     @Test
-    public void add_reunion() {
+    public void add_meeting() {
         // Given : We check that the count of items is equal to INITIAL_LIST_SIZE
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
-        // Click on the creation button for a new reunion
-        onView(withId(R.id.button_add_reunion))
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
+        // Click on the creation button for a new meeting
+        onView(withId(R.id.button_add_meeting))
                 .perform(click());
         // SUBJECT FILLING
-        onView(withId(R.id.subject_add_reunion))
+        onView(withId(R.id.subject_add_meeting))
                 .perform(click());
-        onView(withId(R.id.subject_add_reunion))
+        onView(withId(R.id.subject_add_meeting))
                 .perform(typeText("New meeting"));
         // START DATE FILLING
-        onView(withId(R.id.select_start_date_add_reunion))
+        onView(withId(R.id.select_start_date_add_meeting))
                 .perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 6, 6));
         onView(withText("OK")).perform(click());
         // START TIME FILLING
-        onView(withId(R.id.select_start_time_add_reunion))
+        onView(withId(R.id.select_start_time_add_meeting))
                 .perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(15, 0));
         onView(withText("OK")).perform(click());
         // DURATION FILLING
-        onView(withId(R.id.duration_hours_add_reunion))
+        onView(withId(R.id.duration_hours_add_meeting))
                 .perform(new GeneralClickAction(Tap.SINGLE, GeneralLocation.TOP_CENTER, Press.FINGER, 1, 0));
-        onView(withId(R.id.duration_minutes_add_reunion))
+        onView(withId(R.id.duration_minutes_add_meeting))
                 .perform(new GeneralClickAction(Tap.SINGLE, GeneralLocation.TOP_CENTER, Press.FINGER, 1, 0));
         // ROOM FILLING
-        onView(withId(R.id.room_add_reunion))
+        onView(withId(R.id.room_add_meeting))
                 .perform(click());
         onData(anything()).atPosition(1).perform(click());
         // GUESTS FILLING
-        onView(withId(R.id.guest_add_reunion))
+        onView(withId(R.id.guest_add_meeting))
                 .perform(typeText("f"));
         onData(anything()).atPosition(1).perform(click());
 
-        // Click on the creation button for a new reunion
-        onView(withId(R.id.overflow_create_reunion_button))
+        // Click on the creation button for a new meeting
+        onView(withId(R.id.overflow_create_meeting_button))
                 .perform(click());
         // Click on the item menu filter by date
-        onView(withText(R.string.creation_reunion_button))
+        onView(withText(R.string.creation_meeting_button))
                 .perform(click());
         // Result : We check that the count of items is equal to INITIAL_LIST_SIZE+1
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE + 1));
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE + 1));
     }
 
     @Test
-    public void add_reunion_missing_subject() {
-        // Click on the creation button for a new reunion
-        onView(withId(R.id.button_add_reunion))
+    public void add_meeting_missing_subject() {
+        // Click on the creation button for a new meeting
+        onView(withId(R.id.button_add_meeting))
                 .perform(click());
 
-        // Click on the creation button for a new reunion
-        onView(withId(R.id.overflow_create_reunion_button))
+        // Click on the creation button for a new meeting
+        onView(withId(R.id.overflow_create_meeting_button))
                 .perform(doubleClick());
 
         // Result : We check that the Toast is displayed on screen
@@ -135,28 +135,28 @@ public class MaReuInstrumentedTest {
     }
 
     @Test
-    public void delete_reunion() {
+    public void delete_meeting() {
         // Given : We check that the count of items is equal to INITIAL_LIST_SIZE
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
-        // Push on delete button for reunion at index = 1
-        onView(withId(R.id.maReu_list_recycler_view))
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
+        // Push on delete button for meeting at index = 1
+        onView(withId(R.id.list_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // We check that the count of items is equal to INITIAL_LIST_SIZE
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE - 1));
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE - 1));
     }
 
     @Test
-    public void filter_reunion_by_date() {
+    public void filter_meeting_by_date() {
         // Open the overflow menu from contextual action mode.
         openContextualActionModeOverflowMenu();
         // Click on the item menu filter by date
         onView(withText(R.string.action_filter_date_text))
                 .perform(click());
-        // Pick a date, example 6th may 2020 ( 2 reunions hardcoded in DummyMaReuApiGenerator for this date )
+        // Pick a date, example 6th may 2020 ( 2 meetings hardcoded in DummyMaReuApiGenerator for this date )
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 5, 6));
         onView(withText(R.string.filter_ok_text)).perform(click());
-        // We check that the count of items is 2 <-> Because 2 reunions hardcoded in DummyMaReuApiGenerator
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(2));
+        // We check that the count of items is 2 <-> Because 2 meetings hardcoded in DummyMaReuApiGenerator
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(2));
         // #################### REPEAT for another date picked ! #####################
         // Open the overflow menu from contextual action mode.
         openContextualActionModeOverflowMenu();
@@ -164,27 +164,27 @@ public class MaReuInstrumentedTest {
         onView(withText(R.string.action_filter_date_text))
                 .perform(click());
 
-        // Pick another date, example 6th may 2019 ( 0 reunions ! )
+        // Pick another date, example 6th may 2019 ( 0 meetings ! )
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2019, 5, 6));
         onView(withText(R.string.filter_ok_text)).perform(click());
         // We check that the count of items is 0
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(0));
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(0));
     }
 
     @Test
-    public void filter_reunion_by_room() {
+    public void filter_meeting_by_room() {
         // Before setting the filter => INITIAL_LIST_SIZE
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
         // Open the overflow menu from contextual action mode.
         openContextualActionModeOverflowMenu();
         // Click on the item menu filter by date
         onView(withText(R.string.action_filter_room_text))
                 .perform(click());
-        // Pick a room ("Shakespeare" = 2 reunions hardcoded)
+        // Pick a room ("Shakespeare" = 2 meetings hardcoded)
         String room = "Shakespeare";
         onView(withText(room)).perform(click());
         onView(withText(R.string.filter_ok_text)).perform(click());
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(getNumberReunionsWithRoomText(room)));
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(getNumberReunionsWithRoomText(room)));
         // ##################### RESET FILTER #####################
         // Open the overflow menu from contextual action mode.
         openContextualActionModeOverflowMenu();
@@ -193,12 +193,12 @@ public class MaReuInstrumentedTest {
                 .perform(click());
         // Reset the filter => INITIAL_LIST_SIZE
         onView(withText(R.string.filter_reset_text)).perform(click());
-        onView(withId(R.id.maReu_list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
     }
 
     private int getNumberReunionsWithRoomText(String room) {
         int numberReunionsWithRoomText = 0;
-        for (Reunion r : mMaReuApiService.getReunions()) {
+        for (Meeting r : mMaReuApiService.getReunions()) {
             if (r.getRoom().getRoomName().equals(room)) numberReunionsWithRoomText += 1;
         }
         return numberReunionsWithRoomText;

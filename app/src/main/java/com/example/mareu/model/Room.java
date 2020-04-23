@@ -16,23 +16,8 @@ public class Room {
         return mId;
     }
 
-    public void setId(long id) {
-        mId = id;
-    }
-
     public String getRoomName() {
         return mRoomName;
     }
 
-    public void setRoomName(String roomName) {
-        mRoomName = roomName;
-    }
-
-    public long getSeats() {
-        return mSeats;
-    }
-
-    public void setSeats(long seats) {
-        mSeats = seats;
-    }
 }

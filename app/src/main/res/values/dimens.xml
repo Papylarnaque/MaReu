@@ -5,10 +5,10 @@
     <dimen name="margin_double">20dp</dimen>
     <dimen name="large_margin">100dp</dimen>
     <dimen name="margin_half">5dp</dimen>
-    <dimen name="margin_large">60dp</dimen>
     <dimen name="text">15sp</dimen>
     <dimen name="picker">100dp</dimen>
     <dimen name="button_width">350dp</dimen>
     <dimen name="splash_text">35sp</dimen>
     <dimen name="splash_image_size">100dp</dimen>
+    <dimen name="horizontal_margin">10dp</dimen>
 </resources>

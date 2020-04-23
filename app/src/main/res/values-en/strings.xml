@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Maréu</string>
     <string name="action_sort_date_text">Sort by date</string>
     <string name="action_filter_date_text">Filter by date</string>
     <string name="action_filter_room_text">Filter by meeting room</string>
-    <!--List Reunion Layout-->
-    <string name="text_first_line">TEST reunion - Floor room</string>
+    <!--List Meeting Layout-->
+    <string name="text_first_line">TEST meeting - Floor room</string>
     <string name="text_second_line">May, 6th, 2020 19:30</string>
     <string name="text_third_line">test@openclassrooms.com</string>
     <string name="toast_room_not_selected">Select at least one room!</string>
     <string name="filter_rooms_text">Select the rooms to show</string>
     <string name="filter_ok_text">Show</string>
     <string name="filter_reset_text">Reset the filter</string>
-    <!--Add Reunion Layout-->
-    <string name="add_reunion_edit_subject">Type a title (max 30 char)</string>
-    <string name="creation_reunion_button">Create the reunion</string>
+    <!--Add Meeting Layout-->
+    <string name="add_meeting_edit_subject">Type a title (max 30 char)</string>
+    <string name="creation_meeting_button">Create the meeting</string>
     <string name="guest_list_text_view">Select the guests</string>
-    <string name="date_add_reunion_text">Select the date of the reunion</string>
-    <string name="time_add_reunion_text">Select the beginning time of the reunion</string>
-    <string name="duration_add_reunion_text">Select the duration of the reunion</string>
-    <string name="room_add_reunion_text">Select the meeting room</string>
-    <string name="toast_duration_empty">Select the duration of the reunion!</string>
-    <string name="toast_subject_empty">Set a title for the reunion!</string>
-    <string name="toast_room_empty">Select a room for the reunion!</string>
+    <string name="date_add_meeting_text">Select the date of the meeting</string>
+    <string name="time_add_meeting_text">Select the beginning time of the meeting</string>
+    <string name="duration_add_meeting_text">Select the duration of the meeting</string>
+    <string name="room_add_meeting_text">Select the meeting room</string>
+    <string name="toast_duration_empty">Select the duration of the meeting!</string>
+    <string name="toast_subject_empty">Set a title for the meeting!</string>
+    <string name="toast_room_empty">Select a room for the meeting!</string>
     <string name="toast_guests_empty">Select at least one guest!</string>
     <string name="toast_room_unavailable">The selected room is not available</string>
     <!--Content Description-->
-    <string name="item_reunion_delete_description">Delete the reunion</string>
-    <string name="room_image_list_reunions_content_description">"Room image"</string>
+    <string name="item_meeting_delete_description">Delete the meeting</string>
+    <string name="room_image_list_meetings_content_description">"Room image"</string>
 </resources>

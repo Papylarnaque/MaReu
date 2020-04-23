@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Maréu</string>
+    <string name="app_name" translatable="false">Ma réu</string>
     <!--Filters texts-->
     <string name="action_sort_date_text">Trier par date</string>
     <string name="action_filter_date_text">Filtrer par date</string>
@@ -13,13 +13,13 @@
     <string name="text_third_line">test@openclassrooms.com</string>
     <string name="toast_room_not_selected">Sélectionnez au moins une salle de réunion!</string>
     <!--Add Reunion Layout-->
-    <string name="add_reunion_edit_subject">Saisir un titre (30 max)</string>
-    <string name="creation_reunion_button">Créer la réunion</string>
+    <string name="add_meeting_edit_subject">Saisir un titre (30 max)</string>
+    <string name="creation_meeting_button">Créer la réunion</string>
     <string name="guest_list_text_view">Saisir les invités</string>
-    <string name="date_add_reunion_text">Saisir la date de la réunion</string>
-    <string name="time_add_reunion_text">Saisir l\'heure de début de la réunion</string>
-    <string name="duration_add_reunion_text">Saisir la durée de la réunion</string>
-    <string name="room_add_reunion_text">Sélectionner la salle de la réunion</string>
+    <string name="date_add_meeting_text">Saisir la date de la réunion</string>
+    <string name="time_add_meeting_text">Saisir l\'heure de début de la réunion</string>
+    <string name="duration_add_meeting_text">Saisir la durée de la réunion</string>
+    <string name="room_add_meeting_text">Sélectionner la salle de la réunion</string>
     <!--Add Reunion Layout - Creation action -->
     <string name="toast_duration_empty">Renseignez la durée de la réunion!</string>
     <string name="toast_subject_empty">Renseignez un titre à la réunion!</string>
@@ -28,6 +28,6 @@
     <string name="toast_room_unavailable">La salle choisie n\'est pas disponible</string>
     <!--Content Description-->
     <string name="splashscreen_content_description" translatable="false">SplashScreen</string>
-    <string name="item_reunion_delete_description">Supprimer la réunion</string>
-    <string name="room_image_list_reunions_content_description">"Image salle de réunion""</string>
+    <string name="item_meeting_delete_description">Supprimer la réunion</string>
+    <string name="room_image_list_meetings_content_description">"Image salle de réunion""</string>
 </resources>
