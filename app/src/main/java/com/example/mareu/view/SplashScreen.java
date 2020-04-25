@@ -15,9 +15,9 @@ public class SplashScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
+        setContentView(R.layout.activity_splashscreen);
 
-        ImageView imageView = findViewById(R.id.imageView2); // Declare an imageView to show the animation.
+        ImageView imageView = findViewById(R.id.image_splashscreen); // Declare an imageView to show the animation.
         Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in); // Create the animation.
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override

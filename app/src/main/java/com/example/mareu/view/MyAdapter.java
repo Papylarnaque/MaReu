@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements Filterable {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     private static final String TEXT_SEPARATOR = " - ";
     private List<Meeting> mMeetings;
@@ -174,19 +174,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mColor = itemView.findViewById(R.id.item_meeting_image);
+            mColor = itemView.findViewById(R.id.item_image_meeting);
             mFirstLine = itemView.findViewById(R.id.item_meeting_first_line);
             mSecondLine = itemView.findViewById(R.id.item_meeting_second_line);
             mThirdLine = itemView.findViewById((R.id.item_meeting_third_line));
-            //mThirdLine.setSelected(true);
-            mButtonDeleteReunion = itemView.findViewById(R.id.item_meeting_delete);
+            mButtonDeleteReunion = itemView.findViewById(R.id.item_image_meeting_delete);
         }
     }
 
-    @Override
-    public Filter getFilter() {
-        return null;
-    }
 
 }
 

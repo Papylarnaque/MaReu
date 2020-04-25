@@ -14,8 +14,7 @@ import java.util.List;
 abstract class DummyApiGenerator {
 
     // 05/06/2020 14:00:00 = 1588766400000
-    // 04/20/2020 09:00:00 = 1587366000000
-    // 04/27/2020 09:00:00 = 1587970800000
+    // 05/04/2020 09:00:00 = 1588575600000
     // 1hour = 3600000
     // 1 week = 604800000
 
@@ -32,14 +31,14 @@ abstract class DummyApiGenerator {
             new Room(10, "Bonaparte", 10));
 
     private static final List<Meeting> DUMMY_MEETINGS = Arrays.asList((
-                    new Meeting(1, "Synchro weekly", new Date(Long.parseLong("1587974400000")), new Date(Long.parseLong("1587369600000") + 10800000), new Room(5, "Shakespeare", 5), Arrays.asList(
+                    new Meeting(1, "Synchro weekly", new Date(Long.parseLong("1588579200000")), new Date(Long.parseLong("1588579200000") + 10800000), new Room(5, "Shakespeare", 5), Arrays.asList(
                             new Guest(6, "Sydney", "Turner", "sydney.turner@lamzone.com", "https://api.adorable.io/AVATARS/512/6.png"),
                             new Guest(7, "Edwin", "Ellis", "edwin.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/7.png")))),
-            new Meeting(2, "New app communication", new Date(Long.parseLong("1587974400000")), new Date(Long.parseLong("1587369600000") + 1800000), new Room(8, "Tesla", 8), Arrays.asList(
+            new Meeting(2, "New app communication", new Date(Long.parseLong("1588579200000")), new Date(Long.parseLong("1588579200000") + 1800000), new Room(8, "Tesla", 8), Arrays.asList(
                     new Guest(153, "Patrick", "Cole", "patrick.cole@lamzone.com", "https://api.adorable.io/AVATARS/512/153.png"),
                     new Guest(154, "Savana", "Gibson", "savana.gibson@lamzone.com", "https://api.adorable.io/AVATARS/512/154.png"),
                     new Guest(155, "Michael", "Scott", "michael.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/155.png"))),
-            new Meeting(3, "Debrief Covid19", new Date(Long.parseLong("1587970800000")), new Date(Long.parseLong("1587366000000") + 3600000), new Room(5, "Shakespeare", 5), Arrays.asList((
+            new Meeting(3, "Debrief Covid19", new Date(Long.parseLong("1588575600000")), new Date(Long.parseLong("1588575600000") + 3600000), new Room(5, "Shakespeare", 5), Arrays.asList((
                             new Guest(11, "James", "Chapman", "james.chapman@lamzone.com", "https://api.adorable.io/AVATARS/512/11.png")),
                     new Guest(12, "Emma", "Cameron", "emma.cameron@lamzone.com", "https://api.adorable.io/AVATARS/512/12.png"),
                     new Guest(13, "Heather", "Scott", "heather.scott@lamzone.com", "https://api.adorable.io/AVATARS/512/13.png"),

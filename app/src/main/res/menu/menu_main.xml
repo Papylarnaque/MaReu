@@ -3,27 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.mareu.view.ListActivity">
     <item
-        android:id="@+id/overflow_create_meeting_button"
+        android:id="@+id/menu_overflow_button_create_meeting"
         android:icon="@drawable/ic_filter_list_white_30dp"
-        app:showAsAction="always">
+        app:showAsAction="ifRoom"
+        tools:ignore="MenuTitle">
 
         <menu>
 
             <item
-                android:id="@+id/action_filter_date"
+                android:id="@+id/menu_filter_date"
                 android:orderInCategory="100"
-                android:title="@string/action_filter_date_text"
+                android:title="@string/menu_filter_date"
                 app:showAsAction="never" />
 
             <item
-                android:id="@+id/action_filter_room"
+                android:id="@+id/menu_filter_room"
                 android:orderInCategory="200"
-                android:title="@string/action_filter_room_text" />
+                android:title="@string/menu_filter_room" />
 
             <item
-                android:id="@+id/action_sort_date"
+                android:id="@+id/menu_sort_date"
                 android:orderInCategory="300"
-                android:title="@string/action_sort_date_text"
+                android:title="@string/menu_sort_date"
                 app:showAsAction="never" />
 
         </menu>

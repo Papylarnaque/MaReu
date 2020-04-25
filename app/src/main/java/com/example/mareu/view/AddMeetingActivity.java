@@ -36,19 +36,20 @@ import java.util.Objects;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
+    public static final String EMAILS_LIST_SEPARATOR = ", "; // Separator for listview in UI
+    private static final int DURATION_MAX_HOURS = 3; // Max duration for a meeting (in hours)
+    private static final int DURATION_STEP_MINUTES = 5; // Duration interval for minutes
 
-    // CONFIGURATION
-    public static final String SEPARATOR = ", ";
-    private static final int DURATION_MIN_HOURS = 0, DURATION_STEP_MINUTES = 5, DURATION_MAX_HOURS = 3;
     public final List<Guest> mGuests = new ArrayList<>();
-    private final Calendar datePickerCalendar = Calendar.getInstance(), timePickerCalendar = Calendar.getInstance();
     public Spinner mRoom;
-    private ApiService apiService;
     public MultiAutoCompleteTextView guestsEmails;
+
+    private final Calendar datePickerCalendar = Calendar.getInstance();
+    private final Calendar timePickerCalendar = Calendar.getInstance();
+    private ApiService apiService;
     private Room mRoomReunion;
     private Date mStartDate;
     private NumberPicker durationMinutes, durationHours;
-    // FOR DATA
     private EditText mSubject;
     private TextView startDatePickerText, startTimePickerText;
 
@@ -72,16 +73,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         // FOR UI
         // ************************************ Layout bindings ************************************
         apiService = DI.getApiService();
-        mSubject = findViewById(R.id.subject_add_meeting);
-        startDatePickerText = findViewById(R.id.select_start_date_add_meeting);
-        startTimePickerText = findViewById(R.id.select_start_time_add_meeting);
-        durationHours = findViewById(R.id.duration_hours_add_meeting);
-        durationMinutes = findViewById(R.id.duration_minutes_add_meeting);
-        mRoom = findViewById(R.id.room_add_meeting);
-        guestsEmails = findViewById(R.id.guest_add_meeting);
+        mSubject = findViewById(R.id.edit_text_add_meeting_subject);
+        startDatePickerText = findViewById(R.id.text_add_meeting_datepicker);
+        startTimePickerText = findViewById(R.id.text_add_meeting_timepicker);
+        durationHours = findViewById(R.id.numberpicker_add_meeting_duration_hours_);
+        durationMinutes = findViewById(R.id.numberpicker_add_meeting_duration_minutes_);
+        mRoom = findViewById(R.id.spinner_add_meeting_room);
+        guestsEmails = findViewById(R.id.autocomplete_text_add_meeting_guests);
         // ************************************ Layout Parametrization *****************************
         durationHours.setMaxValue(DURATION_MAX_HOURS);
-        durationHours.setMinValue(DURATION_MIN_HOURS);
+        durationHours.setMinValue(0);
         setDurationsMinutesValues();
         setStartDatePickerDialog();
         setStartTimePickerDialog();
@@ -139,6 +140,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         durationMinutes.setDisplayedValues(mins);
     }
 
+    // ROOM AVAILABILITY CHECKER
     private boolean checkRoomAvailability(String roomName, Date startDate, Date endDate) {
         boolean roomAvailable = false;
         for (Meeting meetingIterator : apiService.getReunions()) {
@@ -154,6 +156,33 @@ public class AddMeetingActivity extends AppCompatActivity {
         return roomAvailable;
     }
 
+    // GUESTS LIST MENU - Sets the autocompletion for the Guests selection
+    private void setGuestsArrayAdapter() {
+        String[] guestsEmailsList = apiService.getGuestsEmails(apiService.getGuests()).toArray(new String[0]);
+        ArrayAdapter<String> adapterGuests
+                = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, guestsEmailsList);
+        guestsEmails.setAdapter(adapterGuests);
+        guestsEmails.setThreshold(1);                                                  // Sets the minimum number of characters, to show suggestions
+        guestsEmails.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());     // then separates them with a comma
+    }
+
+    // ROOMS SPINNER - Sets the spinner for the Room selection
+    private void setRoomsArrayAdapter() {
+        ArrayList<String> mRoomsList = new ArrayList<>();
+        mRoomsList.add(0, getResources().getString(R.string.add_meeting_room));
+        for (Room roomIterator : apiService.getRooms()) {
+            String roomIteratorString = roomIterator.getRoomName();
+            if (!mRoomsList.contains(roomIteratorString)) {
+                mRoomsList.add(roomIteratorString);
+                String[] mRoomsArray = mRoomsList.toArray(new String[0]);
+                ArrayAdapter<String> adapterRooms
+                        = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mRoomsArray);
+                mRoom.setAdapter(adapterRooms);
+            }
+        }
+    }
+
+
     /*************************************** SAVE REUNION ***********************************/
     // REUNION CREATION BUTTON - Creates the meeting
     private void createReunion() {
@@ -167,7 +196,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             toastCancelCreation(R.string.toast_subject_empty);
         } else if (durationHours.getValue() == 0 && durationMinutes.getValue() == 0) {
             toastCancelCreation(R.string.toast_duration_empty);
-        } else if (mRoom.getSelectedItem().toString().equals(getResources().getString(R.string.room_add_meeting_text))) {
+        } else if (mRoom.getSelectedItem().toString().equals(getResources().getString(R.string.add_meeting_room))) {
             toastCancelCreation(R.string.toast_room_empty);
         } else if (mGuests.isEmpty()) {
             toastCancelCreation(R.string.toast_guests_empty);
@@ -225,7 +254,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         toastCreateReunion.show();
     }
 
-    /*************************************** ACTIONS *****************************************/
+    /*************************************** MENU *****************************************/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -236,7 +265,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.create_meeting_button) {
+        if (item.getItemId() == R.id.menu_button_create_meeting) {
             createReunion();
             return true;
         }// If we got here, the user's action was not recognized.
@@ -244,31 +273,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // GUESTS LIST MENU - Sets the autocompletion for the Guests selection
-    public void setGuestsArrayAdapter() {
-        String[] guestsEmailsList = apiService.getGuestsEmails(apiService.getGuests()).toArray(new String[0]);
-        ArrayAdapter<String> adapterGuests
-                = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, guestsEmailsList);
-        guestsEmails.setAdapter(adapterGuests);
-        guestsEmails.setThreshold(1);                                                  // Sets the minimum number of characters, to show suggestions
-        guestsEmails.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());     // then separates them with a comma
-    }
-
-    // ROOMS SPINNER - Sets the spinner for the Room selection
-    public void setRoomsArrayAdapter() {
-        ArrayList<String> mRoomsList = new ArrayList<>();
-        mRoomsList.add(0, getResources().getString(R.string.room_add_meeting_text));
-        for (Room roomIterator : apiService.getRooms()) {
-            String roomIteratorString = roomIterator.getRoomName();
-            if (!mRoomsList.contains(roomIteratorString)) {
-                mRoomsList.add(roomIteratorString);
-                String[] mRoomsArray = mRoomsList.toArray(new String[0]);
-                ArrayAdapter<String> adapterRooms
-                        = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mRoomsArray);
-                mRoom.setAdapter(adapterRooms);
-            }
-        }
-    }
 }
 
 

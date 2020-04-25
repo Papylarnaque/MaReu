@@ -32,9 +32,10 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
+    private boolean[] KEEP_FILTER_ROOM;    // Keeps memory of the room filter selection
     private MyAdapter adapter;
     private ApiService mMaReuApiService;
-    private boolean[] KEEP_FILTER_ROOM;    // Keeps memory of the room filter selection
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +76,17 @@ public class ListActivity extends AppCompatActivity {
 
         switch (id) {
 
-            case R.id.action_sort_date: {
+            case R.id.menu_sort_date: {
                 setDateSorter();
 
                 return true;
             }
 
-            case R.id.action_filter_date: {
+            case R.id.menu_filter_date: {
                 setDateFilter();
                 return true;
             }
-            case R.id.action_filter_room: {
+            case R.id.menu_filter_room: {
                 setRoomsFilter();
                 return true;
             }

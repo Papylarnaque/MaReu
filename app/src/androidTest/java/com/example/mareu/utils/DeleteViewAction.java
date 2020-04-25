@@ -22,7 +22,7 @@ public class DeleteViewAction implements ViewAction {
 
     @Override
     public void perform(UiController uiController, View view) {
-        View button = view.findViewById(R.id.item_meeting_delete);
+        View button = view.findViewById(R.id.item_image_meeting_delete);
         // Maybe check for null
         button.performClick();
     }

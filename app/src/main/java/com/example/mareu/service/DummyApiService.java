@@ -55,7 +55,7 @@ public class DummyApiService implements ApiService {
 
     @Override
     public void getGuestsFromEmailsSelected(AddMeetingActivity addMeetingActivity) {
-        for (String e : addMeetingActivity.guestsEmails.getText().toString().split(AddMeetingActivity.SEPARATOR)) {
+        for (String e : addMeetingActivity.guestsEmails.getText().toString().split(AddMeetingActivity.EMAILS_LIST_SEPARATOR)) {
             for (Guest eG : getGuests()) {
                 // Avoid duplicated Guest in the Reunion
                 if (e.equals(eG.getEmail()) && !addMeetingActivity.mGuests.contains(eG)) {

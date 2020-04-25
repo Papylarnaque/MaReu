@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_sort_date_text">Sort by date</string>
-    <string name="action_filter_date_text">Filter by date</string>
-    <string name="action_filter_room_text">Filter by meeting room</string>
+    <string name="menu_sort_date">Sort by date</string>
+    <string name="menu_filter_date">Filter by date</string>
+    <string name="menu_filter_room">Filter by meeting room</string>
     <!--List Meeting Layout-->
     <string name="text_first_line">TEST meeting - Floor room</string>
     <string name="text_second_line">May, 6th, 2020 19:30</string>
@@ -12,13 +12,13 @@
     <string name="filter_ok_text">Show</string>
     <string name="filter_reset_text">Reset the filter</string>
     <!--Add Meeting Layout-->
-    <string name="add_meeting_edit_subject">Type a title (max 30 char)</string>
-    <string name="creation_meeting_button">Create the meeting</string>
-    <string name="guest_list_text_view">Select the guests</string>
-    <string name="date_add_meeting_text">Select the date of the meeting</string>
-    <string name="time_add_meeting_text">Select the beginning time of the meeting</string>
-    <string name="duration_add_meeting_text">Select the duration of the meeting</string>
-    <string name="room_add_meeting_text">Select the meeting room</string>
+    <string name="add_meeting_subject">Type a title (max 30 char)</string>
+    <string name="menu_creation_meeting">Create the meeting</string>
+    <string name="add_meeting_guests">Select the guests</string>
+    <string name="add_meeting_datepicker">Select the date of the meeting</string>
+    <string name="add_meeting_timepicker">Select the beginning time of the meeting</string>
+    <string name="add_meeting_duration">Select the duration of the meeting</string>
+    <string name="add_meeting_room">Select the meeting room</string>
     <string name="toast_duration_empty">Select the duration of the meeting!</string>
     <string name="toast_subject_empty">Set a title for the meeting!</string>
     <string name="toast_room_empty">Select a room for the meeting!</string>

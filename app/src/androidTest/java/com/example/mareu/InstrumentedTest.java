@@ -82,39 +82,39 @@ public class InstrumentedTest {
         onView(withId(R.id.button_add_meeting))
                 .perform(click());
         // SUBJECT FILLING
-        onView(withId(R.id.subject_add_meeting))
+        onView(withId(R.id.edit_text_add_meeting_subject))
                 .perform(click());
-        onView(withId(R.id.subject_add_meeting))
+        onView(withId(R.id.edit_text_add_meeting_subject))
                 .perform(typeText("New meeting"));
         // START DATE FILLING
-        onView(withId(R.id.select_start_date_add_meeting))
+        onView(withId(R.id.text_add_meeting_datepicker))
                 .perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 6, 6));
         onView(withText("OK")).perform(click());
         // START TIME FILLING
-        onView(withId(R.id.select_start_time_add_meeting))
+        onView(withId(R.id.text_add_meeting_timepicker))
                 .perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(15, 0));
         onView(withText("OK")).perform(click());
         // DURATION FILLING
-        onView(withId(R.id.duration_hours_add_meeting))
+        onView(withId(R.id.numberpicker_add_meeting_duration_hours_))
                 .perform(new GeneralClickAction(Tap.SINGLE, GeneralLocation.TOP_CENTER, Press.FINGER, 1, 0));
-        onView(withId(R.id.duration_minutes_add_meeting))
+        onView(withId(R.id.numberpicker_add_meeting_duration_minutes_))
                 .perform(new GeneralClickAction(Tap.SINGLE, GeneralLocation.TOP_CENTER, Press.FINGER, 1, 0));
         // ROOM FILLING
-        onView(withId(R.id.room_add_meeting))
+        onView(withId(R.id.spinner_add_meeting_room))
                 .perform(click());
         onData(anything()).atPosition(1).perform(click());
         // GUESTS FILLING
-        onView(withId(R.id.guest_add_meeting))
+        onView(withId(R.id.autocomplete_text_add_meeting_guests))
                 .perform(typeText("f"));
         onData(anything()).atPosition(1).perform(click());
 
         // Click on the creation button for a new meeting
-        onView(withId(R.id.overflow_create_meeting_button))
+        onView(withId(R.id.menu_overflow_button_create_meeting))
                 .perform(click());
         // Click on the item menu filter by date
-        onView(withText(R.string.creation_meeting_button))
+        onView(withText(R.string.menu_creation_meeting))
                 .perform(click());
         // Result : We check that the count of items is equal to INITIAL_LIST_SIZE+1
         onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE + 1));
@@ -127,7 +127,7 @@ public class InstrumentedTest {
                 .perform(click());
 
         // Click on the creation button for a new meeting
-        onView(withId(R.id.overflow_create_meeting_button))
+        onView(withId(R.id.menu_overflow_button_create_meeting))
                 .perform(doubleClick());
 
         // Result : We check that the Toast is displayed on screen
@@ -147,10 +147,11 @@ public class InstrumentedTest {
 
     @Test
     public void filter_meeting_by_date() {
-        // Open the overflow menu from contextual action mode.
-        openContextualActionModeOverflowMenu();
+        // Open the overflow menu
+        onView(withId(R.id.menu_overflow_button_create_meeting))
+                .perform(click());
         // Click on the item menu filter by date
-        onView(withText(R.string.action_filter_date_text))
+        onView(withText(R.string.menu_filter_date))
                 .perform(click());
         // Pick a date, example 6th may 2020 ( 2 meetings hardcoded in DummyMaReuApiGenerator for this date )
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 5, 6));
@@ -158,10 +159,11 @@ public class InstrumentedTest {
         // We check that the count of items is 2 <-> Because 2 meetings hardcoded in DummyMaReuApiGenerator
         onView(withId(R.id.list_recycler_view)).check(withItemCount(2));
         // #################### REPEAT for another date picked ! #####################
-        // Open the overflow menu from contextual action mode.
-        openContextualActionModeOverflowMenu();
+        // Open the overflow menu
+        onView(withId(R.id.menu_overflow_button_create_meeting))
+                .perform(click());
         // Click on the item menu filter by date
-        onView(withText(R.string.action_filter_date_text))
+        onView(withText(R.string.menu_filter_date))
                 .perform(click());
 
         // Pick another date, example 6th may 2019 ( 0 meetings ! )
@@ -175,10 +177,11 @@ public class InstrumentedTest {
     public void filter_meeting_by_room() {
         // Before setting the filter => INITIAL_LIST_SIZE
         onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
-        // Open the overflow menu from contextual action mode.
-        openContextualActionModeOverflowMenu();
+        // Open the overflow menu
+        onView(withId(R.id.menu_overflow_button_create_meeting))
+                .perform(click());
         // Click on the item menu filter by date
-        onView(withText(R.string.action_filter_room_text))
+        onView(withText(R.string.menu_filter_room))
                 .perform(click());
         // Pick a room ("Shakespeare" = 2 meetings hardcoded)
         String room = "Shakespeare";
@@ -186,10 +189,11 @@ public class InstrumentedTest {
         onView(withText(R.string.filter_ok_text)).perform(click());
         onView(withId(R.id.list_recycler_view)).check(withItemCount(getNumberReunionsWithRoomText(room)));
         // ##################### RESET FILTER #####################
-        // Open the overflow menu from contextual action mode.
-        openContextualActionModeOverflowMenu();
+        // Open the overflow menu
+        onView(withId(R.id.menu_overflow_button_create_meeting))
+                .perform(click());
         // Click on the item menu filter by date
-        onView(withText(R.string.action_filter_room_text))
+        onView(withText(R.string.menu_filter_room))
                 .perform(click());
         // Reset the filter => INITIAL_LIST_SIZE
         onView(withText(R.string.filter_reset_text)).perform(click());

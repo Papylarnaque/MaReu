@@ -4,15 +4,15 @@
     tools:context="com.example.mareu.view.AddMeetingActivity">
 
     <item
-        android:id="@+id/overflow_create_meeting_button"
+        android:id="@+id/menu_overflow_button_create_meeting"
         android:icon="@drawable/ic_save_white_30dp"
-        android:title="@string/creation_meeting_button"
+        android:title="@string/menu_creation_meeting"
         app:showAsAction="always">
 
     <menu>
         <item
-            android:id="@+id/create_meeting_button"
-            android:title="@string/creation_meeting_button"
+            android:id="@+id/menu_button_create_meeting"
+            android:title="@string/menu_creation_meeting"
             />
     </menu>
     </item>

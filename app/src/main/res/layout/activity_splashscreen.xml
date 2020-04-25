@@ -12,27 +12,28 @@
         android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guideline_add_meeting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.60" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/image_splashscreen"
         android:layout_width="match_parent"
         android:layout_height="@dimen/splash_image_size"
         android:contentDescription="@string/splashscreen_content_description"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_add_meeting"
         android:src="@mipmap/ma_reu" />
 
     <TextView
+        android:id="@+id/text_splashscreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/splash_text"
         android:textColor="@android:color/black"
         android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/image_splashscreen"
         android:text="@string/app_name" />
 
 
