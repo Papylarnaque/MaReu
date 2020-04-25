@@ -27,8 +27,8 @@ The [Framework paper](https://s3-eu-west-1.amazonaws.com/course.oc-static.com/pr
 - [x] filter the meetings list by room selection
 
 ## Screenshots of the application
-<img src="/images_readme/device-2020-04-19-143925.png " width="250"> <img src="/images_readme/device-2020-04-19-144519.png " width="250"> <img src="/images_readme/device-2020-04-19-144527.png " width="250">
-<img src="/images_readme/device-2020-04-19-144500.png " width="250">
+<img src="/images_readme/main.png " width="250"> <img src="/images_readme/filters_menu.png " width="250"> <img src="/images_readme/rooms.png " width="250">
+<img src="/images_readme/add.png " width="250">
 
 ## Why JAVA and not KOTLIN ?
 Kotlin has many advantages, the code can be set up faster and in an easier way, partly because of its NULL values management.
