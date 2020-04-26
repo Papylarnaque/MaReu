@@ -26,7 +26,6 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.openContextualActionModeOverflowMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -53,8 +52,8 @@ import static org.junit.Assert.assertThat;
 public class InstrumentedTest {
 
     // This is fixed
-    private static final ApiService mMaReuApiService = DI.getNewInstanceApiService();
-    private static final int INITIAL_LIST_SIZE = mMaReuApiService.getReunions().size();
+    private static final ApiService apiService = DI.getNewInstanceApiService();
+    private static final int INITIAL_LIST_SIZE = apiService.getReunions().size();
     @Rule
     public final ActivityTestRule<ListActivity> mActivityRule =
             new ActivityTestRule<>(ListActivity.class);
@@ -202,7 +201,7 @@ public class InstrumentedTest {
 
     private int getNumberReunionsWithRoomText(String room) {
         int numberReunionsWithRoomText = 0;
-        for (Meeting r : mMaReuApiService.getReunions()) {
+        for (Meeting r : apiService.getReunions()) {
             if (r.getRoom().getRoomName().equals(room)) numberReunionsWithRoomText += 1;
         }
         return numberReunionsWithRoomText;

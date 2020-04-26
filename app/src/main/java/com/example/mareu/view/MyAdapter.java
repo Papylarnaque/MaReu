@@ -4,8 +4,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     private static final String TEXT_SEPARATOR = " - ";
     private List<Meeting> mMeetings;
-    private ApiService mMaReuApiService;
+    private ApiService apiService;
 
     @NonNull
     @Override
@@ -54,7 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         long durationReunion = endDate.getTimeInMillis() - startDate.getTimeInMillis();
 
         // Call the ApiService
-        mMaReuApiService = DI.getApiService();
+        apiService = DI.getApiService();
         // Affect a color for each room
         setRoomColor(holder, position);
 
@@ -81,7 +79,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
         // Third line of the meeting
         List<Guest> mGuestsList = mMeetings.get(position).getGuests();
-        List<String> mGuestsEmails = mMaReuApiService.getGuestsEmails(mGuestsList);
+        List<String> mGuestsEmails = apiService.getGuestsEmails(mGuestsList);
         // TextHolder for the third line
         StringBuilder mGuestsEmailsStringBuilder = new StringBuilder();
         for (String s : mGuestsEmails) {
@@ -156,7 +154,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     //  ****************************************** ACTIONS  ****************************************
 
     private void deleteItem(int position) {
-        mMaReuApiService.deleteReunion(mMeetings.get(position));
+        apiService.deleteReunion(mMeetings.get(position));
     }
 
     @Override

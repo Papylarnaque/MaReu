@@ -17,8 +17,9 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
 
-        ImageView imageView = findViewById(R.id.image_splashscreen); // Declare an imageView to show the animation.
-        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in); // Create the animation.
+        ImageView imageView = findViewById(R.id.image_splashscreen);
+        // Create the animation.
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -27,7 +28,6 @@ public class SplashScreen extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 startActivity(new Intent(SplashScreen.this, ListActivity.class));
-                // HomeActivity.class is the activity to go after showing the splash screen.
             }
 
             @Override

@@ -17,23 +17,23 @@ import static org.junit.Assert.assertEquals;
  */
 public class UnitTest {
 
-    private final ApiService mMaReuApiService = DI.getNewInstanceApiService();
+    private final ApiService apiService = DI.getNewInstanceApiService();
 
 
     @Test
     public void delete_meeting() {
-        List<Meeting> mMeetings = mMaReuApiService.getReunions();
+        List<Meeting> mMeetings = apiService.getReunions();
         int startSize = mMeetings.size();
-        mMaReuApiService.deleteReunion(mMeetings.get(2));
+        apiService.deleteReunion(mMeetings.get(2));
         int endSize = mMeetings.size();
         assertEquals(startSize - 1, endSize);
     }
 
     @Test
     public void add_meeting() {
-        List<Meeting> mMeetings = mMaReuApiService.getReunions();
+        List<Meeting> mMeetings = apiService.getReunions();
         int startSize = mMeetings.size();
-        mMaReuApiService.addReunion(mMeetings.get(2)); // duplicates meeting in position index = 2 in mReunions
+        apiService.addReunion(mMeetings.get(2)); // duplicates meeting in position index = 2 in mReunions
         int endSize = mMeetings.size();
         assertEquals(startSize + 1, endSize);
     }

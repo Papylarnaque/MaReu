@@ -34,7 +34,7 @@ public class ListActivity extends AppCompatActivity {
 
     private boolean[] KEEP_FILTER_ROOM;    // Keeps memory of the room filter selection
     private MyAdapter adapter;
-    private ApiService mMaReuApiService;
+    private ApiService apiService;
 
 
     @Override
@@ -57,8 +57,8 @@ public class ListActivity extends AppCompatActivity {
         adapter = new MyAdapter();
         rv.setAdapter(adapter);
 
-        mMaReuApiService = DI.getApiService();
-        adapter.setData(mMaReuApiService.getReunions());
+        apiService = DI.getApiService();
+        adapter.setData(apiService.getReunions());
     }
 
     //  ****************************************** MENU ********************************************
@@ -106,7 +106,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void setDateSorter() {
-        final List<Meeting> mMeetings = mMaReuApiService.getReunions();
+        final List<Meeting> mMeetings = apiService.getReunions();
         Collections.sort(mMeetings, (o1, o2) -> {
             if (o1.getStartDate() == null || o2.getStartDate() == null)
                 return 0;
@@ -116,7 +116,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void setDateFilter() {
-        final List<Meeting> mMeetings = mMaReuApiService.getReunions();
+        final List<Meeting> mMeetings = apiService.getReunions();
         // Build an AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
 
@@ -152,14 +152,14 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void setRoomsFilter() {
-        final List<Meeting> mMeetings = mMaReuApiService.getReunions();
+        final List<Meeting> mMeetings = apiService.getReunions();
         // Build an AlertDialog
         final AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
         // String array for alert dialog multi choice items
-        final int numberRooms = mMaReuApiService.getRooms().size();
+        final int numberRooms = apiService.getRooms().size();
         String[] mRooms = new String[numberRooms];
         for (int i = 0; i < numberRooms; i++) {
-            mRooms[i] = mMaReuApiService.getRooms().get(i).getRoomName();
+            mRooms[i] = apiService.getRooms().get(i).getRoomName();
         }
         // Boolean array for initial selected items
         final boolean[] checkedRooms = new boolean[numberRooms];
