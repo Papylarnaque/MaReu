@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private static final String TEXT_SEPARATOR = " - ";
-    private List<Meeting> mMeetings;
+    private List<Meeting> meetings;
     private ApiService apiService;
 
     @NonNull
@@ -45,11 +45,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, final int position) {
 
         Calendar startDate = Calendar.getInstance();
-        startDate.setTime(mMeetings.get(position).getStartDate());
+        startDate.setTime(meetings.get(position).getStartDate());
         Calendar endDate = Calendar.getInstance();
-        endDate.setTime(mMeetings.get(position).getEndDate());
+        endDate.setTime(meetings.get(position).getEndDate());
 
-        long durationReunion = endDate.getTimeInMillis() - startDate.getTimeInMillis();
+        long durationMeeting = endDate.getTimeInMillis() - startDate.getTimeInMillis();
 
         // Call the ApiService
         apiService = DI.getApiService();
@@ -57,28 +57,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         setRoomColor(holder, position);
 
         // First line of the meeting
-        String subjectReunion = mMeetings.get(position).getSubject();
+        String subjectMeeting = meetings.get(position).getSubject();
         Calendar mCalendar = Calendar.getInstance();
         SimpleDateFormat dateFormatDuration = new SimpleDateFormat("(HH:mm)", Locale.getDefault());
         TimeZone UTC = TimeZone.getTimeZone("UTC");
         dateFormatDuration.setTimeZone(UTC);
-        mCalendar.setTimeInMillis(durationReunion);
+        mCalendar.setTimeInMillis(durationMeeting);
         String durationString = dateFormatDuration.format(mCalendar.getTimeInMillis());
 
         // TextHolder for the first line
-        String mFirstLineString = subjectReunion + TEXT_SEPARATOR + durationString;
+        String mFirstLineString = subjectMeeting + TEXT_SEPARATOR + durationString;
         holder.mFirstLine.setText(mFirstLineString);
 
         // Second line of the meeting
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT);
-        String roomReunion = mMeetings.get(position).getRoom().getRoomName();
+        String roomMeeting = meetings.get(position).getRoom().getRoomName();
         String startDateString = dateFormat.format(startDate.getTime());
         // TextHolder for the second line
-        String mSecondLineString = startDateString + TEXT_SEPARATOR + "<b>" + roomReunion + "</b>";
+        String mSecondLineString = startDateString + TEXT_SEPARATOR + "<b>" + roomMeeting + "</b>";
         holder.mSecondLine.setText(Html.fromHtml(mSecondLineString));
 
         // Third line of the meeting
-        List<Guest> mGuestsList = mMeetings.get(position).getGuests();
+        List<Guest> mGuestsList = meetings.get(position).getGuests();
         List<String> mGuestsEmails = apiService.getGuestsEmails(mGuestsList);
         // TextHolder for the third line
         StringBuilder mGuestsEmailsStringBuilder = new StringBuilder();
@@ -99,15 +99,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         deleteButton(holder, position);
     }
 
-    void setData(List<Meeting> meetings) {
-        this.mMeetings = meetings;
+    public void setData(List<Meeting> meetings) {
+        this.meetings = meetings;
         notifyDataSetChanged(); // dit à l'adapter de se rafraichir
     }
 
-    //  ****************************************** INIT ********************************************
+    //  ****************************************** ACTIONS  ****************************************
 
     private void setRoomColor(@NonNull MyViewHolder holder, int position) {
-        switch ((int) mMeetings.get(position).getRoom().getId()) {
+        switch ((int) meetings.get(position).getRoom().getId()) {
             case 1:
                 holder.mColor.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorRoom1));
                 break;
@@ -143,23 +143,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     }
 
     private void deleteButton(@NonNull MyViewHolder holder, final int position) {
-        holder.mButtonDeleteReunion.setOnClickListener(view -> {
-            Toast.makeText(view.getContext(), "Suppression de la réunion " + mMeetings.get(position).getSubject(), Toast.LENGTH_SHORT).show();
+        holder.mButtonDeleteMeeting.setOnClickListener(view -> {
+            Toast.makeText(view.getContext(), "Suppression de la réunion " + meetings.get(position).getSubject(), Toast.LENGTH_SHORT).show();
             deleteItem(position);
-            setData(mMeetings);
+            setData(meetings);
         });
     }
 
-
-    //  ****************************************** ACTIONS  ****************************************
-
     private void deleteItem(int position) {
-        apiService.deleteReunion(mMeetings.get(position));
+        apiService.deleteMeeting(meetings.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mMeetings.size();
+        return meetings.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -167,7 +164,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         final TextView mFirstLine;
         final TextView mSecondLine;
         final TextView mThirdLine;
-        final ImageButton mButtonDeleteReunion;
+        final ImageButton mButtonDeleteMeeting;
 
 
         MyViewHolder(@NonNull View itemView) {
@@ -176,7 +173,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             mFirstLine = itemView.findViewById(R.id.item_meeting_first_line);
             mSecondLine = itemView.findViewById(R.id.item_meeting_second_line);
             mThirdLine = itemView.findViewById((R.id.item_meeting_third_line));
-            mButtonDeleteReunion = itemView.findViewById(R.id.item_image_meeting_delete);
+            mButtonDeleteMeeting = itemView.findViewById(R.id.item_image_meeting_delete);
         }
     }
 

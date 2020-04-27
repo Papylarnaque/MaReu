@@ -47,7 +47,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     private final Calendar datePickerCalendar = Calendar.getInstance();
     private final Calendar timePickerCalendar = Calendar.getInstance();
     private ApiService apiService;
-    private Room mRoomReunion;
+    private Room mRoomMeeting;
     private Date mStartDate;
     private NumberPicker durationMinutes, durationHours;
     private EditText mSubject;
@@ -143,7 +143,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     // ROOM AVAILABILITY CHECKER
     private boolean checkRoomAvailability(String roomName, Date startDate, Date endDate) {
         boolean roomAvailable = false;
-        for (Meeting meetingIterator : apiService.getReunions()) {
+        for (Meeting meetingIterator : apiService.getMeetings()) {
             if (roomName.equals(meetingIterator.getRoom().getRoomName())
                     && ((startDate.after(meetingIterator.getStartDate())
                     && startDate.before((meetingIterator.getEndDate())))
@@ -185,12 +185,12 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     /*************************************** SAVE REUNION ***********************************/
     // REUNION CREATION BUTTON - Creates the meeting
-    private void createReunion() {
+    private void createMeeting() {
         String mSubjectString = mSubject.getText().toString();
         apiService.getGuestsFromEmailsSelected(this);
         getRoomFromRoomNameSelected();
-        mStartDate = getStartReunionDateTimeFromSelection();
-        Date mEndDate = getEndReunionDateTimeFromSelection();
+        mStartDate = getStartMeetingDateTimeFromSelection();
+        Date mEndDate = getEndMeetingDateTimeFromSelection();
         // Avoids meeting creation if the duration is 0h0min *******************************
         if (mSubjectString.isEmpty()) {
             toastCancelCreation(R.string.toast_subject_empty);
@@ -200,7 +200,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             toastCancelCreation(R.string.toast_room_empty);
         } else if (mGuests.isEmpty()) {
             toastCancelCreation(R.string.toast_guests_empty);
-        } else if (checkRoomAvailability(mRoomReunion.getRoomName(), mStartDate, mEndDate)) {
+        } else if (checkRoomAvailability(mRoomMeeting.getRoomName(), mStartDate, mEndDate)) {
             toastCancelCreation(R.string.toast_room_unavailable);
         } else {
             Meeting mMeeting = new Meeting(
@@ -208,9 +208,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                     mSubjectString,
                     mStartDate,
                     mEndDate,
-                    mRoomReunion,
+                    mRoomMeeting,
                     mGuests);
-            apiService.addReunion(mMeeting);
+            apiService.addMeeting(mMeeting);
 
             Intent intent = new Intent(AddMeetingActivity.this, ListActivity.class);
             startActivity(intent);
@@ -218,7 +218,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     // Get Date & Time from the pickers
-    private Date getStartReunionDateTimeFromSelection() {
+    private Date getStartMeetingDateTimeFromSelection() {
         // Creating a calendar
         Calendar mCalendar = Calendar.getInstance();
         // Replacing with a new value - date from datePicker, time from timePicker
@@ -228,7 +228,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         return mCalendar.getTime();
     }
 
-    private Date getEndReunionDateTimeFromSelection() {
+    private Date getEndMeetingDateTimeFromSelection() {
         Calendar mCalendar = Calendar.getInstance();
         mCalendar.setTime(mStartDate);
         mCalendar.add(Calendar.HOUR_OF_DAY, durationHours.getValue());
@@ -240,18 +240,18 @@ public class AddMeetingActivity extends AppCompatActivity {
     private void getRoomFromRoomNameSelected() {
         for (Room r : apiService.getRooms()) {
             if (r.getRoomName().equals(mRoom.getSelectedItem().toString())) {
-                mRoomReunion = r;
+                mRoomMeeting = r;
             }
         }
     }
 
     private void toastCancelCreation(int intString) {
-        Toast toastCreateReunion = Toast.makeText(getApplicationContext(), intString, Toast.LENGTH_LONG);
-        toastCreateReunion.setGravity(Gravity.CENTER, 0, 0);
-        View toastViewCreateReunion = toastCreateReunion.getView();
-        TextView toastTextCreateReunion = toastViewCreateReunion.findViewById(android.R.id.message);
-        toastTextCreateReunion.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toast_add_meeting_color));
-        toastCreateReunion.show();
+        Toast toastCreateMeeting = Toast.makeText(getApplicationContext(), intString, Toast.LENGTH_LONG);
+        toastCreateMeeting.setGravity(Gravity.CENTER, 0, 0);
+        View toastViewCreateMeeting = toastCreateMeeting.getView();
+        TextView toastTextCreateMeeting = toastViewCreateMeeting.findViewById(android.R.id.message);
+        toastTextCreateMeeting.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toast_add_meeting_color));
+        toastCreateMeeting.show();
     }
 
     /*************************************** MENU *****************************************/
@@ -266,7 +266,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_button_create_meeting) {
-            createReunion();
+            createMeeting();
             return true;
         }// If we got here, the user's action was not recognized.
         // Invoke the superclass to handle it.

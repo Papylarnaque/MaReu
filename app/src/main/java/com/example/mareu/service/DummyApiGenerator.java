@@ -255,7 +255,7 @@ abstract class DummyApiGenerator {
             new Guest(199, "Melanie", "Mason", "melanie.mason@lamzone.com", "https://api.adorable.io/AVATARS/512/199.png"),
             new Guest(200, "Eric", "Ellis", "eric.ellis@lamzone.com", "https://api.adorable.io/AVATARS/512/200.png"));
 
-    static List<Meeting> generateReunions() {
+    static List<Meeting> generateMeetings() {
         return new ArrayList<>(DUMMY_MEETINGS);
     }
 

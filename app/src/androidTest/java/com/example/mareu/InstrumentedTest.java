@@ -53,7 +53,7 @@ public class InstrumentedTest {
 
     // This is fixed
     private static final ApiService apiService = DI.getNewInstanceApiService();
-    private static final int INITIAL_LIST_SIZE = apiService.getReunions().size();
+    private static final int INITIAL_LIST_SIZE = apiService.getMeetings().size();
     @Rule
     public final ActivityTestRule<ListActivity> mActivityRule =
             new ActivityTestRule<>(ListActivity.class);
@@ -186,7 +186,7 @@ public class InstrumentedTest {
         String room = "Shakespeare";
         onView(withText(room)).perform(click());
         onView(withText(R.string.filter_ok_text)).perform(click());
-        onView(withId(R.id.list_recycler_view)).check(withItemCount(getNumberReunionsWithRoomText(room)));
+        onView(withId(R.id.list_recycler_view)).check(withItemCount(getNumberMeetingsWithRoomText(room)));
         // ##################### RESET FILTER #####################
         // Open the overflow menu
         onView(withId(R.id.menu_overflow_button_create_meeting))
@@ -199,12 +199,12 @@ public class InstrumentedTest {
         onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
     }
 
-    private int getNumberReunionsWithRoomText(String room) {
-        int numberReunionsWithRoomText = 0;
-        for (Meeting r : apiService.getReunions()) {
-            if (r.getRoom().getRoomName().equals(room)) numberReunionsWithRoomText += 1;
+    private int getNumberMeetingsWithRoomText(String room) {
+        int numberMeetingsWithRoomText = 0;
+        for (Meeting r : apiService.getMeetings()) {
+            if (r.getRoom().getRoomName().equals(room)) numberMeetingsWithRoomText += 1;
         }
-        return numberReunionsWithRoomText;
+        return numberMeetingsWithRoomText;
     }
 
 }
