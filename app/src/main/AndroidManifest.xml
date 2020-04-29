@@ -13,7 +13,7 @@
 
         <!-- SPASH SCREEN -->
         <activity
-            android:name=".view.SplashScreen"
+            android:name=".view.SplashScreenActivity"
             android:noHistory="true">
             <intent-filter>
 

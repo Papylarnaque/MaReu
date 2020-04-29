@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.example.mareu.R;
 
-public class SplashScreen extends Activity {
+public class SplashScreenActivity extends Activity {
 
 
     @Override
@@ -27,7 +27,7 @@ public class SplashScreen extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashScreen.this, ListActivity.class));
+                startActivity(new Intent(SplashScreenActivity.this, ListActivity.class));
             }
 
             @Override

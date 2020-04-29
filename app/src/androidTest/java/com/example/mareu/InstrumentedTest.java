@@ -74,7 +74,7 @@ public class InstrumentedTest {
     }
 
     @Test
-    public void add_meeting() {
+    public void addMeeting() {
         // Given : We check that the count of items is equal to INITIAL_LIST_SIZE
         onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
         // Click on the creation button for a new meeting
@@ -120,7 +120,7 @@ public class InstrumentedTest {
     }
 
     @Test
-    public void add_meeting_missing_subject() {
+    public void addMeetingWithMissingSubjectThrowsToast() {
         // Click on the creation button for a new meeting
         onView(withId(R.id.button_add_meeting))
                 .perform(click());
@@ -134,7 +134,7 @@ public class InstrumentedTest {
     }
 
     @Test
-    public void delete_meeting() {
+    public void deleteMeetingWithSuccess() {
         // Given : We check that the count of items is equal to INITIAL_LIST_SIZE
         onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
         // Push on delete button for meeting at index = 1
@@ -145,7 +145,7 @@ public class InstrumentedTest {
     }
 
     @Test
-    public void filter_meeting_by_date() {
+    public void filterMeetingByDate() {
         // Open the overflow menu
         onView(withId(R.id.menu_overflow_button_create_meeting))
                 .perform(click());
@@ -173,7 +173,7 @@ public class InstrumentedTest {
     }
 
     @Test
-    public void filter_meeting_by_room() {
+    public void filterMeetingByRoom() {
         // Before setting the filter => INITIAL_LIST_SIZE
         onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
         // Open the overflow menu
@@ -198,6 +198,7 @@ public class InstrumentedTest {
         onView(withText(R.string.filter_reset_text)).perform(click());
         onView(withId(R.id.list_recycler_view)).check(withItemCount(INITIAL_LIST_SIZE));
     }
+
 
     private int getNumberMeetingsWithRoomText(String room) {
         int numberMeetingsWithRoomText = 0;

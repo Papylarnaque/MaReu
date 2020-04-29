@@ -3,26 +3,34 @@ package com.example.mareu.view;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
 import com.example.mareu.di.DI;
+import com.example.mareu.model.Meeting;
 import com.example.mareu.service.ApiService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
     public boolean[] KEEP_FILTER_ROOM;    // Keeps memory of the room filter selection
-    public MyAdapter adapter;
+    private MyAdapter adapter;
     private ApiService apiService;
 
 
@@ -74,8 +82,9 @@ public class ListActivity extends AppCompatActivity {
                 setDateFilter();
                 return true;
             }
+
             case R.id.menu_filter_room: {
-                apiService.setRoomsFilter(this);
+                setRoomsFilter();
                 return true;
             }
             default:
@@ -111,7 +120,8 @@ public class ListActivity extends AppCompatActivity {
 
             mCalendarPicker.set(year, month, day);
 
-            apiService.filterMeetingsByDate(this, mCalendarPicker);
+            adapter.setData(apiService.filterMeetingsByDate(mCalendarPicker));
+
         });
 
         builder.setNeutralButton(R.string.filter_reset_text, (dialog, id) -> {
@@ -122,5 +132,74 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
+    public void setRoomsFilter() {
+        // Build an AlertDialog
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // String array for alert dialog multi choice items
+        final int numberRooms = apiService.getRooms().size();
+        String[] mRooms = apiService.getRoomsAsStringList();
+        // Boolean array for initial selected items
+        final boolean[] checkedRooms = new boolean[numberRooms];
+        // Keep memory of the filter selection
+        if (KEEP_FILTER_ROOM != null) {
+            System.arraycopy(KEEP_FILTER_ROOM, 0, checkedRooms, 0, numberRooms);
+        }
 
+        // Set multiple choice items for alert dialog
+        builder.setMultiChoiceItems(mRooms, checkedRooms, (dialog, which, isChecked) -> {
+            // Update the current focused item's checked status
+            checkedRooms[which] = isChecked;
+        });
+
+        // Specify the dialog is not cancelable
+        builder.setCancelable(false);
+
+        // Set a title for alert dialog
+        builder.setTitle(R.string.filter_rooms_text);
+
+        // Set the positive/yes button click listener
+        builder.setPositiveButton(R.string.filter_ok_text, (dialog, which) -> {
+        });
+
+        // Set the negative/no button click listener
+        builder.setNeutralButton(R.string.filter_reset_text, (dialog, which) -> {
+            adapter.setData(apiService.getMeetings());
+            KEEP_FILTER_ROOM = null;
+        });
+
+        final AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.setOnShowListener(dialogInterface -> {
+
+            Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            button.setOnClickListener(view -> {
+                // Checks the checked rooms
+                boolean atLeastOneChecked = false;
+                for (boolean checked : checkedRooms) {
+                    if (checked) {
+                        atLeastOneChecked = true;
+                        break;
+                    }
+                }
+
+                // if no rooms checked, Toast to alert user
+                if (!atLeastOneChecked) {
+                    Toast toastRoomNotSelected = Toast.makeText(getApplicationContext(), R.string.toast_room_not_selected, Toast.LENGTH_SHORT);
+                    toastRoomNotSelected.setGravity(Gravity.CENTER, 0, 0);
+                    View toastViewCreateMeeting = toastRoomNotSelected.getView();
+                    TextView toastTextCreateMeeting = toastViewCreateMeeting.findViewById(android.R.id.message);
+                    toastTextCreateMeeting.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toast_add_meeting_color));
+                    toastRoomNotSelected.show();
+                } else {
+                    List<Meeting> mMeetingsFiltered = apiService.filterMeetingsByRoom(checkedRooms);
+                    dialog.dismiss();
+                    adapter.setData(mMeetingsFiltered);
+                    KEEP_FILTER_ROOM = checkedRooms;
+                }
+
+            });
+        });
+        dialog.show();
+
+    }
 }
