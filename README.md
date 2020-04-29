@@ -14,9 +14,11 @@ The [Framework paper](https://s3-eu-west-1.amazonaws.com/course.oc-static.com/pr
 >* Android app supporting API21
 
 ## Tests
-2 Unit tests :
+4 Unit tests :
 - [x] add a meeting
 - [x] delete a meeting
+- [x] filter meetings by date
+- [x] filter meetings by room
 
 6 Instrumented tests :
 - [x] recycler view not empty
